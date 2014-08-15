@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context path="" docBase="C:\working\apache-tomcat\webapps\ROOT"
+        debug="5" reloadable="true" crossContext="true">
+<ResourceLink 
+    global="jdbc/mysqlv6" 
+    name="jdbc/mysqlv6"
+    type="javax.sql.DataSource"/>
+</Context>

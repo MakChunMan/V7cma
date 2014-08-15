@@ -1,0 +1,386 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta content="Asia Miles, Air travels, Hotels, Asiamiles, Airline benefits, Dining, CX, Airline companies, Restaurants, Hong Kong, Airline members, partners, Cathay, Loyalty programmes, Petrol stations, Cathay Pacific, Loyalty programs, Credit cards, Cathay Pacific Frequent Flyer, Airline programmes, Financial services, Lifestyle awards, Airline programs, Conversion, Lifestyle award catalogue, Airline, Petrol stations, Lifestyle award catalog, Award programs, Health and beauty, Gift Miles, Award tickets, Car rental, Top up, Clubs, Luggage, Top-up, Earn free travel, Flowers, Transfer miles, Flight information, Telecommunications, Renew miles, Flight planner, Internet, Purchase miles, Flights, Holidays, Buy miles, Free air tickets, Frequent flyer program, enews, Free flights, Frequent flyer programme, subscription, Free travel, Reward programmes, Mileage calculator, Frequent flyer, Reward programs, Ticket offers, Ticket redemption, Travel awards" name="Keywords"/>
+<meta content="Asia's leading travel reward programme that offers you a range of exciting rewards that match your lifestyle." name="Description"/>
+<title>加油</title>
+<link href="css/en.css" rel="stylesheet" type="text/css" media="all"/>
+<link href="css/en_print.css" rel="stylesheet" type="text/css" media="print"/>
+<link href="css/flick/jquery-ui-1.8.custom.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="js/jquery-1.4.2.min.js"></script>
+<script type="text/javascript" src="js/jquery-ui-1.8.custom.min.js"></script>
+	<script type="text/javascript" src="/php/ckeditor/ckeditor.js"></script>
+	<script type="text/javascript" src="/php/ckfinder/ckfinder.js"></script>
+
+<!--// script for sliding sidebar //-->
+<script src="script/common_DOMControl.js" type="text/javascript"></script>
+<script src="script/slidemenu.js" type="text/javascript"></script>
+<!--// script for dropdown menu //-->
+<script src="script/init.js" type="text/javascript"></script>
+<script type="text/javascript">
+<!--//--><![CDATA[//><!--
+
+//initialize slider
+sb_setting=new Object();
+sb_setting.opened_item=0;
+sb_setting.allowMultiopen=false;
+//sb_setting.delayOpen=1000;		// in ms, -1 for no delay
+sb_setting.delayOpen=-1;
+sb_setting.maxheight=-1;			// set to -1 for autosize
+
+//initialize auto complete
+//var ACManager = new autoComplete();
+var config=[{id:"txt_search", hasScroll:false, maxRow:10} ];
+
+function pagaInit() {
+	drawmenu("ctnSidebar", sb_setting);
+//	ACManager.setFields(config);
+}
+
+$(function(){
+	//Tabs
+	$('#tabs').tabs();
+});
+//--><!]]>
+</script>
+<style id="styles" type="text/css">
+
+		div.editable
+		{
+			border: solid 2px Transparent;
+			padding-left: 15px;
+			padding-right: 15px;
+		}
+
+		div.editable:hover
+		{
+			border-color: black;
+		}
+
+	</style>
+<script type="text/javascript">
+	//<![CDATA[
+
+// Uncomment the following code to test the "Timeout Loading Method".
+// CKEDITOR.loadFullCoreTimeout = 5;
+
+window.onload = function()
+{
+	pagaInit();
+	// Listen to the double click event.
+	if ( window.addEventListener )
+		document.body.addEventListener( 'dblclick', onDoubleClick, false );
+	else if ( window.attachEvent )
+		document.body.attachEvent( 'ondblclick', onDoubleClick );
+
+};
+
+function onDoubleClick( ev )
+{
+	// Get the element which fired the event. This is not necessarily the
+	// element to which the event has been attached.
+	var element = ev.target || ev.srcElement;
+
+	// Find out the div that holds this element.
+	element = element.parentNode;
+
+	if ( element.nodeName.toLowerCase() == 'div'
+		 && ( element.className.indexOf( 'editable' ) != -1 ) )
+		replaceDiv( element );
+}
+
+var editor;
+
+function replaceDiv( div )
+{
+	if ( editor )
+		editor.destroy();
+
+	editor = CKEDITOR.replace( div );
+	CKFinder.SetupCKEditor( editor, '/php/ckfinder/' );
+}
+
+	//]]>
+	</script>
+
+
+</head>
+<body>
+<div id="main_container">
+	<div id="header">
+		<div class="logo_bar">
+			<h1 class="AE_logo"><a href="index.htm"><span></span><img src="/cma/images/aelogo.jpg" alt=""/></a></h1>
+		
+			<ul class="lang_switch">
+				<li><a href="/web/homepage?lang=en" >ENG</a></li>
+				<li><a href="/web/homepage?lang=zh"  class="selected">&#x7E41;&#x9AD4;&#x4E2D;&#x6587;</a></li>
+				<li><a href="/web/homepage?lang=sc" >&#x7B80;&#x4F53;&#x4E2D;&#x6587;</a></li>
+		
+				<li><a href="/web/homepage?lang=ja" >&#x65E5;&#x672C;&#x8A9E;</a></li>
+				<li><a href="/web/homepage?lang=ko" >&#xD55C;&#xAD6D;&#xC5B4;</a></li>
+			</ul>
+
+		</div>
+		<div id="main_nav">
+			<ul class="menu">
+				<li><a href="" class="nav_current" onmouseover="fnMenuShowHolder('',this);" onmouseout="fnMenuHide();">Home</a></li>
+				<li> | </li>
+				<li><a href="" onmouseover="fnMenuShowHolder('navAccount',this);" onmouseout="fnMenuHide();">Your Account</a></li>
+				<li> | </li>
+				<li><a href="" onmouseover="fnMenuShowHolder('',this);" onmouseout="fnMenuHide();">Special Offers</a></li>
+				<li> | </li>
+				<li><a href="" onmouseover="fnMenuShowHolder('navEarn',this);" onmouseout="fnMenuHide();">Earn Miles</a></li>
+				<li> | </li>
+				<li><a href="" onmouseover="fnMenuShowHolder('navRedeem',this);" onmouseout="fnMenuHide();">Redeem Miles</a></li>
+				<li> | </li>
+				<li><a href="" onmouseover="fnMenuShowHolder('navWishlist',this);" onmouseout="fnMenuHide();">Wish List</a></li>
+				<li> | </li>
+				<li><a href="" onmouseover="fnMenuShowHolder('navAbout',this);" onmouseout="fnMenuHide();">About Asia Miles</a></li>
+			</ul>
+			<div class="search">
+				<input  id="txt_search" name="txt_search" type="text" accesskey="h" tabindex="1" value="Search" maxlength="50" onfocus="fn_focusSearch(this);" onblur="fn_blurSearh(this);"  class="txt_search_off" />
+				<input  type="button" name="btn_go" id="btn_go" value="Go" class="btnGeneric" />
+			</div>
+		</div>
+		<div id="breadcrumb">
+			<ul>
+				<li><a href="#" >Parent Page</a></li>
+				<li> > </li>
+				<li><a href="#" >Parent Page</a></li>
+				<li> > </li>
+				<li><strong>Current Page</strong></li>
+			</ul>
+		</div>
+		<div class="banner_row">
+			<div class="login_form">
+				<form action="#">
+					<table class="tbl_transparent">
+						<tr>
+							<td colspan="2"><label for="txtMbrID">Membership Number / User name</label>
+								<input  name="txtMbrID" id="txtMbrID" type="text" title="Enter your membership number or username here" class="text" />
+							</td>
+						</tr>
+						<tr>
+							<td colspan="2"><label for="txtMbrPIN">PIN</label>
+								<input  name="txtMbrPIN" id="txtMbrPIN" type="password"  title="Enter your PIN here" class="text" />
+							</td>
+						</tr>
+						<tr>
+							<td><label>
+								<input  name="chkRbrMe" id="chkRbrMe" type="checkbox" title="Remember your login next time" class="chkbox" />
+								Remember Me </label>
+							</td>
+							<td><input  type="button" name="btn_login" id="btn_login" value="Login" class="btnGeneric" /></td>
+						</tr>
+						<tr>
+							<td colspan="2"><div><a title="Click here if you have login problems" href="#" ><strong>Sign-In Help</strong></a></div>
+								<div>Not yet a member? <a href=""><strong>Join Now</strong></a></div></td>
+						</tr>
+					</table>
+				</form>
+			</div>
+			<div id="hdrBanner"> <img class="bannerImg" src="images/banner_about.jpg" alt="Banner Image" width="699" height="160"/>
+				<div class="bannerMsg"> <img src="images/hdr_about.gif" alt="About Asia Miles" /> </div>
+			</div>
+		</div>
+	</div>
+	<div id="header_cover"></div>
+	<div id="content">
+		<div id="ctnMain">
+			<div id="mod_how_to_earn_miles" class="mod">
+				<div class="hd2">
+					<h2>What is Asia Miles</h2>
+				</div>
+				<div class="bd">
+					<div class="editable">
+					<p>Welcome to Asia Miles - Asia's leading travel reward programme that offers you a range of exciting rewards that match your lifestyle.</p>
+					<p>In addition to flying, it's easy to earn Asia Miles simply by doing what you borderowly do every day - staying at hotels, dining, shopping and spending on your credit cards.</p>
+					<p>Then it's just a matter of redeeming your miles for free flights, upgrades, companion tickets, holidays or other exciting lifestyle awards for yourself, family and friends.</p>
+					<p>Not a member of Asia Miles?<a href="#" > Join right now!</a> It's free and only takes a few minutes. You can then start earning Asia Miles straightaway!</p>
+					<p>Learn more on:<br />
+						<br />
+						<a href="#" class="bulletLink">How to earn Asia Miles</a><br />
+						<a href="#" class="bulletLink">How to redeem Asia Miles</a><br />
+					</p>
+					<p>You can also download the <a href="#" >Asia Miles members' guide</a> for further information.</p>
+					</div>
+				</div>
+				<div class="shadow690px"></div>
+			</div>
+			
+		<!-- Tabs -->
+		<h2 class="demoHeaders">Tabs</h2>
+		<div id="tabs">
+
+			<ul>
+				<li><a href="#tabs-1">First</a></li>
+				<li><a href="#tabs-2">Second</a></li>
+				<li><a href="#tabs-3">Third</a></li>
+			</ul>
+			<div id="tabs-1"><button id="create-user">Create new user</button></div>
+			<div id="tabs-2">Phasellus mattis tincidunt nibh. Cras orci urna, blandit id, pretium vel, aliquet ornare, felis. Maecenas scelerisque sem non nisl. Fusce sed lorem in enim dictum bibendum.</div>
+
+			<div id="tabs-3">Nam dui erat, auctor a, dignissim quis, sollicitudin eu, felis. Pellentesque nisi urna, interdum eget, sagittis et, consequat vestibulum, lacus. Mauris porttitor ullamcorper augue.</div>
+		</div>
+			
+			
+			
+		</div>
+		<div id="ctnSidebar">
+			<div id="mod_abtasiamls" class="mod list_item">
+				<div class="hd2">
+					<h2>About Asia Miles</h2>
+					<span></span> </div>
+				<div class="bd">
+					<div class="ctn">
+						<ul class="tool_list">
+							<li><a href="#" >What is Asia Miles?</a></li>
+							<li><a href="#" >Join Asia Miles</a></li>
+							<li><a href="#" >Member Benefits</a></li>
+							<li><a href="#" >Partners</a></li>
+							<li><a href="#" >Latest News</a></li>
+							<li><a href="#" >Press Room</a></li>
+							<li><a href="#" >FAQ</a></li>
+							<li><a href="#" >Downlads</a></li>
+							<li><a href="#" >Privacy Policy</a></li>
+							<li><a href="#" >Contact Us</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div id="mod_srvdsk" class="mod list_item">
+				<div class="hd2">
+					<h2>Service Desk</h2>
+					<span></span> </div>
+				<div class="bd">
+					<div class="ctn">
+						<ul class="tool_list">
+							<li><a href="#" >Update Your Profile</a></li>
+							<li><a href="#" >View Statement</a></li>
+							<li><a href="#" >Claim Missing Airline Miles</a></li>
+							<li><a href="#" >Calculated Airline Miles Earned</a></li>
+							<li><a href="#" >Calculated Flight Award Miles</a></li>
+							<li><a href="#" >Check Seat Availability on CX/KA</a></li>
+							<li><a href="#" >Redeem Flight Awards</a></li>
+							<li><a href="#" >Redeem Lifestyle Awards</a></li>
+							<li><a href="#" >Renew Your Miles</a></li>
+							<li><a href="#" >Transfer Your Miles</a></li>
+							<li><a href="#" >Donate Your Miles</a></li>
+							<li><a href="#" >How to Use This Site</a></li>
+							<li><a href="#" >FAQ</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div id="mod_news" class="mod list_item">
+				<div class="hd2">
+					<h2>Asia Miles News</h2>
+					<span></span> </div>
+				<div class="bd">
+					<div class="ctn">
+						<div class="focus_news">
+							<div class="imgCont"><a href="#" ><img class="imgBorder" alt="Offer highlight" src="tmp/tmp_news_img.jpg"/></a></div>
+							<a href="#" >Enjoy culinary delights</a>
+							<p class="no_margin">Earn Asia Miles at Holiday Inn Park View Singapore</p>
+						</div>
+						<ul class="other_news">
+							<li class="bulletLink"><a href="#" >Asia Miles ends dining partnership with Inagiku Japanese Restaurant</a></li>
+							<li class="bulletLink"><a href="#" >Five new dining hotspots at InterContinental Singapore</a></li>
+							<li class="bulletLink"><a href="#" >Enjoy a world of culinary delights at Shangri-La Hotel, Zhongshan</a></li>
+						</ul>
+						<ul>
+							<li class="bulletLink"><a href="#" >More Asia Miles News</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div class="column_end"></div>
+		</div>
+	</div>
+	<div id="footer"> <div class="links"> <a href="#" >Contact Us</a> | <a href="#" >Service Pledge</a> | <a href="#" >FAQ</a> | <a href="#" >Glossary</a> | <a href="#" >Terms and Conditions</a> | <a href="#" >Privacy Policy</a> | <a href="#" >Disclaimer</a> | <a href="#" >Site Map</a> | <a href="#" >Help</a> </div> <div class="copyright"> Copyright &copy; Asia Miles is managed and operated by Cathay Pacific Loyalty Programmes Ltd. </div> </div></div>
+<div id="navMenu">
+	<div id="navEarn">
+		<ul>
+			<li><a href="#" >How to Earn Miles</a></li>
+			<li><a href="#" >Airline Earn Calculator</a></li>
+			<li><a href="#" >Non-Airline Earn Calculator</a></li>
+			<li><a href="#" >Airlines</a></li>
+			<li><a href="#" >Finance &amp; Insurance</a></li>
+			<li><a href="#" >Hotels</a></li>
+			<li><a href="#" >Telecoms</a></li>
+			<li><a href="#" >Cars &amp; Transport</a></li>
+			<li><a href="#" >Retail</a></li>
+			<li><a href="#" >Dining</a></li>
+			<li><a href="#" >Travel &amp; Leisure</a></li>
+			<li><a href="#" >Health &amp; Beauty</a></li>
+		</ul>
+	</div>
+	<div id="navRedeem">
+		<ul>
+			<li><a href="#" >How to Redeem Miles</a></li>
+			<li><a href="#" >Flight Award Finder</a></li>
+			<li><a href="#" >Lifestyle Award Finder</a></li>
+			<li><a href="#" >Flights</a></li>
+			<li><a href="#" >Hotel &amp; Holiday Packages</a></li>
+			<li><a href="#" >Wine &amp; Dine</a></li>
+			<li><a href="#" >Leisure &amp; Sport</a></li>
+			<li><a href="#" >Electronics &amp; Accessories</a></li>
+			<li><a href="#" >Household &amp; Other Merchandise</a></li>
+			<li><a href="#" >Gifts, Flowers &amp; Hampers</a></li>
+			<li><a href="#" >Car Rental &amp; Transportation</a></li>
+			<li><a href="#" >Health &amp; Beauty</a></li>
+			<li><a href="#" >Special Events</a></li>
+			<li><a href="#" >Donate Miles</a></li>
+			<li><a href="#" >iAuction</a></li>
+			<li><a href="#" >Duty-free Preflight Order</a></li>
+		</ul>
+	</div>	<div id="navAbout">
+		<ul>
+			<li><a href="#" >What is Asia Miles</a></li>
+			<li><a href="#" >Join Asia Miles</a></li>
+			<li><a href="#" >Member Benefits</a></li>
+			<li><a href="#" >Partners</a></li>
+			<li><a href="#" >Latest News</a></li>
+			<li><a href="#" >Press Room</a></li>
+			<li><a href="#" >FAQ</a></li>
+			<li><a href="#" >Downloads</a></li>
+			<li><a href="#" >Privacy Policy</a></li>
+			<li><a href="#" >Contact Us</a></li>
+		</ul>
+	</div>
+	<div id="navAccount">
+		<ul>
+			<li><a href="#" >Overview</a></li>
+			<li><a href="#" >Latest Transactions</a></li>
+			<li><a href="#" >View Statement</a></li>
+			<li><a href="#" >Update Your Profile</a></li>
+			<li><a href="#" >Manage Your Miles</a></li>
+			<li><a href="#" >Award Requests</a></li>
+			<li><a href="#" >Update Your Redemption Group</a></li>
+			<li><a href="#" >Member Benefits</a></li>
+			<li><a href="#" >Your Registered Promotions</a></li>
+			<li><a href="#" >News &amp; Offers Subscription</a></li>
+			<li><a href="#" >FAQ</a></li>
+		</ul>
+	</div>
+</div>
+<div id="loadform"></div>
+<script type="text/javascript">
+	$(function() {
+		$('#create-user')
+		.button()
+		.click(function() {
+			$('#loadform').load('/cma/sampleForm.html',
+				function(){
+				$('#dialog-form').dialog('open');
+				});
+			
+		});
+	});
+	</script>
+
+<iframe src="javascript:false" id="frameNavElement" ></iframe>
+<div id="heightTest"></div>
+</body>
+</html>

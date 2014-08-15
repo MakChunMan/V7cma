@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="1.0"
+	xmlns="http://java.sun.com/xml/ns/persistence"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd">
+	<persistence-unit name="V6PERSISTENCE" transaction-type="JTA">
+		<provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+		<jta-data-source>jdbc/mysqlv7</jta-data-source>
+		<class>com.imagsky.v6.domain.FormFieldType</class>
+		<class>com.imagsky.v6.domain.ContentFolder</class>
+		<class>com.imagsky.v6.domain.SysObject</class>
+		<class>com.imagsky.v6.domain.ColumnField</class>
+		<class>com.imagsky.v6.domain.ContentType</class>
+		<class>com.imagsky.v6.domain.Member</class>
+		<class>com.imagsky.v6.domain.StringMessage</class>
+		<class>com.imagsky.v6.domain.SellItem</class>
+		<class>com.imagsky.v6.domain.SellItemCategory</class>		
+		<class>com.imagsky.v6.domain.Article</class>
+		<class>com.imagsky.v6.domain.Node</class>
+		<class>com.imagsky.v6.domain.OrderSet</class>
+		<class>com.imagsky.v6.domain.OrderItem</class>
+		<class>com.imagsky.v6.domain.SearchRank</class>
+		<class>com.imagsky.v6.domain.Enquiry</class>
+		<class>com.imagsky.v6.domain.SearchRecord</class>
+		<class>com.imagsky.v6.domain.Service</class>
+		<class>com.imagsky.v6.domain.Payment</class>
+		<class>com.imagsky.v6.domain.Transaction</class>
+		<class>com.imagsky.v6.domain.WithdrawnRequest</class>
+		<class>com.imagsky.v6.domain.BidItem</class>
+                                    <class>com.imagsky.v6.domain.Bid</class>
+		<class>com.imagsky.v6.domain.BoboSellItem</class>
+		<class>com.imagsky.v6.domain.BoboHist</class>
+                                    <class>com.imagsky.v6.domain.MemAddress</class>
+     <class>com.imagsky.v6.domain.BulkOrderItem</class>                           
+		<properties>
+			<property name="eclipselink.ddl-generation" value="drop-and-create-tables" />
+			<property name="eclipselink.ddl-generation.output-mode" value="sql-script" />
+			<property name="eclipselink.query-results-cache" value="false"/> 
+		</properties>
+
+	</persistence-unit>
+</persistence>

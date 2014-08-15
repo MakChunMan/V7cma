@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version last-->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="DeliveryOrder" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="c1553ae1-9b86-4103-89f1-ac9718672597">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>
+	<style name="Title" fontName="Arial" fontSize="26" isBold="true" pdfFontName="Helvetica-Bold"/>
+	<style name="SubTitle" forecolor="#666666" fontName="Arial" fontSize="18"/>
+	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12"/>
+	<subDataset name="Dataset1" uuid="c9d739c5-bcfc-4772-8d3e-99a80c321a48">
+		<queryString>
+			<![CDATA[]]>
+		</queryString>
+	</subDataset>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="image" class="java.lang.String">
+		<fieldDescription><![CDATA[image]]></fieldDescription>
+	</field>
+	<field name="itemCollectionRemarks" class="java.lang.String">
+		<fieldDescription><![CDATA[itemCollectionRemarks]]></fieldDescription>
+	</field>
+	<field name="itemName" class="java.lang.String">
+		<fieldDescription><![CDATA[itemName]]></fieldDescription>
+	</field>
+	<field name="itemNameDescription" class="java.lang.String">
+		<fieldDescription><![CDATA[itemNameDescription]]></fieldDescription>
+	</field>
+	<field name="itemUserOption" class="java.lang.String">
+		<fieldDescription><![CDATA[itemUserOption]]></fieldDescription>
+	</field>
+	<field name="orderSetId" class="java.lang.String">
+		<fieldDescription><![CDATA[orderSetId]]></fieldDescription>
+	</field>
+	<field name="collectionDateString" class="java.lang.String">
+		<fieldDescription><![CDATA[collectionDateString]]></fieldDescription>
+	</field>
+</jasperReport>
