@@ -3,6 +3,9 @@
 <%@ page import="com.imagsky.util.*" %>
 <%@ page import="com.imagsky.v6.domain.*" %>
 <%@ page import="com.imagsky.v6.cma.constants.*" %>
+<%--
+2014-08-15 - Remove Shop URL for Mobile enhancement
+ --%>
 <% 
 String lang = (String)request.getAttribute(SystemConstants.REQ_ATTR_LANG);
 if(CommonUtil.isNullOrEmpty((String)request.getAttribute(SystemConstants.REQ_ATTR_DONE_MSG))){
@@ -29,6 +32,7 @@ if(aMember==null) aMember = new Member();
 								<tr><th colspan="2"><%=MessageUtil.getV6Message(lang,"PRF_INFO") %></th></tr>
 								</thead>
 								<tbody>
+								<%-- 2014-08-15
 								<% if(!isCheckoutReg){ %>
 								<tr>
 									<td><label for="username"><%=MessageUtil.getV6Message(lang,"PRF_SHOP_URL")%></label></td>
@@ -37,6 +41,7 @@ if(aMember==null) aMember = new Member();
 									</td>
 								</tr>
 								<% } %>
+								 --%>
 								<tr>
 									<td><label for="REG_MEM_EMAIL"><%=MessageUtil.getV6Message(lang,"PRF_EMAIL")%></label><br/><%=MessageUtil.getV6Message(lang,"PRF_EMAIL_DESC")%></td>
 									<td><input type="text" name="REG_MEM_EMAIL" id="REG_MEM_EMAIL" maxLength="25" value="<%=CommonUtil.null2Empty(aMember.getMem_login_email()) %>" class="text"></td>

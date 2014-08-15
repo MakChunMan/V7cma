@@ -1,6 +1,10 @@
+/***
+ * 2014-08-14 Remove Shop URL in register form
+ */
 package com.imagsky.v6.cma.servlet.handler;
 
 import com.imagsky.common.ImagskySession;
+
 import com.imagsky.common.SiteErrorMessage;
 import com.imagsky.common.SiteResponse;
 import com.imagsky.exception.BaseDBException;
@@ -459,13 +463,14 @@ public class LOGIN_Handler  extends BaseHandler {
 			
 			//Reg type = checkout : bypass URL input checking & captcha
 			if(!isCheckoutReg){
+				/*** 2014-08-15
 				if(CommonUtil.isNullOrEmpty(newMember.getMem_shopurl())){
 					thisResp.addErrorMsg(new SiteErrorMessage("REG_URL_EMPTY"));
 				} else if (!CommonUtil.isLetterNumeric(newMember.getMem_shopurl()) ||
 						!CommonUtil.isLetter(newMember.getMem_shopurl().substring(0, 1))){
 					//First character should be alphabet
 					thisResp.addErrorMsg(new SiteErrorMessage("REG_URL_INVALID"));
-				}
+				} ****/
 				if(CommonUtil.isNullOrEmpty(request.getParameter("captcha"))){
 					thisResp.addErrorMsg(new SiteErrorMessage("REG_CAPTCHA_INVALID"));
 				} else if(!request.getParameter("captcha").equalsIgnoreCase((String)request.getSession().getAttribute("dns_security_code"))){
@@ -488,6 +493,7 @@ public class LOGIN_Handler  extends BaseHandler {
 					thisResp.addErrorMsg(new SiteErrorMessage("REG_ID_ALREADY_EXIST"));
 				}
 				//ByPass URL Check for checkout page register
+				/*** 2014-08-15
 				if(!isCheckoutReg){
 					if(dao.validURL(newMember)!=null){
 						thisResp.addErrorMsg(new SiteErrorMessage("REG_URL_ALREADY_EXIST"));
@@ -496,7 +502,7 @@ public class LOGIN_Handler  extends BaseHandler {
 					if(find>=0){
 						thisResp.addErrorMsg(new SiteErrorMessage("REG_URL_ALREADY_EXIST"));
 					}
-				}
+				}***/
 				//initialize new member
 				newMember.setSys_is_live(false); //Need activate email
 				newMember.setSys_is_node(false);

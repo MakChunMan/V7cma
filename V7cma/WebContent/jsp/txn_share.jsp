@@ -98,6 +98,7 @@ window.onload = function()
 					List os = (List)request.getAttribute(SystemConstants.REQ_ATTR_OBJ_LIST);
 					if(os!=null){
 						Iterator it = os.iterator();
+						/***
 						while(it.hasNext()){
 							BoboSellItem p = (BoboSellItem)it.next();
 							out.println("<tr><td>"+ p.getBobo_code() +"</td><td style=\"font-size:80%\">"+ 
@@ -109,7 +110,7 @@ window.onload = function()
 							);
 							out.println("</a></td><td>"+ CommonUtil.formatDate(p.getBobo_exp_date(),"dd-MM-yyyy") + "</td>\n");
 							out.println("<td>"+ p.getBobo_decline_rate()*100 + "%</td></tr>\n");
-						}
+						}***/
 					}
 					%>
 					</table>
