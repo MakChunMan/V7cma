@@ -1,5 +1,6 @@
 /***
  * 2014-08-14 Remove Shop URL in register form
+	2014-08-20 Init some number when create member
  */
 package com.imagsky.v6.cma.servlet.handler;
 
@@ -508,6 +509,11 @@ public class LOGIN_Handler  extends BaseHandler {
 				newMember.setSys_is_node(false);
 				newMember.setSys_is_published(false);
 				newMember.setMem_max_sellitem_count(30);
+				//20140820 init some number
+				newMember.setMem_cash_balance(new Double(0));
+				newMember.setMem_meatpoint(new Integer(0)); //--
+				cmaLogger.debug("setMem_meatpoint:"+ newMember.getMem_meatpoint());
+				
 				newMember.setSys_create_dt(new java.util.Date());
 				newMember.setSys_creator("V6 SYSTEM");
 				newMember.setSys_update_dt(new java.util.Date());

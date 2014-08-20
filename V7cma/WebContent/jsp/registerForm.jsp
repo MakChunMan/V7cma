@@ -1,3 +1,6 @@
+<%-- 
+2014-08-20 Fix Jquery UI path
+ --%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
@@ -20,9 +23,9 @@ response.setDateHeader ("Expires", -1);
 <title><%=MessageUtil.getV6Message(lang,"TIT_REGFORM") %> @ <%=MessageUtil.getV6Message(lang,"TIT_CORP") %></title>
 <link href="<%=staticPath%>/css/en.css" rel="stylesheet" type="text/css" media="all"/>
 <link href="<%=staticPath%>/css/en_print.css" rel="stylesheet" type="text/css" media="print"/>
-<link href="<%=staticPath%>/css/flick/jquery-ui-1.8.custom.css" rel="stylesheet" type="text/css"/>
-<script type="text/javascript" src="<%=staticPath%>/js/jquery-1.4.2.min.js"></script>
-<script type="text/javascript" src="<%=staticPath%>/js/jquery-ui-1.8.custom.min.js"></script>
+<link href="<%=staticPath %>/css/flick/<%=MessageUtil.getV6Message(lang,"SYS_JS_JQCSS") %>" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="<%=staticPath %>/js/<%=MessageUtil.getV6Message(lang,"SYS_JS_JQUERY") %>"></script>
+<script type="text/javascript" src="<%=staticPath %>/js/<%=MessageUtil.getV6Message(lang,"SYS_JS_JQUERYUI") %>"></script>
 <script type="text/javascript" src="<%=staticPath%>/ckeditor/ckeditor.js"></script>
 <script type="text/javascript" src="<%=staticPath%>/ckfinder/ckfinder.js"></script>
 <!--// script for sliding sidebar //-->
