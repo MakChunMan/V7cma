@@ -1,0 +1,2 @@
+--[Unimplemented]  2014-08-25 Add Package Type
+ALTER TABLE  `tb_member` ADD  `PACKAGE_TYPE` VARCHAR( 2 ) NOT NULL COMMENT  'Package Type 1a - External URL, 1b 20 Free Upload, 2 $100 per month, 3 standalone'

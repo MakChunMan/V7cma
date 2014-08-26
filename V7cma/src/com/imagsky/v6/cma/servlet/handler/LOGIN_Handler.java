@@ -1,6 +1,7 @@
 /***
  * 2014-08-14 Remove Shop URL in register form
 	2014-08-20 Init some number when create member
+	2014-08-25 Add package type
  */
 package com.imagsky.v6.cma.servlet.handler;
 
@@ -454,7 +455,7 @@ public class LOGIN_Handler  extends BaseHandler {
 			newMember.setMem_firstname(CommonUtil.null2Empty(request.getParameter("REG_MEM_FIRSTNAME")));
 			newMember.setMem_lastname(CommonUtil.null2Empty(request.getParameter("REG_MEM_LASTNAME")));
 			newMember.setMem_shopname(CommonUtil.null2Empty(request.getParameter("REG_SHOPNAME")));
-			
+			newMember.setPackage_type(CommonUtil.null2Empty(request.getParameter("PACKAGE_TYPE")));
 			
 			if(CommonUtil.isNullOrEmpty(newMember.getMem_login_email())){
 				thisResp.addErrorMsg(new SiteErrorMessage("REG_ID_EMPTY"));
@@ -519,6 +520,9 @@ public class LOGIN_Handler  extends BaseHandler {
 				newMember.setSys_update_dt(new java.util.Date());
 				newMember.setSys_updator("V6 SYSTEM");
 				newMember.setMem_cash_balance(new Double(0));
+				if(CommonUtil.isNullOrEmpty(newMember.getPackage_type())){
+					newMember.setPackage_type("0"); // 0 = nothing
+				}
 			}
 			
 			cmaLogger.debug("[doRegister Validation COMPLETED]");

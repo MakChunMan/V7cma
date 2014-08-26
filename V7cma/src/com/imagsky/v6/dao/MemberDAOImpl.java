@@ -1,3 +1,6 @@
+/***
+ * 2014-08-25 Add Package Type
+ */
 package com.imagsky.v6.dao;
 
 import com.imagsky.exception.BaseDBException;
@@ -51,6 +54,9 @@ public class MemberDAOImpl extends MemberDAO{
 		Member mem = (Member)obj;
 		if(mem.getSys_guid()==null)
 			mem.setSys_guid(UUIDUtil.getNewUUID("member"+ new java.util.Date().toString()));
+		if(CommonUtil.isNullOrEmpty(mem.getPackage_type())){
+			mem.setPackage_type("1a");
+		}
 		em.persist(mem);
                                     em.getTransaction().commit();
 		cmaLogger.debug("MemberDAOImpl.create: [END]");
@@ -182,6 +188,11 @@ public class MemberDAOImpl extends MemberDAO{
 		if(mem.getMem_cash_balance()!=null){
 			tmpMem.setMem_cash_balance(mem.getMem_cash_balance());
 		}
+		//2014-08-25
+		if(mem.getPackage_type()!=null){
+			tmpMem.setPackage_type(mem.getPackage_type());
+		}
+		
 		tmpMem.setMem_lastlogindate(mem.getMem_lastlogindate());
 		tmpMem.setSystemField(mem);
                                     em.merge(tmpMem);
@@ -191,11 +202,6 @@ public class MemberDAOImpl extends MemberDAO{
 	
 	@Override
 	public Member[] findNewShopWithProduct() throws BaseDBException{
-		
-
-
-
-		
 		StringBuffer sql = new StringBuffer("SELECT m.SYS_GUID as MEM_SYSGUID, m.MEM_SHOPNAME,m.MEM_SHOPURL ,m_sys.SYS_CREATE_DT as REG_DATE,(SELECT PROD_IMAGE1 FROM tb_item i where PROD_IMAGE1 is not null and m.SYS_GUID = i.PROD_OWNER limit 0, 1) as PROD_IMAGE1, ");
 		sql.append(" count(*) as PROD_COUNT FROM `tb_item`,`tb_sys_object` ,`tb_sys_object` m_sys , tb_member  m where tb_item.SYS_GUID = tb_sys_object.SYS_GUID and m_sys.SYS_GUID = m.SYS_GUID and");
 		sql.append(" m_sys.SYS_CREATE_DT is not null and m.SYS_GUID = tb_item.PROD_OWNER and  tb_sys_object.SYS_LIVE_DT is not null and");

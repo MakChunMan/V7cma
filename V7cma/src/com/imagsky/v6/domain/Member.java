@@ -1,3 +1,6 @@
+/***
+ * 2014-08-18 Add Package Type: 1a Free - External Url , 1b Free - 20 upload, 2 $100, 3 standalone
+ */
 package com.imagsky.v6.domain;
 
 import javax.persistence.*;
@@ -78,6 +81,10 @@ public class Member extends SysObject {
     private String fb_id;
     @Column
     private Integer mem_meatpoint;
+    //2014-08-18
+    @Column
+    private String package_type;
+       
 
     @ManyToMany
     @JoinTable(name = "tb_member_service_xref",
@@ -246,8 +253,16 @@ public class Member extends SysObject {
     public void setFb_id(String fbId) {
         fb_id = fbId;
     }
+    
+    public String getPackage_type() {
+		return package_type;
+	}
 
-    public static TreeMap<String, Object> getFields(Member obj) {
+	public void setPackage_type(String package_type) {
+		this.package_type = package_type;
+	}
+
+	public static TreeMap<String, Object> getFields(Member obj) {
         TreeMap<String, Object> aHt = new TreeMap<String, Object>();
         aHt.put("mem_login_email", obj.mem_login_email);
         aHt.put("mem_passwd", obj.mem_passwd);
@@ -265,6 +280,7 @@ public class Member extends SysObject {
         aHt.put("mem_cash_balance", obj.getMem_cash_balance());
         aHt.put("fb_id", obj.getFb_id());
         aHt.put("fb_mail_verified", obj.getFb_mail_verified());
+        aHt.put("package_type",obj.getPackage_type());
         ///aHt.put("mem_address",obj.mem_address);
         aHt.putAll(SysObject.getSysFields(obj));
         return aHt;
