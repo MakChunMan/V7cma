@@ -1,3 +1,6 @@
+<%----
+2014-08-27 Add Mobile shop - product mgmt link 
+--%>
 <%@page import="java.util.List"%>
 <%@page import="java.util.Iterator"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
@@ -71,6 +74,10 @@
                 }         
             });  '>更新Sitemap</a></li>
     <% }%>
+    <% if(CommonUtil.isNullOrEmpty(loginMember.getPackage_type())){ %>
+    <%-- 2014-08-27 Mobile shop --%>
+    <li class="bulletLink"><a href="<%=request.getAttribute("contextPath")%>/do/PROD?type=mobile"><%=MessageUtil.getV6Message(lang, "TIT_PROD")%></a></li>
+    <% }  %>    
     <li class="bulletLink"><a href="<%=request.getAttribute("contextPath")%>/do/ENQ"><%=MessageUtil.getV6Message(lang, "TIT_MSGMGMT")%></a></li>
     <li class="bulletLink"><a href="<%=request.getAttribute("contextPath")%>/do/TXN"><%=MessageUtil.getV6Message(lang, "TIT_ORDERRECORD")%></a></li>
     <%--<li class="bulletLink"><a href="<%=request.getAttribute("contextPath")%>/do/TXN?action=CA_LIST"><%=MessageUtil.getV6Message(lang, "TIT_BALANCE")%></a></li>--%>

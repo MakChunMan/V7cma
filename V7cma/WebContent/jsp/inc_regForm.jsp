@@ -2,9 +2,11 @@
     pageEncoding="UTF-8"%>
 <%@ page import="com.imagsky.util.*" %>
 <%@ page import="com.imagsky.v6.domain.*" %>
+<%@ page import="com.imagsky.constants.*" %>
 <%@ page import="com.imagsky.v6.cma.constants.*" %>
 <%--
 2014-08-15 - Remove Shop URL for Mobile enhancement
+2014-08-25 - Add Package Type
  --%>
 <% 
 String lang = (String)request.getAttribute(SystemConstants.REQ_ATTR_LANG);
@@ -95,6 +97,34 @@ if(aMember==null) aMember = new Member();
 								</tr>
 								</tbody>
 							</table>				
+                            <table width="100%" class="tbl_form">
+                                <colgroup>
+                                    <col width="20%"  />
+                                    <col width="*"  />
+                                </colgroup>
+
+                                <thead>
+                                <tr><th colspan="2"></th></tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td><label for="REG_SHOPNAME"><%=MessageUtil.getV6Message(lang,"PRF_SHOP_NAME")%></label></td>
+                                    <td>
+                                        <SELECT name="PACKAGE_TYPE" id="PACKAGE_TYPE">
+                                                <OPTION value="<%=V7Constant.PACKAGE_TYPECODE_FreeExtLink%>">【免費】50 商品 （外部連結﹚</OPTION>
+                                                <OPTION value="<%=V7Constant.PACKAGE_TYPECODE_FreeUpload%>">【免費】20 商品 （站內上載﹚</OPTION>
+                                                <OPTION value="<%=V7Constant.PACKAGE_TYPECODE_Basic%>">【VIP商店】500 商品 （站內上載﹚- 月費HKD100 或年費HKD960</OPTION>
+                                                <OPTION value="<%=V7Constant.PACKAGE_TYPECODE_Standalone%>">【獨立商店】1500商品 - 獨立商店手機應用程式 - 年費HKD960 及 Google及IOS上架費HKD3200</OPTION>
+                                        </SELECT>
+                                        <script>
+                                        $('#PACKAGE_TYPE').val("<%=CommonUtil.null2Empty(aMember.getPackage_type())%>");
+                                        </script>
+                                        <br/>
+                                        <a href="javascript:void()" id="lnk_detailcompare">詳細比較</a>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>							
 							<% } %>		
 							<table>
 							<tr><td></td><td><img id="captcha" src="/captcha.jsp?c=<%=(new java.util.Date()).getTime() %>"/>

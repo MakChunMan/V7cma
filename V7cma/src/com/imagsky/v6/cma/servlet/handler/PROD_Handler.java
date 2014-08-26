@@ -1,3 +1,6 @@
+/*****
+ * 2014-09-02 Add Product Management for mobile app 
+ */
 package com.imagsky.v6.cma.servlet.handler;
 
 import java.util.Iterator;
@@ -45,6 +48,12 @@ public class PROD_Handler extends BaseHandler {
     public static final String DO_PROD_SAVE = "SAVE";
     public static final String DO_PROD_SAVE_ORDER = "SAVE_ORDER";
     public static final String DO_COPY = "COPY";
+    //Mobile
+    public static final String DO_M_LIST = "MLIST";
+    public static final String DO_M_ADD = "MALL";
+    public static final String DO_M_UPDATE = "MUPDATE";
+    public static final String DO_M_DEL = "MDEL";
+    
     protected static final String CLASS_NAME = "PROD_Handler.java";
     private Member thisMember = null;
     private String thisLang = null;
@@ -84,6 +93,14 @@ public class PROD_Handler extends BaseHandler {
             thisResp = doSave(request, response);
         } else if (action.equalsIgnoreCase(DO_COPY)) {
             thisResp = doCopy(request, response);
+        } else if (action.equalsIgnoreCase(DO_M_LIST)){
+        	thisResp = doMobileList(request, response);
+        } else if (action.equalsIgnoreCase(DO_M_ADD)){
+            thisResp = doMobileAdd(request, response);
+        } else if (action.equalsIgnoreCase(DO_M_UPDATE)){
+        	thisResp = doMobileUpdate(request, response);
+        } else if (action.equalsIgnoreCase(DO_M_DEL)){
+        	thisResp = doMobileDel(request, response);
         } else {
             thisResp = doList(request, response, false); //Default
         }
@@ -91,7 +108,30 @@ public class PROD_Handler extends BaseHandler {
         return thisResp;
     }
 
-    private SiteResponse doCopy(HttpServletRequest request,
+    //Call by Ajax
+    private SiteResponse doMobileDel(HttpServletRequest request, HttpServletResponse response) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+    //Call by Ajax
+	private SiteResponse doMobileUpdate(HttpServletRequest request, HttpServletResponse response) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	//Call by Ajax
+	private SiteResponse doMobileAdd(HttpServletRequest request, HttpServletResponse response) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	private SiteResponse doMobileList(HttpServletRequest request, HttpServletResponse response) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	private SiteResponse doCopy(HttpServletRequest request,
             HttpServletResponse response) {
 
         SiteResponse thisResp = super.createResponse();
