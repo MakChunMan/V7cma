@@ -20,8 +20,10 @@ public class V7JspMapping {
     public static final String CMA_CONTENT_MAIN = "/jsp/cma/ct_main.jsp"; //Content Main Page
 
     //
+    public static final String PUB_MAIN = "/jsp/v8/pub_main.jsp";
+    //
     public static final String INPUT_EMAIL 	= "/jsp/v8/inc_mainemail.jsp";
-    public static final String INPUT_PASS 	= "/jsp/v8/inc_login.jsp";
+    public static final String INPUT_PASS 	= "/jsp/v8/inc_passwordlogin.jsp";
     public static final String INPUT_NEW_PASS_APPNAME = "/jsp/v8/inc_newregister.jsp";
     
     //
