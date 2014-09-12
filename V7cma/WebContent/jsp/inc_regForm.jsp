@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ page import="com.imagsky.util.*" %>
 <%@ page import="com.imagsky.v6.domain.*" %>
-<%@ page import="com.imagsky.constants.*" %>
+<%@ page import="com.imagsky.constants.*"%>
 <%@ page import="com.imagsky.v6.cma.constants.*" %>
 <%--
 2014-08-15 - Remove Shop URL for Mobile enhancement
