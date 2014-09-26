@@ -7,12 +7,17 @@ package com.imagsky.v6.cma.servlet.handler;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.imagsky.common.ImagskySession;
+import com.imagsky.common.SiteErrorMessage;
 import com.imagsky.common.SiteResponse;
 import com.imagsky.constants.V7JspMapping;
 import com.imagsky.exception.BaseException;
+import com.imagsky.util.CommonUtil;
 import com.imagsky.util.logger.cmaLogger;
+import com.imagsky.v6.biz.MemberBiz;
 import com.imagsky.v6.cma.constants.CMAJspMapping;
 import com.imagsky.v6.cma.constants.SystemConstants;
+import com.imagsky.v6.domain.Member;
 
 public class PAGE_Handler extends BaseHandler  {
 
@@ -42,16 +47,17 @@ public class PAGE_Handler extends BaseHandler  {
 		
 		if(appCodeToken.length<2){
 			thisResp = null;
-		} else if (appCodeToken[1].equalsIgnoreCase(Pages.INPUT_EMAIL.name())) {
-            thisResp = showMainEmail(request, response);
-        } else if (appCodeToken[1].equalsIgnoreCase(Pages.INPUT_PASS.name())) {
-            thisResp = showPassword(request, response);
-        } else {
-        	thisResp = showMain(request, response);
+		} else if (appCodeToken[1].equalsIgnoreCase(Pages.INPUT_LOGIN.name())) {
+            thisResp = showLogin(request, response);
         }
 		return thisResp;
 	}
 	
+	private SiteResponse showLogin(HttpServletRequest request, HttpServletResponse response) {
+		SiteResponse thisResp = super.createResponse();
+		thisResp.setTargetJSP(V7JspMapping.INPUT_LOGIN);
+		return thisResp;
+	}
 	
 	/****
 	 * Display Main Page
@@ -60,41 +66,20 @@ public class PAGE_Handler extends BaseHandler  {
 	 * @return
 	 */
 	private SiteResponse showMain(HttpServletRequest request, HttpServletResponse response) {
+		//LOGOUT: Remove ImagskySession
+		ImagskySession session = (ImagskySession)request.getSession().getAttribute(SystemConstants.REQ_ATTR_SESSION);
+		session.setUser(null);
+		session.setLogined(false);
+		
  		SiteResponse thisResp = super.createResponse();
  		thisResp.setTargetJSP(V7JspMapping.PUB_MAIN);
 		return thisResp;
 	}
 
 
-
-	private SiteResponse showPassword(HttpServletRequest request, HttpServletResponse response) {
- 		SiteResponse thisResp = super.createResponse();
- 		cmaLogger.debug("PAGE :"+request.getParameter("main_email"), request);
- 		thisResp.setTargetJSP(V7JspMapping.INPUT_PASS);
-		return thisResp;
-	}
-
-
-	/*****
-	 * Display email input field (AJAX)
-	 * @param request
-	 * @param response
-	 * @return
-	 */
-	private SiteResponse showMainEmail(HttpServletRequest request, HttpServletResponse response) {
- 		SiteResponse thisResp = super.createResponse();
- 		thisResp.setTargetJSP(V7JspMapping.INPUT_EMAIL);
-		return thisResp;
-	}
-
-
-
 	public enum Pages { 
 		PUB_MAIN,
-		INPUT_EMAIL,								//inc_mainemail.jsp			- 	1.1 Input Email
-		//New Register
-		INPUT_PASS,								//inc_login.jsp						-	1.3 Input Password for login
-		INPUT_NEW_PASS_APPNAME	//inc_newregister.jsp			-	1.4 New register app name and password
+		INPUT_LOGIN								//inc_login.jsp						-	1.1 Input Password for login
 	};
 }
 
