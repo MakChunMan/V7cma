@@ -619,21 +619,18 @@ public class LOGIN_Handler  extends BaseHandler {
 		return thisResp;
 	}
 	
+	//2014-09-22 Move some Direct DAO call to Business (Class) Layer
 	private SiteResponse doLogin(HttpServletRequest request, HttpServletResponse response) {
 		SiteResponse thisResp = super.createResponse();
 		
 		String action = CommonUtil.null2Empty(request.getParameter(SystemConstants.ACTION_NAME));
 		boolean isAjax = action.equalsIgnoreCase(DO_AJAX_LOGIN);
 		
-		MemberDAO dao = MemberDAO.getInstance();
+		MemberBiz biz = MemberBiz.getInstance();
+		//MemberDAO dao = MemberDAO.getInstance();
 		try {
-			Member loginMember = new Member();
-			Member thisLoginMember = null;
-			loginMember.setMem_login_email(CommonUtil.null2Empty(request.getParameter("txtMbrID")));
-			List returnList = dao.findListWithSample(loginMember);
-			if(returnList!=null && returnList.size()>0){
-				thisLoginMember = (Member)returnList.get(0);
-			}
+			Member thisLoginMember = biz.doCheckMemberExist(CommonUtil.null2Empty(request.getParameter("txtMbrID")));
+
 			//Retain redirectURL
 			if(!CommonUtil.isNullOrEmpty(request.getParameter("redirectURL"))){
 				request.setAttribute("redirectURL",request.getParameter("redirectURL"));
@@ -653,17 +650,21 @@ public class LOGIN_Handler  extends BaseHandler {
 					//FACEBOOK REGISTERED BUT NOT BBM => Redirect to Setting Password
 					thisResp.addErrorMsg(new SiteErrorMessage("LOGIN_INV_PASSWD"));
 					request.setAttribute("FB_SET_PASSWORD", "Y");
-				} else if(MD5Utility.MD5(CommonUtil.null2Empty(request.getParameter("txtMbrPIN"))).equalsIgnoreCase(thisLoginMember.getMem_passwd())){
+				} else if(biz.doCheckPassword(thisLoginMember, request.getParameter("txtMbrPIN"))){
 					//Update lastloginDate
 					thisLoginMember.setMem_lastlogindate(new java.util.Date());
-			 		dao.update(thisLoginMember);
+					biz.doSaveMember(thisLoginMember);
+			 		//dao.update(thisLoginMember); -- Moved to business class
+					
 					//Store in session
 					ImagskySession session = (ImagskySession)request.getSession().getAttribute(SystemConstants.REQ_ATTR_SESSION);
 					session.setLogined(true);
 					session.setUser(thisLoginMember);
 					request.getSession().setAttribute(SystemConstants.REQ_ATTR_SESSION, session);
-					request.setAttribute(SystemConstants.REQ_ATTR_DONE_MSG, MessageUtil.getV6Message((String)request.getAttribute(SystemConstants.REQ_ATTR_LANG), 
-					"LOGIN_DONE"));
+					request.setAttribute(
+							SystemConstants.REQ_ATTR_DONE_MSG, 
+							MessageUtil.getV6Message((String)request.getAttribute(SystemConstants.REQ_ATTR_LANG),"LOGIN_DONE") 
+					);
 					
 					//DEBUG LOG
 					Collection<Service> services = thisLoginMember.getServices();
@@ -684,7 +685,7 @@ public class LOGIN_Handler  extends BaseHandler {
 				{ thisResp.setTargetJSP(CMAJspMapping.JSP_LOGIN_AJAX);}
 			else  thisResp.setTargetJSP(CMAJspMapping.JSP_LOGIN);
 			
-		} catch (BaseDBException e) {
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			cmaLogger.error("LOGIN_Handler.doLogin Error: " , request, e);

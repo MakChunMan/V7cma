@@ -16,6 +16,7 @@ public class MessageUtil {
 
 	private static final String paramSymbol = "@@";
 	public static String MOD_V6 = "V6";
+	public static String MOD_V8 = "V8";
 	
 	public static String getMessage(String mod, String lang, String appCode, ArrayList<String> param){
 		String str = getMessage(mod, lang, appCode);
@@ -68,6 +69,23 @@ public class MessageUtil {
 	}
 	
 	public static String getV6Message(String lang, String appCode, String paramStr){
+		ArrayList aList = new ArrayList();
+		String[] tokens = CommonUtil.stringTokenize(paramStr, "^");
+		for (int x = 0; x< tokens.length; x++){
+			aList.add(tokens[x]);
+		}
+		return getV6Message(lang, appCode, aList);
+	}
+	
+	public static String getV8Message(String lang, String appCode){
+		return getMessage(MOD_V6, lang, appCode);
+	}
+	
+	public static String getV8Message(String lang, String appCode, ArrayList<String> param){
+		return getMessage(MOD_V6, lang, appCode, param);
+	}
+	
+	public static String getV8Message(String lang, String appCode, String paramStr){
 		ArrayList aList = new ArrayList();
 		String[] tokens = CommonUtil.stringTokenize(paramStr, "^");
 		for (int x = 0; x< tokens.length; x++){

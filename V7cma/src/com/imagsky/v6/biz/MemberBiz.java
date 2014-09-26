@@ -1,14 +1,19 @@
+/*****
+ * 2014-09-22 App Layout Login
+ */
 package com.imagsky.v6.biz;
 
 import com.imagsky.exception.BaseDBException;
 import com.imagsky.util.CommonUtil;
 import com.imagsky.util.logger.cmaLogger;
+import com.imagsky.utility.MD5Utility;
 import com.imagsky.v6.dao.MemAddressDAO;
 import com.imagsky.v6.dao.MemberDAO;
 import com.imagsky.v6.dao.TransactionDAO;
 import com.imagsky.v6.domain.MemAddress;
 import com.imagsky.v6.domain.Member;
 import com.imagsky.v6.domain.Transaction;
+
 import java.util.Iterator;
 import java.util.List;
 
@@ -19,14 +24,49 @@ public class MemberBiz {
 	
 	protected MemberBiz() {
 	  // Exists only to defeat instantiation.
-	   }
+	}
+	
 	public static MemberBiz getInstance() {
 	      if(instance == null) {
 	         instance = new MemberBiz();
 	      }
 	      return instance;
 	}
-	   
+	
+	public Member doCheckMemberExist(String email) throws Exception{
+		MemberDAO mDAO = MemberDAO.getInstance();
+		Member member = new Member(); 
+		try{
+			member.setMem_login_email(email);
+			List aList = mDAO.findListWithSample(member);
+			if(aList==null || aList.size()==0){
+				cmaLogger.warn("doMember: No such user "+ email);
+				return null;
+			} else {
+				return (Member)aList.get(0);
+			}
+		} catch (Exception e){
+			cmaLogger.error("MemberBiz.doCheckMemberExist: ", e);
+			throw e;
+		}
+	}
+	
+	public boolean doCheckPassword(Member member, String password){
+		return 
+				MD5Utility.MD5(CommonUtil.null2Empty(password)).equalsIgnoreCase(member.getMem_passwd());
+	}
+	
+	public Member doSaveMember(Member member) throws Exception{
+		MemberDAO mDAO = MemberDAO.getInstance();
+		try{
+			mDAO.update(member);
+			return member;
+		} catch (Exception e){
+			cmaLogger.error("doMemberTransaction: Invalid memberGUID", e);
+			throw e;
+		}
+	}
+	
 	public boolean doMemberTransaction(String memberGuid, Double amount, String txnRemarks){
 		MemberDAO mDAO = MemberDAO.getInstance();
 		Member member = new Member();
@@ -44,6 +84,8 @@ public class MemberBiz {
 			return false;
 		}
 	}
+	
+
 	
 	public boolean doMemberTransaction(Member thisMember, Double amount, String txnRemarks){
 		
