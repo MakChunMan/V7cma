@@ -23,6 +23,9 @@ public class V7JspMapping {
     public static final String PUB_MAIN = "/jsp/v8/pub_main.jsp";
     //
     public static final String INPUT_LOGIN 	= "/jsp/v8/inc_login.jsp";
+    
+    //
+    public static final String DASHBOARD = "/jsp/v8/dash_main.jsp";
 
     public static String getJspPageFile(String fieldName){
     	Field f;

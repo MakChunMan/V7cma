@@ -49,15 +49,23 @@ public class PAGE_Handler extends BaseHandler  {
 			thisResp = null;
 		} else if (appCodeToken[1].equalsIgnoreCase(Pages.INPUT_LOGIN.name())) {
             thisResp = showLogin(request, response);
+		} else if (appCodeToken[1].equalsIgnoreCase(Pages.INPUT_LOGIN.name())) {
+			thisResp = doLogin(request, response);
         }
 		return thisResp;
 	}
 	
+	private SiteResponse doLogin(HttpServletRequest request, HttpServletResponse response) {
+		SiteResponse thisResp = super.createResponse();
+		return thisResp;
+	}
+
 	private SiteResponse showLogin(HttpServletRequest request, HttpServletResponse response) {
 		SiteResponse thisResp = super.createResponse();
 		thisResp.setTargetJSP(V7JspMapping.INPUT_LOGIN);
 		return thisResp;
 	}
+	
 	
 	/****
 	 * Display Main Page

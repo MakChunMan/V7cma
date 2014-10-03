@@ -78,11 +78,11 @@ public class MessageUtil {
 	}
 	
 	public static String getV8Message(String lang, String appCode){
-		return getMessage(MOD_V6, lang, appCode);
+		return getMessage(MOD_V8, lang, appCode);
 	}
 	
 	public static String getV8Message(String lang, String appCode, ArrayList<String> param){
-		return getMessage(MOD_V6, lang, appCode, param);
+		return getMessage(MOD_V8, lang, appCode, param);
 	}
 	
 	public static String getV8Message(String lang, String appCode, String paramStr){
@@ -91,7 +91,7 @@ public class MessageUtil {
 		for (int x = 0; x< tokens.length; x++){
 			aList.add(tokens[x]);
 		}
-		return getV6Message(lang, appCode, aList);
+		return getV8Message(lang, appCode, aList);
 	}
 	
 	public static boolean updateV6Message(String lang, String appCode, String value){

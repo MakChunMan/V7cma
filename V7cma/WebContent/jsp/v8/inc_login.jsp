@@ -1,3 +1,4 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
  <%@ page import="com.imagsky.v6.cma.constants.*" %>
  <%@ page import="com.imagsky.util.*" %>
  <% String lang = (String)request.getAttribute(SystemConstants.REQ_ATTR_LANG); %>
@@ -21,7 +22,12 @@
                             <%=MessageUtil.getV8Message(lang,"LOGIN_REMEMBERME") %>
                         </div>
                         <div class="col-xs-4 text-right">
-                            <button type="submit" class="btn btn-effect-ripple btn-sm btn-primary"><i class="fa fa-check"></i> <%=MessageUtil.getV8Message(lang,"BTN_SUBMIT") %></button>
+                            <button type="button" id="btn_submit" class="btn btn-effect-ripple btn-sm btn-primary"><i class="fa fa-check"></i> <%=MessageUtil.getV8Message(lang,"BTN_SUBMIT") %></button>
                         </div>
                     </div>
+                    <script>
+                    $('#btn_submit').click(function(){
+                    	alert('hi');
+                    });
+                    </script>
 <!-- END Login Form -->
