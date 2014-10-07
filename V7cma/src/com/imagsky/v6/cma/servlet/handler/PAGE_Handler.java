@@ -13,7 +13,9 @@ import com.imagsky.common.SiteResponse;
 import com.imagsky.constants.V7JspMapping;
 import com.imagsky.exception.BaseException;
 import com.imagsky.util.CommonUtil;
+import com.imagsky.util.MessageUtil;
 import com.imagsky.util.logger.cmaLogger;
+import com.imagsky.utility.MD5Utility;
 import com.imagsky.v6.biz.MemberBiz;
 import com.imagsky.v6.cma.constants.CMAJspMapping;
 import com.imagsky.v6.cma.constants.SystemConstants;
@@ -49,14 +51,68 @@ public class PAGE_Handler extends BaseHandler  {
 			thisResp = null;
 		} else if (appCodeToken[1].equalsIgnoreCase(Pages.INPUT_LOGIN.name())) {
             thisResp = showLogin(request, response);
-		} else if (appCodeToken[1].equalsIgnoreCase(Pages.INPUT_LOGIN.name())) {
+		} else if (appCodeToken[1].equalsIgnoreCase(Pages.DO_LOGIN.name())) {
 			thisResp = doLogin(request, response);
+		} else if (appCodeToken[1].equalsIgnoreCase(Pages.PUB_MAIN.name())) {
+			thisResp = showMain(request, response);
         }
 		return thisResp;
 	}
 	
 	private SiteResponse doLogin(HttpServletRequest request, HttpServletResponse response) {
 		SiteResponse thisResp = super.createResponse();
+		
+		
+		MemberBiz biz = MemberBiz.getInstance();
+		try {
+			//Check member / email exist
+			Member thisLoginMember = biz.doCheckMemberExist(CommonUtil.null2Empty(request.getParameter("login-email")));
+			if(thisLoginMember==null){
+				//No such member
+				thisResp.addErrorMsg(new SiteErrorMessage("LOGIN_NO_MEMBER"));
+			} else {
+				cmaLogger.debug(MD5Utility.MD5(CommonUtil.null2Empty(request.getParameter("login-password"))));
+				cmaLogger.debug(thisLoginMember.getMem_passwd());
+				//Validate password
+				if(!thisLoginMember.isSys_is_live()){
+					//NOT YET ACTIVATE
+					thisResp.addErrorMsg(new SiteErrorMessage("LOGIN_ACC_NOT_ACTIVATE"));
+				} else if(thisLoginMember.getFb_id()!=null && CommonUtil.isNullOrEmpty(thisLoginMember.getMem_passwd())){
+					//FACEBOOK REGISTERED BUT NOT BBM => Redirect to Setting Password
+					thisResp.addErrorMsg(new SiteErrorMessage("LOGIN_INV_PASSWD"));
+					request.setAttribute("FB_SET_PASSWORD", "Y");
+				} else if(biz.doCheckPassword(thisLoginMember, request.getParameter("login-password"))){
+					//Update lastloginDate
+					thisLoginMember.setMem_lastlogindate(new java.util.Date());
+					biz.doSaveMember(thisLoginMember);
+					//Store in session
+					ImagskySession session = (ImagskySession)request.getSession().getAttribute(SystemConstants.REQ_ATTR_SESSION);
+					session.setLogined(true);
+					session.setUser(thisLoginMember);
+					request.getSession().setAttribute(SystemConstants.REQ_ATTR_SESSION, session);
+					request.setAttribute(
+							SystemConstants.REQ_ATTR_DONE_MSG, 
+							MessageUtil.getV6Message((String)request.getAttribute(SystemConstants.REQ_ATTR_LANG),"LOGIN_DONE") 
+					);
+				} else {
+					thisResp.addErrorMsg(new SiteErrorMessage("INVALID_PASSWORD"));
+				}
+			}
+			
+			if(thisResp.hasError()){
+				thisResp.setTargetJSP(V7JspMapping.COMMON_AJAX_RESPONSE);
+			} else {
+				thisResp.setTargetJSP(V7JspMapping.PUB_MAIN);
+			}
+		} catch (Exception e){
+			thisResp.addErrorMsg(new SiteErrorMessage("UNKNOWN LOGIN ERROR"));
+		}
+		
+		if(thisResp.hasError()){
+			thisResp.setTargetJSP(V7JspMapping.COMMON_AJAX_RESPONSE);
+		} else {
+			thisResp.setTargetJSP(V7JspMapping.PUB_MAIN);
+		}
 		return thisResp;
 	}
 
@@ -87,7 +143,8 @@ public class PAGE_Handler extends BaseHandler  {
 
 	public enum Pages { 
 		PUB_MAIN,
-		INPUT_LOGIN								//inc_login.jsp						-	1.1 Input Password for login
+		INPUT_LOGIN,								//inc_login.jsp						-	1.1 Input Password for login
+		DO_LOGIN
 	};
 }
 

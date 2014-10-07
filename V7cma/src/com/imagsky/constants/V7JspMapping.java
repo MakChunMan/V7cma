@@ -11,6 +11,9 @@ import java.lang.reflect.Field;
  */
 public class V7JspMapping {
 
+	/**************************
+	 * CMA
+	 **************************/
     //Display Attribute Json Data
     public static final String CMA_JSONSTRING = "/jsp/cma/jsondata.jsp";
 
@@ -19,7 +22,9 @@ public class V7JspMapping {
     public static final String CMA_CF_MAIN = "/jsp/cma/cf_main.jsp"; //Folder Main Page
     public static final String CMA_CONTENT_MAIN = "/jsp/cma/ct_main.jsp"; //Content Main Page
 
-    //
+	/**************************
+	 * Bootstrap (V8)
+	 **************************/
     public static final String PUB_MAIN = "/jsp/v8/pub_main.jsp";
     //
     public static final String INPUT_LOGIN 	= "/jsp/v8/inc_login.jsp";
@@ -27,6 +32,9 @@ public class V7JspMapping {
     //
     public static final String DASHBOARD = "/jsp/v8/dash_main.jsp";
 
+    //
+    public static final String COMMON_AJAX_RESPONSE = "/jsp/v8/common_ajax.jsp";
+    
     public static String getJspPageFile(String fieldName){
     	Field f;
 		try {

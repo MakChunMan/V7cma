@@ -3,6 +3,7 @@
  <%@ page import="com.imagsky.util.*" %>
  <% String lang = (String)request.getAttribute(SystemConstants.REQ_ATTR_LANG); %>
  <!-- Login Form -->
+                    <div class="error-msg" id="error-msg" style="color:red"></div>
                     <div class="form-group">
                         <div class="col-xs-12">
                             <input type="text" id="login-email" name="login-email" class="form-control" placeholder="<%=MessageUtil.getV8Message(lang,"LOGIN_EMAIL") %>">
@@ -22,12 +23,7 @@
                             <%=MessageUtil.getV8Message(lang,"LOGIN_REMEMBERME") %>
                         </div>
                         <div class="col-xs-4 text-right">
-                            <button type="button" id="btn_submit" class="btn btn-effect-ripple btn-sm btn-primary"><i class="fa fa-check"></i> <%=MessageUtil.getV8Message(lang,"BTN_SUBMIT") %></button>
+                            <button type="submit" id="btn_submit" class="btn btn-effect-ripple btn-sm btn-primary"><i class="fa fa-check"></i> <%=MessageUtil.getV8Message(lang,"BTN_SUBMIT") %></button>
                         </div>
                     </div>
-                    <script>
-                    $('#btn_submit').click(function(){
-                    	alert('hi');
-                    });
-                    </script>
 <!-- END Login Form -->
