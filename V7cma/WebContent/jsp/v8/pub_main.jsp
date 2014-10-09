@@ -95,59 +95,11 @@
                         <!-- Sidebar Content -->
                         <div class="sidebar-content">
                             <!-- Profile -->
-                            <div class="sidebar-section">
-                                <h2 class="text-light">Profile</h2>
-                                <form action="index.html" method="post" class="form-control-borderless" onsubmit="return false;">
-                                    <div class="form-group">
-                                        <label for="side-profile-name">Name</label>
-                                        <input type="text" id="side-profile-name" name="side-profile-name" class="form-control" value="John Doe">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="side-profile-email">Email</label>
-                                        <input type="email" id="side-profile-email" name="side-profile-email" class="form-control" value="john.doe@example.com">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="side-profile-password">New Password</label>
-                                        <input type="password" id="side-profile-password" name="side-profile-password" class="form-control">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="side-profile-password-confirm">Confirm New Password</label>
-                                        <input type="password" id="side-profile-password-confirm" name="side-profile-password-confirm" class="form-control">
-                                    </div>
-                                    <div class="form-group remove-margin">
-                                        <button type="submit" class="btn btn-effect-ripple btn-primary" onclick="App.sidebar('close-sidebar-alt');">Save</button>
-                                    </div>
-                                </form>
-                            </div>
+                            <jsp:include page="/jsp/v8/common_sidebar_profile.jsp"></jsp:include>
                             <!-- END Profile -->
 
                             <!-- Settings -->
-                            <div class="sidebar-section">
-                                <h2 class="text-light">Settings</h2>
-                                <form action="index.html" method="post" class="form-horizontal form-control-borderless" onsubmit="return false;">
-                                    <div class="form-group">
-                                        <label class="col-xs-7 control-label-fixed">Notifications</label>
-                                        <div class="col-xs-5">
-                                            <label class="switch switch-success"><input type="checkbox" checked><span></span></label>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-xs-7 control-label-fixed">Public Profile</label>
-                                        <div class="col-xs-5">
-                                            <label class="switch switch-success"><input type="checkbox" checked><span></span></label>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-xs-7 control-label-fixed">Enable API</label>
-                                        <div class="col-xs-5">
-                                            <label class="switch switch-success"><input type="checkbox"><span></span></label>
-                                        </div>
-                                    </div>
-                                    <div class="form-group remove-margin">
-                                        <button type="submit" class="btn btn-effect-ripple btn-primary" onclick="App.sidebar('close-sidebar-alt');">Save</button>
-                                    </div>
-                                </form>
-                            </div>
+                            <jsp:include page="/jsp/v8/common_sidebar_setting.jsp"></jsp:include>
                             <!-- END Settings -->
                         </div>
                         <!-- END Sidebar Content -->
@@ -358,49 +310,7 @@
 
                             <!-- Color Themes -->
                             <!-- Preview a theme on a page functionality can be found in js/app.js - colorThemePreview() -->
-                            <div class="sidebar-section sidebar-nav-mini-hide">
-                                <div class="sidebar-separator push">
-                                    <i class="fa fa-ellipsis-h"></i>
-                                </div>
-                                <ul class="sidebar-themes clearfix">
-                                    <li>
-                                        <a href="javascript:void(0)" class="themed-background-default" data-toggle="tooltip" title="Default" data-theme="default" data-theme-navbar="navbar-inverse"></a>
-                                    </li>
-                                    <li>
-                                        <a href="javascript:void(0)" class="themed-background-social" data-toggle="tooltip" title="Social" data-theme="css/themes/social.css" data-theme-navbar="navbar-inverse"></a>
-                                    </li>
-                                    <li>
-                                        <a href="javascript:void(0)" class="themed-background-flat" data-toggle="tooltip" title="Flat" data-theme="css/themes/flat.css" data-theme-navbar="navbar-inverse"></a>
-                                    </li>
-                                    <li>
-                                        <a href="javascript:void(0)" class="themed-background-amethyst" data-toggle="tooltip" title="Amethyst" data-theme="css/themes/amethyst.css" data-theme-navbar="navbar-inverse"></a>
-                                    </li>
-                                    <li>
-                                        <a href="javascript:void(0)" class="themed-background-creme" data-toggle="tooltip" title="Creme" data-theme="css/themes/creme.css" data-theme-navbar="navbar-inverse"></a>
-                                    </li>
-                                    <li>
-                                        <a href="javascript:void(0)" class="themed-background-passion" data-toggle="tooltip" title="Passion" data-theme="css/themes/passion.css" data-theme-navbar="navbar-inverse"></a>
-                                    </li>
-                                    <li>
-                                        <a href="javascript:void(0)" class="themed-background-default themed-navbar-light" data-toggle="tooltip" title="Default + Light header" data-theme="default" data-theme-navbar="navbar-default"></a>
-                                    </li>
-                                    <li>
-                                        <a href="javascript:void(0)" class="themed-background-social themed-navbar-light" data-toggle="tooltip" title="Social + Light header" data-theme="css/themes/social.css" data-theme-navbar="navbar-default"></a>
-                                    </li>
-                                    <li>
-                                        <a href="javascript:void(0)" class="themed-background-flat themed-navbar-light" data-toggle="tooltip" title="Flat + Light header" data-theme="css/themes/flat.css" data-theme-navbar="navbar-default"></a>
-                                    </li>
-                                    <li>
-                                        <a href="javascript:void(0)" class="themed-background-amethyst themed-navbar-light" data-toggle="tooltip" title="Amethyst + Light header" data-theme="css/themes/amethyst.css" data-theme-navbar="navbar-default"></a>
-                                    </li>
-                                    <li>
-                                        <a href="javascript:void(0)" class="themed-background-creme themed-navbar-light" data-toggle="tooltip" title="Creme + Light header" data-theme="css/themes/creme.css" data-theme-navbar="navbar-default"></a>
-                                    </li>
-                                    <li>
-                                        <a href="javascript:void(0)" class="themed-background-passion themed-navbar-light" data-toggle="tooltip" title="Passion + Light header" data-theme="css/themes/passion.css" data-theme-navbar="navbar-default"></a>
-                                    </li>
-                                </ul>
-                            </div>
+                            <jsp:include page="/jsp/v8/common_themecolor.jsp"></jsp:include>
                             <!-- END Color Themes -->
                         </div>
                         <!-- END Sidebar Content -->
@@ -445,92 +355,11 @@
                     -->
                     <header class="navbar navbar-inverse navbar-fixed-top">
                         <!-- Left Header Navigation -->
-                        <ul class="nav navbar-nav-custom">
-                            <!-- Main Sidebar Toggle Button -->
-                            <li>
-                                <a href="javascript:void(0)" onclick="App.sidebar('toggle-sidebar');">
-                                    <i class="fa fa-ellipsis-v fa-fw animation-fadeInRight" id="sidebar-toggle-mini"></i>
-                                    <i class="fa fa-bars fa-fw animation-fadeInRight" id="sidebar-toggle-full"></i>
-                                </a>
-                            </li>
-                            <!-- END Main Sidebar Toggle Button -->
-
-                            <!-- Header Link -->
-                            <li class="hidden-xs animation-fadeInQuick">
-                                <a href=""><strong>WELCOME</strong></a>
-                            </li>
-                            <!-- END Header Link -->
-                        </ul>
+                        <jsp:include page="/jsp/v8/common_head_left.jsp"></jsp:include>
                         <!-- END Left Header Navigation -->
 
                         <!-- Right Header Navigation -->
-                        <ul class="nav navbar-nav-custom pull-right">
-                            <!-- Search Form -->
-                            <li>
-                                <form action="page_ready_search_results.html" method="post" class="navbar-form-custom" role="search">
-                                    <input type="text" id="top-search" name="top-search" class="form-control" placeholder="Search..">
-                                </form>
-                            </li>
-                            <!-- END Search Form -->
-
-                            <!-- Alternative Sidebar Toggle Button -->
-                            <li>
-                                <a href="javascript:void(0)" onclick="App.sidebar('toggle-sidebar-alt');">
-                                    <i class="gi gi-settings"></i>
-                                </a>
-                            </li>
-                            <!-- END Alternative Sidebar Toggle Button -->
-
-                            <!-- User Dropdown -->
-                            <li class="dropdown">
-                                <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown">
-                                    <img src="<%=V8SystemConstants.V8_PATH %>img/placeholders/avatars/avatar9.jpg" alt="avatar">
-                                </a>
-                                <ul class="dropdown-menu dropdown-menu-right">
-                                    <li class="dropdown-header">
-                                        <strong>ADMINISTRATOR</strong>
-                                    </li>
-                                    <li>
-                                        <a href="page_app_email.html">
-                                            <i class="fa fa-inbox fa-fw pull-right"></i>
-                                            Inbox
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="page_app_social.html">
-                                            <i class="fa fa-pencil-square fa-fw pull-right"></i>
-                                            Profile
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="page_app_media.html">
-                                            <i class="fa fa-picture-o fa-fw pull-right"></i>
-                                            Media Manager
-                                        </a>
-                                    </li>
-                                    <li class="divider"><li>
-                                    <li>
-                                        <a href="javascript:void(0)" onclick="App.sidebar('toggle-sidebar-alt');">
-                                            <i class="gi gi-settings fa-fw pull-right"></i>
-                                            Settings
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="page_ready_lock_screen.html">
-                                            <i class="gi gi-lock fa-fw pull-right"></i>
-                                            Lock Account
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="page_ready_login.html">
-                                            <i class="fa fa-power-off fa-fw pull-right"></i>
-                                            Log out
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <!-- END User Dropdown -->
-                        </ul>
+                        <jsp:include page="/jsp/v8/common_head_right.jsp"></jsp:include>
                         <!-- END Right Header Navigation -->
                     </header>
                     <!-- END Header -->

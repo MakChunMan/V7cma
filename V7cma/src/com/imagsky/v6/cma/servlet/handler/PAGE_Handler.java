@@ -12,6 +12,7 @@ import com.imagsky.common.SiteErrorMessage;
 import com.imagsky.common.SiteResponse;
 import com.imagsky.constants.V7JspMapping;
 import com.imagsky.exception.BaseException;
+import com.imagsky.util.ClearFileUtil;
 import com.imagsky.util.CommonUtil;
 import com.imagsky.util.MessageUtil;
 import com.imagsky.util.logger.cmaLogger;
@@ -55,10 +56,47 @@ public class PAGE_Handler extends BaseHandler  {
 			thisResp = doLogin(request, response);
 		} else if (appCodeToken[1].equalsIgnoreCase(Pages.PUB_MAIN.name())) {
 			thisResp = showMain(request, response);
-        }
+		} else if (appCodeToken[1].equalsIgnoreCase(Pages.DO_LOGOUT.name())) {
+			thisResp = doLogout(request, response);
+		}
 		return thisResp;
 	}
 	
+	private SiteResponse doLogout(HttpServletRequest request, HttpServletResponse response) {
+		SiteResponse thisResp = super.createResponse();
+		
+		ImagskySession session = (ImagskySession)request.getSession().getAttribute(SystemConstants.REQ_ATTR_SESSION);
+		Member logoutUser =  session.getUser();
+		
+		//File clear
+		ClearFileUtil.clearFile(logoutUser, ClearFileUtil.ALL);
+		
+		//LOGOUT
+		session.setUser(null);
+		session.setLogined(false);
+		
+		//FB access token
+		session.setFbAccessToken(null);
+		
+		//Clear Shopping Cart
+		request.getSession().removeAttribute(SystemConstants.PUB_CART);
+		request.getSession().removeAttribute(SystemConstants.PUB_CART_INFO);
+		request.getSession().removeAttribute(SystemConstants.PUB_BULKORDER_INFO);
+                
+        //Clear Reminder
+		request.getSession().removeAttribute(SystemConstants.REQ_ATTR_REMINDER );
+                
+		request.setAttribute("LOGOUTUSER", logoutUser);
+		if(logoutUser!=null){
+			request.setAttribute("redirectURL", request.getAttribute("contextPath")+ "/" + logoutUser.getMem_shopurl()+"/.do");
+		}
+		request.setAttribute(SystemConstants.REQ_ATTR_DONE_MSG, MessageUtil.getV6Message((String)request.getAttribute(SystemConstants.REQ_ATTR_LANG), 
+		"LOGOUT_DONE"));
+		thisResp.setTargetJSP(V7JspMapping.LOGOUT);
+		
+		return thisResp;
+	}
+
 	private SiteResponse doLogin(HttpServletRequest request, HttpServletResponse response) {
 		SiteResponse thisResp = super.createResponse();
 		
@@ -90,6 +128,7 @@ public class PAGE_Handler extends BaseHandler  {
 					session.setLogined(true);
 					session.setUser(thisLoginMember);
 					request.getSession().setAttribute(SystemConstants.REQ_ATTR_SESSION, session);
+					cmaLogger.debug("LOGIN:" + thisLoginMember.getMem_display_name());
 					request.setAttribute(
 							SystemConstants.REQ_ATTR_DONE_MSG, 
 							MessageUtil.getV6Message((String)request.getAttribute(SystemConstants.REQ_ATTR_LANG),"LOGIN_DONE") 
@@ -130,11 +169,6 @@ public class PAGE_Handler extends BaseHandler  {
 	 * @return
 	 */
 	private SiteResponse showMain(HttpServletRequest request, HttpServletResponse response) {
-		//LOGOUT: Remove ImagskySession
-		ImagskySession session = (ImagskySession)request.getSession().getAttribute(SystemConstants.REQ_ATTR_SESSION);
-		session.setUser(null);
-		session.setLogined(false);
-		
  		SiteResponse thisResp = super.createResponse();
  		thisResp.setTargetJSP(V7JspMapping.PUB_MAIN);
 		return thisResp;
@@ -142,9 +176,10 @@ public class PAGE_Handler extends BaseHandler  {
 
 
 	public enum Pages { 
-		PUB_MAIN,
+		PUB_MAIN,									//pub_main.jsp
 		INPUT_LOGIN,								//inc_login.jsp						-	1.1 Input Password for login
-		DO_LOGIN
+		DO_LOGIN,									//(success) pub_main.jsp , (fail) return error msg
+		DO_LOGOUT
 	};
 }
 

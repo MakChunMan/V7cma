@@ -26,8 +26,10 @@ public class V7JspMapping {
 	 * Bootstrap (V8)
 	 **************************/
     public static final String PUB_MAIN = "/jsp/v8/pub_main.jsp";
-    //
+    //Common Pages
     public static final String INPUT_LOGIN 	= "/jsp/v8/inc_login.jsp";
+    public static final String LOGOUT = "/jsp/v8/inc_logout.jsp";
+    public static final String INPUT_REMINDER = "/jsp/v8/inc_reminder.jsp";
     
     //
     public static final String DASHBOARD = "/jsp/v8/dash_main.jsp";
