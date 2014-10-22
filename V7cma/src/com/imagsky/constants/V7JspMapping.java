@@ -30,7 +30,7 @@ public class V7JspMapping {
     public static final String INPUT_LOGIN 	= "/jsp/v8/inc_login.jsp";
     public static final String LOGOUT = "/jsp/v8/inc_logout.jsp";
     public static final String INPUT_REMINDER = "/jsp/v8/inc_reminder.jsp";
-    
+    public static final String INPUT_REGISTER = "/jsp/v8/inc_register.jsp";
     //
     public static final String DASHBOARD = "/jsp/v8/dash_main.jsp";
 

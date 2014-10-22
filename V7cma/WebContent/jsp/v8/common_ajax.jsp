@@ -28,7 +28,7 @@ try{
         %></div><br/><%
     } else if(V8SystemConstants.AJAX_RESULT_TRUE.equalsIgnoreCase((String)request.getAttribute(V8SystemConstants.AJAX_RESULT))) {
         //No error
-        out.println("true");
+        out.println("Msg:"+ request.getAttribute(SystemConstants.REQ_ATTR_DONE_MSG));
     } else {
     	out.println("Error:"+"undefined");
     }

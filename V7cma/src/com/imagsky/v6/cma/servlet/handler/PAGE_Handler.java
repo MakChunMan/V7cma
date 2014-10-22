@@ -4,6 +4,10 @@
 package com.imagsky.v6.cma.servlet.handler;
 
 
+import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -11,16 +15,22 @@ import com.imagsky.common.ImagskySession;
 import com.imagsky.common.SiteErrorMessage;
 import com.imagsky.common.SiteResponse;
 import com.imagsky.constants.V7JspMapping;
+import com.imagsky.exception.BaseDBException;
 import com.imagsky.exception.BaseException;
 import com.imagsky.util.ClearFileUtil;
 import com.imagsky.util.CommonUtil;
+import com.imagsky.util.MailUtil;
 import com.imagsky.util.MessageUtil;
 import com.imagsky.util.logger.cmaLogger;
+import com.imagsky.utility.Base64;
 import com.imagsky.utility.MD5Utility;
 import com.imagsky.v6.biz.MemberBiz;
 import com.imagsky.v6.cma.constants.CMAJspMapping;
+import com.imagsky.v6.cma.constants.PropertiesConstants;
 import com.imagsky.v6.cma.constants.SystemConstants;
+import com.imagsky.v6.dao.MemberDAO;
 import com.imagsky.v6.domain.Member;
+import com.imagsky.v8.constants.V8SystemConstants;
 
 public class PAGE_Handler extends BaseHandler  {
 
@@ -51,17 +61,248 @@ public class PAGE_Handler extends BaseHandler  {
 		if(appCodeToken.length<2){
 			thisResp = null;
 		} else if (appCodeToken[1].equalsIgnoreCase(Pages.INPUT_LOGIN.name())) {
-            thisResp = showLogin(request, response);
+            thisResp = showLogin(request, response); //ajax;
 		} else if (appCodeToken[1].equalsIgnoreCase(Pages.DO_LOGIN.name())) {
 			thisResp = doLogin(request, response);
 		} else if (appCodeToken[1].equalsIgnoreCase(Pages.PUB_MAIN.name())) {
 			thisResp = showMain(request, response);
 		} else if (appCodeToken[1].equalsIgnoreCase(Pages.DO_LOGOUT.name())) {
 			thisResp = doLogout(request, response);
+		} else if (appCodeToken[1].equalsIgnoreCase(Pages.INPUT_REMINDER.name())) {
+			thisResp = showReminder(request, response); //ajax
+		} else if (appCodeToken[1].equalsIgnoreCase(Pages.DO_REMINDER.name())) {
+			thisResp = doReminder(request, response); //ajax
+		} else if (appCodeToken[1].equalsIgnoreCase(Pages.INPUT_REGISTER.name())) {
+			thisResp = showRegister(request, response); //ajax
+		} else if (appCodeToken[1].equalsIgnoreCase(Pages.DO_REGISTER.name())) {
+			thisResp = doRegister(request, response); //ajax
 		}
+		
+		
 		return thisResp;
 	}
 	
+	private SiteResponse doRegister(HttpServletRequest request, HttpServletResponse response) {
+		SiteResponse thisResp = super.createResponse();
+		
+		MemberDAO dao = MemberDAO.getInstance();
+		String lang = (String)request.getAttribute(SystemConstants.REQ_ATTR_LANG);
+		
+		cmaLogger.debug("[doRegister START]");
+		
+		try{
+			Member newMember = new Member();
+			//NOT USE USER NAME
+			newMember.setMem_login_email(CommonUtil.null2Empty(request.getParameter("register-email")));
+			newMember.setMem_passwd(MD5Utility.MD5(CommonUtil.null2Empty(request.getParameter("register-password"))));
+			//newMember.setMem_firstname(CommonUtil.null2Empty(request.getParameter("REG_MEM_FIRSTNAME")));
+			//newMember.setMem_lastname(CommonUtil.null2Empty(request.getParameter("REG_MEM_LASTNAME")));
+			//newMember.setMem_shopname(CommonUtil.null2Empty(request.getParameter("REG_SHOPNAME")));
+			newMember.setPackage_type(CommonUtil.null2Empty(request.getParameter("PACKAGE_TYPE")));
+			
+			if(CommonUtil.isNullOrEmpty(newMember.getMem_login_email())){
+				thisResp.addErrorMsg(new SiteErrorMessage("REG_ID_EMPTY"));
+			} else if(!CommonUtil.isValidEmailAddress(newMember.getMem_login_email())){
+				thisResp.addErrorMsg(new SiteErrorMessage("REG_ID_INVALID"));
+			}
+			
+			if(request.getParameter("register-password-verify")!=null){
+				if(!request.getParameter("register-password-verify").equalsIgnoreCase(request.getParameter("register-password"))){
+					thisResp.addErrorMsg(new SiteErrorMessage("REG_PWD_NOT_EQUAL"));
+				}
+			}
+			
+			if(!thisResp.hasError()){
+				Member enqMember = new Member();
+				enqMember.setMem_login_email(newMember.getMem_login_email());
+				List aList = (List)dao.findListWithSample(enqMember);
+				if(aList!=null && aList.size()>0){
+					thisResp.addErrorMsg(new SiteErrorMessage("REG_ID_ALREADY_EXIST"));
+				}
+				//ByPass URL Check for checkout page register
+				/*** 2014-08-15
+				if(!isCheckoutReg){
+					if(dao.validURL(newMember)!=null){
+						thisResp.addErrorMsg(new SiteErrorMessage("REG_URL_ALREADY_EXIST"));
+					}
+					int find = Arrays.binarySearch(PropertiesConstants.getList(PropertiesConstants.urlblacklist), newMember.getMem_shopurl());
+					if(find>=0){
+						thisResp.addErrorMsg(new SiteErrorMessage("REG_URL_ALREADY_EXIST"));
+					}
+				}***/
+				//initialize new member
+				newMember.setSys_is_live(false); //Need activate email
+				newMember.setSys_is_node(false);
+				newMember.setSys_is_published(false);
+				newMember.setMem_max_sellitem_count(30);
+				//20140820 init some number
+				newMember.setMem_cash_balance(new Double(0));
+				newMember.setMem_meatpoint(new Integer(0)); //--
+				cmaLogger.debug("setMem_meatpoint:"+ newMember.getMem_meatpoint());
+				
+				newMember.setSys_create_dt(new java.util.Date());
+				newMember.setSys_creator("V8 SYSTEM");
+				newMember.setSys_update_dt(new java.util.Date());
+				newMember.setSys_updator("V8 SYSTEM");
+				newMember.setMem_cash_balance(new Double(0));
+				if(CommonUtil.isNullOrEmpty(newMember.getPackage_type())){
+					newMember.setPackage_type("0"); // 0 = nothing
+				}
+			}
+			
+			cmaLogger.debug("[doRegister Validation COMPLETED]");
+			
+			//Retain redirectURL
+			if(!CommonUtil.isNullOrEmpty(request.getParameter("redirectURL"))){
+				request.setAttribute("redirectURL",request.getParameter("redirectURL"));
+			}
+			
+			if(thisResp.hasError()){
+				//set to error jsp
+				//cmaLogger.debug("[doRegister Validation HAS ERROR]");
+				request.setAttribute("formUser",newMember);
+			} else {
+				if(dao.create(newMember)!=null){
+					cmaLogger.debug("[doRegister DAO Create COMPLETED]");
+					thisResp.setTargetJSP(CMAJspMapping.JSP_REGISTER_AJAX);
+					request.setAttribute(SystemConstants.REQ_ATTR_DONE_MSG, MessageUtil.getV6Message((String)request.getAttribute(SystemConstants.REQ_ATTR_LANG), 
+							"REG_DONE"));
+					//Register Email Here
+					ArrayList<String> emailParam = new ArrayList<String>();
+
+					try{
+						emailParam.add(newMember.getMem_firstname()+newMember.getMem_lastname());
+						String url = SystemConstants.HTTPS + PropertiesConstants.get(PropertiesConstants.externalHost)+ request.getAttribute("contextPath")+"/do/LOGIN?action=ACTIVATE&s="+ 
+							URLEncoder.encode(newMember.getMem_login_email(), "UTF-8")+
+							"&code="+MD5Utility.MD5(request.getParameter("register-password")).substring(0, 10);
+						url = "<a href=\""+ url + "\">" + url + "</a>";
+						cmaLogger.debug("[ACTI URL] "+ url);
+						emailParam.add(url);
+						emailParam.add(newMember.getMem_login_email());
+						emailParam.add(request.getParameter("register-password"));
+						String emailContent = MessageUtil.getV6Message(lang, "EMAIL_REG_SUCCESS", emailParam);
+						
+						MailUtil mailer = new MailUtil();
+						mailer.setToAddress(newMember.getMem_login_email());
+						mailer.setSubject(MessageUtil.getV6Message(lang, "EMAIL_REG_SUCCESS_SUBJ"));
+						mailer.setContent(emailContent);
+						if (!mailer.send()){
+							cmaLogger.error("Member registration email failed - " + newMember.getMem_login_email());
+						}
+						//Set Content for general message page
+						ArrayList<String> genParam = new ArrayList<String>();
+						genParam.add(newMember.getMem_login_email());
+//						request.setAttribute(SystemConstants.REQ_ATTR_GENERAL_PARAM,  genParam);
+
+						request.setAttribute(SystemConstants.REQ_ATTR_GENERAL_TITLE, MessageUtil.getV6Message(lang, "GENTIT_REG_SUCCESS"));
+						request.setAttribute(SystemConstants.REQ_ATTR_GENERAL_MSG, MessageUtil.getV6Message(lang, "GENMSG_REG_SUCCESS",genParam));
+						//thisResp.setTargetJSP(CMAJspMapping.JSP_GEN_PAGE_AJAX);
+						//Temporary login for checkout register
+						/***
+						if(isCheckoutReg){
+							//Update lastloginDate
+							newMember.setMem_lastlogindate(new java.util.Date());
+							dao.update(newMember);
+							//Store in session
+							ImagskySession session = (ImagskySession)request.getSession().getAttribute(SystemConstants.REQ_ATTR_SESSION);
+							session.setLogined(true);
+							session.setUser(newMember);
+							request.getSession().setAttribute(SystemConstants.REQ_ATTR_SESSION, session);
+						}***/
+					} catch (Exception e){
+						cmaLogger.debug("[doRegister DAO Create FAILED]");
+						cmaLogger.error("Generate Register URL Error: " + newMember.getMem_login_email(), e);
+					}
+					
+				} else {
+					cmaLogger.error("LOGIN_Handler.doRegister Error: Unknown error" , request);
+				}
+			}
+			cmaLogger.debug("[doRegister DAO COMPLETED]");
+			if(!thisResp.hasError()){
+				ArrayList<String> al  = new ArrayList<String>();
+				al.add(newMember.getMem_login_email());
+				request.setAttribute(SystemConstants.REQ_ATTR_DONE_MSG, MessageUtil.getV8Message(lang,"REG_DONE",al));
+				request.setAttribute(V8SystemConstants.AJAX_RESULT, V8SystemConstants.AJAX_RESULT_TRUE);
+			}
+			
+			thisResp.setTargetJSP(V7JspMapping.COMMON_AJAX_RESPONSE);
+			
+			cmaLogger.debug("[doRegister : Target JSP = "+ thisResp.getTargetJSP() + "]");
+			cmaLogger.debug("[doRegister JSP Assign COMPLETED]");
+			
+		} catch (BaseDBException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			cmaLogger.error("LOGIN_Handler.doRegister Error: " , request, e);
+			thisResp.setTargetJSP(V7JspMapping.COMMON_AJAX_RESPONSE);
+		}
+		cmaLogger.debug("[doRegister END]");
+		return thisResp;
+	}
+
+	private SiteResponse showRegister(HttpServletRequest request, HttpServletResponse response) {
+		SiteResponse thisResp = super.createResponse();
+		thisResp.setTargetJSP(V7JspMapping.INPUT_REGISTER);
+		return thisResp;
+	}
+
+	private SiteResponse doReminder(HttpServletRequest request, HttpServletResponse response) {
+		SiteResponse thisResp = super.createResponse();
+		ArrayList<String> emailParam = new ArrayList<String>();
+		String lang = (String)request.getAttribute(SystemConstants.REQ_ATTR_LANG);
+		try{
+			MemberDAO dao = MemberDAO.getInstance();
+			Member fpwdMember = new Member();
+			fpwdMember.setMem_login_email(request.getParameter("reminder-email"));
+			List<?> fpwdMemberList = dao.findListWithSample(fpwdMember);
+			if(fpwdMemberList ==null || fpwdMemberList.size()==0){
+				cmaLogger.error("[FORGET_PWD] Not found User: " + request.getRemoteAddr() + " MEMBER EMAIL:"+ request.getParameter("reminder-email"), request);
+				thisResp.addErrorMsg(new SiteErrorMessage("FPWD_NO_USER"));
+			} else {
+				cmaLogger.info("[FORGET_PWD] FPWD Request: " + request.getRemoteAddr() + " MEMBER EMAIL:"+ request.getParameter("reminder-email"), request);
+				//Forget Email Here
+				fpwdMember = (Member)fpwdMemberList.get(0);
+				emailParam.add(fpwdMember.getMem_firstname()+fpwdMember.getMem_lastname());
+				String url = SystemConstants.HTTPS + PropertiesConstants.get(PropertiesConstants.externalHost)+ request.getAttribute("contextPath")+"/do/LOGIN?action=FPWD_RESET&s="+
+					Base64.encode(fpwdMember.getMem_login_email())+
+					//URLEncoder.encode(fpwdMember.getMem_login_email(), "UTF-8")+
+					"&code="+fpwdMember.getMem_passwd().substring(0, 10);
+				cmaLogger.debug("[FORGET_PWD URL] "+ url, request);
+				emailParam.add("<a href=\""+ url+ "\">"+url+"</a>");
+				
+				MailUtil mailer = new MailUtil();
+				mailer.setToAddress(fpwdMember.getMem_login_email());
+				mailer.setSubject(MessageUtil.getV6Message(lang, "EMAIL_FPWD_SUBJ"));
+				mailer.setContent(MessageUtil.getV6Message(lang, "EMAIL_FPWD", emailParam));
+				if (!mailer.send()){
+					cmaLogger.error("[FORGET_PWD] FPWD Email - " + fpwdMember.getMem_login_email(), request);
+				}
+				request.setAttribute(SystemConstants.REQ_ATTR_GENERAL_TITLE, MessageUtil.getV6Message(lang, "TIT_FORGETPWD"));
+				request.setAttribute(SystemConstants.REQ_ATTR_GENERAL_MSG, MessageUtil.getV6Message(lang, "FPWD_MSG_ACK"));
+				request.setAttribute(SystemConstants.REQ_ATTR_DONE_MSG, MessageUtil.getV8Message(lang,"FORGET_PWD_DONE"));
+				request.setAttribute(V8SystemConstants.AJAX_RESULT, V8SystemConstants.AJAX_RESULT_TRUE);
+			}
+			
+		} catch (Exception e){
+			cmaLogger.error("FORGET PASSWORD Request error: ", request,e);
+		}
+		thisResp.setTargetJSP(V7JspMapping.COMMON_AJAX_RESPONSE);
+		return thisResp;
+	}
+
+	/***
+	 * AJAX: Display Forget Password Form 
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	private SiteResponse showReminder(HttpServletRequest request, HttpServletResponse response) {
+		SiteResponse thisResp = super.createResponse();
+		thisResp.setTargetJSP(V7JspMapping.INPUT_REMINDER);
+		return thisResp;
+	}
+
 	private SiteResponse doLogout(HttpServletRequest request, HttpServletResponse response) {
 		SiteResponse thisResp = super.createResponse();
 		
@@ -179,7 +420,11 @@ public class PAGE_Handler extends BaseHandler  {
 		PUB_MAIN,									//pub_main.jsp
 		INPUT_LOGIN,								//inc_login.jsp						-	1.1 Input Password for login
 		DO_LOGIN,									//(success) pub_main.jsp , (fail) return error msg
-		DO_LOGOUT
+		DO_LOGOUT,
+		INPUT_REMINDER,						//
+		DO_REMINDER,
+		INPUT_REGISTER	,						//inc_register.jsp
+		DO_REGISTER
 	};
 }
 
