@@ -30,6 +30,7 @@ import com.imagsky.v6.cma.constants.PropertiesConstants;
 import com.imagsky.v6.cma.constants.SystemConstants;
 import com.imagsky.v6.dao.MemberDAO;
 import com.imagsky.v6.domain.Member;
+import com.imagsky.v8.biz.AppBiz;
 import com.imagsky.v8.constants.V8SystemConstants;
 
 public class PAGE_Handler extends BaseHandler  {

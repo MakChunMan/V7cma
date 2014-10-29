@@ -212,4 +212,11 @@ public class MemberBiz {
             return false;
         }
 	
+        public Member reloadMember(Member inMember) throws BaseDBException{
+        	MemberDAO dao  = MemberDAO.getInstance();
+        	Member aNew = new Member();
+        	aNew.setSys_guid(inMember.getSys_guid());
+        	List aList = dao.findListWithSample(aNew);
+        	return (Member)aList.get(0);
+        }
 }

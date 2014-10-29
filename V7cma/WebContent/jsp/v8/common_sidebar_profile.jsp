@@ -7,6 +7,9 @@
  <%@ page import="com.imagsky.v6.domain.Member" %>
  <%@ page import="com.imagsky.util.*" %>
 <%
+if(!V6Util.isLogined(request)){
+	out.println("<script>self.location='/v81/zh/page_ready_login.php';</script>");
+} else {
 Member thisUser = ((ImagskySession)request.getSession().getAttribute(SystemConstants.REQ_ATTR_SESSION)).getUser();
 
 %>    
@@ -36,3 +39,4 @@ Member thisUser = ((ImagskySession)request.getSession().getAttribute(SystemConst
                                     </div>
                                 </form>
 </div>
+<% } %>
