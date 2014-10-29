@@ -98,12 +98,14 @@ public abstract class SysObject implements java.io.Serializable{
 		sys_master_lang_guid = sysMasterLangGuid;
 	}
 	public boolean isSys_is_node() {
+		if(sys_is_node==null) return false;
 		return sys_is_node;
 	}
 	public void setSys_is_node(Boolean sysIsNode) {
 		sys_is_node = sysIsNode;
 	}
 	public boolean isSys_is_live() {
+		if(sys_is_live==null) return false;
 		return sys_is_live;
 	}
 	public void setSys_is_live(Boolean sysIsLive) {
@@ -124,6 +126,7 @@ public abstract class SysObject implements java.io.Serializable{
 	
 	//2013:09-16 Change return type from Boolean to boolean for JSON return
 	public boolean isSys_is_published() {
+		if(sys_is_published==null) return false;
 		return sys_is_published;
 	}
 	public void setSys_is_published(Boolean sysIsPublished) {

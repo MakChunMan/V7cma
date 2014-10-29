@@ -6,6 +6,7 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 //import com.imagsky.v5.common.Site;
 //import com.imagsky.v5.bean.*;
+import com.imagsky.v8.domain.*;
 
 public class ImagskySession {
 
@@ -13,6 +14,10 @@ public class ImagskySession {
 	private Date sessionCreateDate;
 	private Date sessionLastUpdateDate;
 	private Member member;
+	
+	//V8
+	private App workingApp;
+	
 	//private Site site;
 	
 	private String fbAccessToken ;
@@ -81,6 +86,13 @@ public class ImagskySession {
 	public void setFbAccessToken(String fbAccessToken) {
 		this.fbAccessToken = fbAccessToken;
 	}
+	public App getWorkingApp() {
+		return workingApp;
+	}
+	public void setWorkingApp(App workingApp) {
+		this.workingApp = workingApp;
+	}
+	
 	
 	
 

@@ -193,9 +193,14 @@ public class MemberDAOImpl extends MemberDAO{
 			tmpMem.setPackage_type(mem.getPackage_type());
 		}
 		
+		if(mem.getApps()!=null){
+			cmaLogger.debug("Level:"+ mem.getApps().size()+ "/"+ mem.getApps().toString());
+			tmpMem.setApps(mem.getApps());
+		}
+		
 		tmpMem.setMem_lastlogindate(mem.getMem_lastlogindate());
 		tmpMem.setSystemField(mem);
-                                    em.merge(tmpMem);
+        em.merge(tmpMem);
 		em.getTransaction().commit();
 		return true;
 	}

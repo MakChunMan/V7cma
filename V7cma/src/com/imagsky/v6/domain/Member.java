@@ -4,6 +4,7 @@
 package com.imagsky.v6.domain;
 
 import javax.persistence.*;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -12,6 +13,8 @@ import java.util.Collection;
 
 import com.imagsky.util.CommonUtil;
 import com.imagsky.v6.domain.*;
+import com.imagsky.v8.domain.App;
+
 import java.util.*;
 
 @Entity
@@ -84,7 +87,13 @@ public class Member extends SysObject {
     //2014-08-18
     @Column
     private String package_type;
-       
+    
+     //2014-10-27
+    @ManyToMany
+    @JoinTable(name="tb8_app_user_xref",
+			joinColumns = { @JoinColumn(name="MEMBER_GUID") },
+			inverseJoinColumns = { @JoinColumn(name="APP_GUID") } )
+    private Set<App> apps;
 
     @ManyToMany
     @JoinTable(name = "tb_member_service_xref",
@@ -260,6 +269,15 @@ public class Member extends SysObject {
 
 	public void setPackage_type(String package_type) {
 		this.package_type = package_type;
+	}
+
+	//2014-10-27
+	public Set<App> getApps() {
+		return apps;
+	}
+	
+	public void setApps(Set<App> apps) {
+		this.apps = apps;
 	}
 
 	public static TreeMap<String, Object> getFields(Member obj) {

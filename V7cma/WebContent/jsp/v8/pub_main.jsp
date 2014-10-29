@@ -4,47 +4,7 @@
 <!--[if IE 9]>         <html class="no-js lt-ie10"> <![endif]-->
 <!--[if gt IE 9]><!--> <html class="no-js"> <!--<![endif]-->
     <head>
-        <meta charset="utf-8">
-
-        <title>AppUI - Bootstrap Admin Web App Template</title>
-
-        <meta name="description" content="AppUI is a Bootstrap Admin Web App Template created by pixelcave and published on Themeforest">
-        <meta name="author" content="pixelcave">
-        <meta name="robots" content="noindex, nofollow">
-
-        <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1.0">
-
-        <!-- Icons -->
-        <!-- The following icons can be replaced with your own, they are used by desktop and mobile browsers -->
-        <link rel="shortcut icon" href="<%=V8SystemConstants.V8_PATH %>img/favicon.ico">
-        <link rel="apple-touch-icon" href="<%=V8SystemConstants.V8_PATH %>img/icon57.png" sizes="57x57">
-        <link rel="apple-touch-icon" href="<%=V8SystemConstants.V8_PATH %>img/icon72.png" sizes="72x72">
-        <link rel="apple-touch-icon" href="<%=V8SystemConstants.V8_PATH %>img/icon76.png" sizes="76x76">
-        <link rel="apple-touch-icon" href="<%=V8SystemConstants.V8_PATH %>img/icon114.png" sizes="114x114">
-        <link rel="apple-touch-icon" href="<%=V8SystemConstants.V8_PATH %>img/icon120.png" sizes="120x120">
-        <link rel="apple-touch-icon" href="<%=V8SystemConstants.V8_PATH %>img/icon144.png" sizes="144x144">
-        <link rel="apple-touch-icon" href="<%=V8SystemConstants.V8_PATH %>img/icon152.png" sizes="152x152">
-        <link rel="apple-touch-icon" href="<%=V8SystemConstants.V8_PATH %>img/icon180.png" sizes="180x180">
-        <!-- END Icons -->
-
-        <!-- Stylesheets -->
-        <!-- Bootstrap is included in its original form, unaltered -->
-        <link rel="stylesheet" href="<%=V8SystemConstants.V8_PATH %>css/bootstrap.min.css">
-
-        <!-- Related styles of various icon packs and plugins -->
-        <link rel="stylesheet" href="<%=V8SystemConstants.V8_PATH %>css/plugins.css">
-
-        <!-- The main stylesheet of this template. All Bootstrap overwrites are defined in here -->
-        <link rel="stylesheet" href="<%=V8SystemConstants.V8_PATH %>css/main.css">
-
-        <!-- Include a specific file here from css/themes/ folder to alter the default theme of the template -->
-
-        <!-- The themes stylesheet of this template (for using specific theme color in individual elements - must included last) -->
-        <link rel="stylesheet" href="<%=V8SystemConstants.V8_PATH %>css/themes.css">
-        <!-- END Stylesheets -->
-
-        <!-- Modernizr (browser feature detection library) -->
-        <script src="<%=V8SystemConstants.V8_PATH %>js/vendor/modernizr-2.8.3.min.js"></script>
+    <jsp:include page="/jsp/v8/common_head_css_js.jsp"></jsp:include>
     </head>
     <body>
         <!-- Page Wrapper -->
@@ -123,189 +83,7 @@
                         <!-- Sidebar Content -->
                         <div class="sidebar-content">
                             <!-- Sidebar Navigation -->
-                            <ul class="sidebar-nav">
-                                <li>
-                                    <a href="index.html" class=" active"><i class="gi gi-compass sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Dashboard</span></a>
-                                </li>
-                                <li class="sidebar-separator">
-                                    <i class="fa fa-ellipsis-h"></i>
-                                </li>
-                                <li>
-                                    <a href="#" class="sidebar-nav-menu"><i class="fa fa-chevron-left sidebar-nav-indicator sidebar-nav-mini-hide"></i><i class="fa fa-rocket sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">User Interface</span></a>
-                                    <ul>
-                                        <li>
-                                            <a href="page_ui_widgets.html">Widgets</a>
-                                        </li>
-                                        <li>
-                                            <a href="#" class="sidebar-nav-submenu"><i class="fa fa-chevron-left sidebar-nav-indicator"></i>Elements</a>
-                                            <ul>
-                                                <li>
-                                                    <a href="page_ui_blocks_grid.html">Blocks &amp; Grid</a>
-                                                </li>
-                                                <li>
-                                                    <a href="page_ui_typography.html">Typography</a>
-                                                </li>
-                                                <li>
-                                                    <a href="page_ui_buttons_dropdowns.html">Buttons &amp; Dropdowns</a>
-                                                </li>
-                                                <li>
-                                                    <a href="page_ui_navigation_more.html">Navigation &amp; More</a>
-                                                </li>
-                                                <li>
-                                                    <a href="page_ui_progress_loading.html">Progress &amp; Loading</a>
-                                                </li>
-                                                <li>
-                                                    <a href="page_ui_tables.html">Tables</a>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                        <li>
-                                            <a href="#" class="sidebar-nav-submenu"><i class="fa fa-chevron-left sidebar-nav-indicator"></i>Forms</a>
-                                            <ul>
-                                                <li>
-                                                    <a href="page_forms_components.html">Components</a>
-                                                </li>
-                                                <li>
-                                                    <a href="page_forms_wizard.html">Wizard</a>
-                                                </li>
-                                                <li>
-                                                    <a href="page_forms_validation.html">Validation</a>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                        <li>
-                                            <a href="#" class="sidebar-nav-submenu"><i class="fa fa-chevron-left sidebar-nav-indicator"></i>Icon Packs</a>
-                                            <ul>
-                                                <li>
-                                                    <a href="page_ui_icons_fontawesome.html">Font Awesome</a>
-                                                </li>
-                                                <li>
-                                                    <a href="page_ui_icons_glyphicons_pro.html">Glyphicons Pro</a>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li>
-                                    <a href="#" class="sidebar-nav-menu"><i class="fa fa-chevron-left sidebar-nav-indicator sidebar-nav-mini-hide"></i><i class="gi gi-airplane sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Components</span></a>
-                                    <ul>
-                                        <li>
-                                            <a href="page_comp_todo.html">To-do List</a>
-                                        </li>
-                                        <li>
-                                            <a href="page_comp_gallery.html">Gallery</a>
-                                        </li>
-                                        <li>
-                                            <a href="page_comp_maps.html">Google Maps</a>
-                                        </li>
-                                        <li>
-                                            <a href="page_comp_calendar.html">Calendar</a>
-                                        </li>
-                                        <li>
-                                            <a href="page_comp_charts.html">Charts</a>
-                                        </li>
-                                        <li>
-                                            <a href="page_comp_animations.html">CSS3 Animations</a>
-                                        </li>
-                                        <li>
-                                            <a href="page_comp_tree.html">Tree View Lists</a>
-                                        </li>
-                                        <li>
-                                            <a href="page_comp_nestable.html">Nestable &amp; Sortable Lists</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li>
-                                    <a href="#" class="sidebar-nav-menu"><i class="fa fa-chevron-left sidebar-nav-indicator sidebar-nav-mini-hide"></i><i class="gi gi-more_items sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">UI Layouts</span></a>
-                                    <ul>
-                                        <li>
-                                            <a href="page_layout_static.html">Static</a>
-                                        </li>
-                                        <li>
-                                            <a href="page_layout_static_fixed_width.html">Static Fixed Width</a>
-                                        </li>
-                                        <li>
-                                            <a href="page_layout_fixed_top.html">Top Header (Fixed)</a>
-                                        </li>
-                                        <li>
-                                            <a href="page_layout_fixed_bottom.html">Bottom Header (Fixed)</a>
-                                        </li>
-                                        <li>
-                                            <a href="page_layout_static_sidebar_mini.html">Sidebar Mini (Static)</a>
-                                        </li>
-                                        <li>
-                                            <a href="page_layout_fixed_sidebar_mini.html">Sidebar Mini (Fixed)</a>
-                                        </li>
-                                        <li>
-                                            <a href="page_layout_alternative_sidebar_visible.html">Visible Alternative Sidebar</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li>
-                                    <a href="#" class="sidebar-nav-menu"><i class="fa fa-chevron-left sidebar-nav-indicator sidebar-nav-mini-hide"></i><i class="fa fa-gift sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Extra Pages</span></a>
-                                    <ul>
-                                        <li>
-                                            <a href="page_ready_error.html">Error Page</a>
-                                        </li>
-                                        <li>
-                                            <a href="page_ready_blank.html">Blank</a>
-                                        </li>
-                                        <li>
-                                            <a href="page_ready_article.html">Article</a>
-                                        </li>
-                                        <li>
-                                            <a href="page_ready_timeline.html">Timeline</a>
-                                        </li>
-                                        <li>
-                                            <a href="page_ready_invoice.html">Invoice</a>
-                                        </li>
-                                        <li>
-                                            <a href="page_ready_search_results.html">Search Results</a>
-                                        </li>
-                                        <li>
-                                            <a href="page_ready_pricing_tables.html">Pricing Tables</a>
-                                        </li>
-                                        <li>
-                                            <a href="page_ready_faq.html">FAQ</a>
-                                        </li>
-                                        <li>
-                                            <a href="page_ready_profile.html">User Profile</a>
-                                        </li>
-                                        <li>
-                                            <a href="#" class="sidebar-nav-submenu"><i class="fa fa-chevron-left sidebar-nav-indicator"></i>Login, Register &amp; Lock</a>
-                                            <ul>
-                                                <li>
-                                                    <a href="page_ready_login.html">Login</a>
-                                                </li>
-                                                <li>
-                                                    <a href="page_ready_reminder.html">Password Reminder</a>
-                                                </li>
-                                                <li>
-                                                    <a href="page_ready_register.html">Register</a>
-                                                </li>
-                                                <li>
-                                                    <a href="page_ready_lock_screen.html">Lock Screen</a>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class="sidebar-separator">
-                                    <i class="fa fa-ellipsis-h"></i>
-                                </li>
-                                <li>
-                                    <a href="page_app_email.html"><i class="gi gi-inbox sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Email Center</span></a>
-                                </li>
-                                <li>
-                                    <a href="page_app_social.html"><i class="fa fa-share-alt sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Social Net</span></a>
-                                </li>
-                                <li>
-                                    <a href="page_app_media.html"><i class="gi gi-picture sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Media Box</span></a>
-                                </li>
-                                <li>
-                                    <a href="page_app_estore.html"><i class="gi gi-shopping_cart sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">eStore</span></a>
-                                </li>
-                            </ul>
+                            <jsp:include page="/jsp/v8/common_sidebar_main.jsp"></jsp:include>
                             <!-- END Sidebar Navigation -->
 
                             <!-- Color Themes -->
@@ -318,21 +96,7 @@
                     <!-- END Wrapper for scrolling functionality -->
 
                     <!-- Sidebar Extra Info -->
-                    <div id="sidebar-extra-info" class="sidebar-content sidebar-nav-mini-hide">
-                        <div class="push-bit">
-                            <span class="pull-right">
-                                <a href="javascript:void(0)" class="text-light"><i class="fa fa-plus"></i></a>
-                            </span>
-                            <small><strong class="text-light">78 GB</strong> / 100 GB</small>
-                        </div>
-                        <div class="progress progress-mini push-bit">
-                            <div class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="78" aria-valuemin="0" aria-valuemax="100" style="width: 78%"></div>
-                        </div>
-                        <div class="text-center">
-                            <small>Crafted with <i class="fa fa-heart text-danger"></i> by <a href="http://goo.gl/vNS3I" target="_blank">pixelcave</a></small><br>
-                            <small><span id="year-copy"></span> &copy; <a href="http://goo.gl/RcsdAh" target="_blank">AppUI 1.2</a></small>
-                        </div>
-                    </div>
+                    <jsp:include page="/jsp/v8/common_sidebar_left_extra.jsp"></jsp:include>
                     <!-- END Sidebar Extra Info -->
                 </div>
                 <!-- END Main Sidebar -->
@@ -672,15 +436,10 @@
         </div>
         <!-- END Page Wrapper -->
 
+    
         <!-- Include Jquery library from Google's CDN but if something goes wrong get Jquery from local file (Remove 'http:' if you have SSL) -->
-        <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-        <script>!window.jQuery && document.write(decodeURI('%3Cscript src="js/vendor/jquery-2.1.1.min.js"%3E%3C/script%3E'));</script>
-
-        <!-- Bootstrap.js, Jquery plugins and Custom JS code -->
-        <script src="<%=V8SystemConstants.V8_PATH %>js/vendor/bootstrap.min.js"></script>
-        <script src="<%=V8SystemConstants.V8_PATH %>js/plugins.js"></script>
-        <script src="<%=V8SystemConstants.V8_PATH %>js/app.js"></script>
-
+        <jsp:include page="/jsp/v8/common_footer_js.jsp"></jsp:include>
+        
         <!-- Load and execute javascript code used only in this page -->
         <script src="<%=V8SystemConstants.V8_PATH %>js/pages/readyDashboard.js"></script>
         <script>$(function(){ ReadyDashboard.init(); });</script>

@@ -36,6 +36,12 @@ public abstract class V7AbstractBiz {
         returnAttributeMap = new HashMap<String, Object>();
         getParamFromHttpRequest(req);
     }
+    
+    protected void reset(Member thisMember, HttpServletRequest req){
+    	owner = thisMember;
+        returnAttributeMap = new HashMap<String, Object>();
+        getParamFromHttpRequest(req);
+    }
 
     protected Member owner;
 
