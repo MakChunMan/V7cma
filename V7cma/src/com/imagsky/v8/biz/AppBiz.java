@@ -88,6 +88,55 @@ public class AppBiz extends V7AbstractBiz {
         }
         try {
         	//cmaLogger.debug(this.getParam("edit_guid")[0]+"/"+this.getParam("edit-app-name")[0] + "/"+ this.getParam("edit-app-desc")[0] );
+=======
+	      }
+	      return instance;
+	}
+	
+	//#1. Load apps for a member
+	public List<App> listApp(){
+		List<App> aList =  new ArrayList<App>();
+		aList.addAll(this.getOwner().getApps());
+        return aList;
+	}
+	
+	//#2. Create apps for member
+	public App addApp(){
+		App newApp = new App();
+		newApp.setAPP_NAME(this.getParam("APP_NAME")[0]);
+		newApp.setAPP_DESC(this.getParam("APP_DESC")[0]);
+		newApp.setAPP_CREATOR(getOwner());
+		
+		AppDAO aDao = AppDAO.getInstance();
+		try{
+			aDao.CNT_create(newApp);
+		} catch (Exception e){
+			cmaLogger.error("Error AppDAO", e);
+		}
+		
+		return newApp;
+	}
+	//#3. Change creator // allow creator delete only
+	//#4. Delete apps
+	//#5. Change apps name or description
+	public App update() {
+        AppDAO dao = AppDAO.getInstance();
+        App app = new App();
+
+        if (this.getParam("edit_guid") == null) {
+            this.addErrorMsg("App does not existed... ");
+            return null;
+        }
+        if (this.getParam("edit-app-name") == null) {
+            this.addErrorMsg("Nothing needs to be updated... ");
+            return null;
+        }
+        if (this.getParam("edit-app-desc") == null) {
+            this.addErrorMsg("Nothing needs to be updated... ");
+            return null;
+        }
+        try {
+>>>>>>> branch 'master' of https://github.com/MakChunMan/V7cma.git
         	app.setSys_guid(this.getParam("edit_guid")[0]);
         	app.setAPP_NAME(this.getParam("edit-app-name")[0]);
         	app.setAPP_DESC(this.getParam("edit-app-desc")[0]);

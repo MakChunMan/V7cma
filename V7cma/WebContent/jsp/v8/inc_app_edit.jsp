@@ -6,8 +6,8 @@
  <%@ page import="com.imagsky.v8.domain.App" %>
  <%@ page import="com.imagsky.util.*" %>
 <% 
-String lang = (String)request.getAttribute(SystemConstants.REQ_ATTR_LANG);  
 App thisApp = (App)request.getAttribute(SystemConstants.REQ_ATTR_OBJ);
+String lang = (String)request.getAttribute(SystemConstants.REQ_ATTR_LANG); 
 %>
 <!-- Horizontal Form Title -->
       <div class="block-title">

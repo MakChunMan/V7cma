@@ -37,6 +37,7 @@ public class V7JspMapping {
     //Mobile Application
     public static final String APP_MAIN = "/jsp/v8/app_main.jsp";
     public static final String APP_AJ_SHOWEDIT = "/jsp/v8/inc_app_edit.jsp";
+
     public static final String APP_AJ_LIST = "/jsp/v8/inc_app_list.jsp";
     //V8 App Module Mgmt
     public static final String MOD_ADD_MAIN = "/jsp/v8/mod_main.jsp"; 

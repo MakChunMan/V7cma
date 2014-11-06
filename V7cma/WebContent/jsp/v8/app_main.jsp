@@ -205,7 +205,7 @@ if(!V6Util.isLogined(request)){
                                                     </select>
                                         </div>
                                         <div class="form-group">
-                                            <button id="app-add-submit" type="submit" class="btn btn-effect-ripple btn-primary"><%=MessageUtil.getV8Message(lang,"BTN_CREATE")%></button>
+                                            <button id="app-add-submit" type="submit" class="btn btn-effect-ripple btn-primary">Create</button>
                                         </div>
                                     </form>
                                     </div>

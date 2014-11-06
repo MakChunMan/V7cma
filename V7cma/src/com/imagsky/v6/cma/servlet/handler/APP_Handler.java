@@ -8,7 +8,6 @@ import com.imagsky.constants.V7JspMapping;
 import com.imagsky.exception.BaseException;
 import com.imagsky.util.CommonUtil;
 import com.imagsky.util.MessageUtil;
-import com.imagsky.util.V8Util;
 import com.imagsky.util.logger.cmaLogger;
 import com.imagsky.v6.biz.MemberBiz;
 import com.imagsky.v6.cma.constants.SystemConstants;
@@ -31,11 +30,7 @@ public class APP_Handler extends BaseHandler {
 		SiteResponse thisResp = super.createResponse();
         cmaLogger.debug(CLASS_NAME + " " + SystemConstants.LOG_START);
 
-        //Check Login
-        if(CommonUtil.isNullOrEmpty(V8Util.v8CheckLogin(thisResp, request).getTargetJSP())){
-        	return thisResp; //Return to Login Page
-        }
-        
+        //No need check login currently
         thisMember = ((ImagskySession) request.getSession().getAttribute(SystemConstants.REQ_ATTR_SESSION)).getUser();
         thisLang = (String) request.getAttribute(SystemConstants.REQ_ATTR_LANG);
         
