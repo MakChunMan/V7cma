@@ -21,6 +21,7 @@ import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 import com.imagsky.v6.domain.Member;
+import com.imagsky.v6.domain.OrderItem;
 import com.imagsky.v6.domain.SysObject;
 
 @Entity
@@ -52,8 +53,8 @@ public class App extends SysObject {
     @JoinColumn(name = "APP_CREATOR")
     private Member APP_CREATOR;
     
+	@JoinColumn(name = "MOD_OWNER_APP")
 	@OneToMany(targetEntity = Module.class, cascade = { CascadeType.ALL })
-	// @OneToMany(mappedBy="orderSet",cascade=CascadeType.ALL)
 	private Collection<Module> modules = new ArrayList<Module>();
     
     public static List getWildFields() {

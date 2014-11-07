@@ -40,5 +40,35 @@ public class Module extends SysObject {
 	@OneToOne 
 	@JoinColumn(name = "MOD_ICON")
 	private AppImage modIcon;
+
+	public String getModuleTypeName() {
+		return moduleType.name();
+	}
+	
+	public ModuleTypes getModuleType() {
+		return moduleType;
+	}
+
+	public void setModuleType(ModuleTypes moduleType) {
+		this.moduleType = moduleType;
+	}
+
+	public App getModOwnerApp() {
+		return modOwnerApp;
+	}
+
+	public void setModOwnerApp(App modOwnerApp) {
+		this.modOwnerApp = modOwnerApp;
+	}
+
+	public AppImage getModIcon() {
+		return modIcon;
+	}
+
+	public void setModIcon(AppImage modIcon) {
+		this.modIcon = modIcon;
+	}
+	
+	
 	
 }
