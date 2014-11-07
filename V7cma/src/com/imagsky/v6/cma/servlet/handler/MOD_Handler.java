@@ -52,11 +52,20 @@ public class MOD_Handler extends BaseHandler {
 		if(appCodeToken.length<2){
 			thisResp = null;
 		} else if (appCodeToken[1].equalsIgnoreCase(Pages.MOD_ADD_MAIN.name())) {
-            thisResp = showAddModuleMain(request, response); //ajax;
-		} 
+            thisResp = showAddModuleMain(request, response); 
+		} else if(appCodeToken[1].equalsIgnoreCase(Pages.MOD_LIST_MOD.name())) {
+			thisResp = ajaxListCreatedModule(request, response); //ajax;
+		}
 		return thisResp;
 	}
 	
+	private SiteResponse ajaxListCreatedModule(HttpServletRequest request, HttpServletResponse response) {
+		SiteResponse thisResp = super.createResponse();
+		thisResp.setTargetJSP(V7JspMapping.MOD_AJ_LIST);
+		return thisResp;
+
+	}
+
 	private SiteResponse showAddModuleMain(HttpServletRequest request, HttpServletResponse response) {
 		SiteResponse thisResp = super.createResponse();
 		thisResp.setTargetJSP(V7JspMapping.MOD_ADD_MAIN);
@@ -79,6 +88,7 @@ public class MOD_Handler extends BaseHandler {
 	}
 
 	public enum Pages { 
-		MOD_ADD_MAIN									
+		MOD_ADD_MAIN,
+		MOD_LIST_MOD
 	};
 }

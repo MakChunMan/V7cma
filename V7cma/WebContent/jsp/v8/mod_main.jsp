@@ -157,7 +157,7 @@ if(!V6Util.isLogined(request)){
                                     <div class="header-section">
                                         <ul class="breadcrumb breadcrumb-top">
                                             <li>XX</li>
-                                            <li><a href="/APP/APP_MAIN"><%=MessageUtil.getV8Message(lang,"APP_MGMT_TITLE") %></a></li>
+                                            <li><a href="/do/APP/APP_MAIN"><%=MessageUtil.getV8Message(lang,"APP_MGMT_TITLE") %></a></li>
                                             <li><Strong><%=thisApp.getAPP_NAME()%></Strong></li>
                                         </ul>
                                     </div>
@@ -168,35 +168,25 @@ if(!V6Util.isLogined(request)){
                         <!-- First Row -->
                         <div class="row">
                             <div class="col-sm-6 col-lg-8">
-                                <!-- Data Table -->
-                                <div class="widget">
-                                    <div class="widget-content widget-content-mini themed-background-dark text-light-op">
-                                        <i class="fa fa-fw fa-database"></i> <strong>我的程式頁 - 共<span id="page-count"><%=thisApp.getModules().size()%></span>頁</strong>
-                                    </div>
-                                    <div class="widget-content">
-                                            <div class="row block-section">
-                                            <div class="col-xs-2" id="module1">
-                                                <button class="btn btn-lg btn-success"><i class="fa fa-plus"></i> Add</button>
-                                            </div>
-                                            <div class="col-xs-2" id="module2">
-                                                <button class="btn btn-sm btn-default disabled"><i class="fa fa-plus"></i> Empty</button>
-                                            </div>
-                                            <div class="col-xs-2" id="module3">
-                                                <button class="btn btn-sm btn-default disabled"><i class="fa fa-plus"></i> Empty</button>
-                                            </div>
-                                            <div class="col-xs-2" id="module4">
-                                                <button class="btn btn-sm btn-default disabled"><i class="fa fa-plus"></i> Empty</button>
-                                            </div>
-                                            <div class="col-xs-2" id="module5">
-                                                <button class="btn btn-sm btn-default disabled"><i class="fa fa-plus"></i> Empty</button>
-                                            </div>
-                                            <div class="col-xs-2" id="module6">
-                                                <button class="btn btn-sm btn-default disabled"><i class="fa fa-plus"></i> Empty</button>
-                                            </div>
+                                <!-- Button Styles Block -->
+                                <div class="block">
+                                    <!-- Button Styles Title -->
+                                    <div class="block-title">
+                                        <div class="block-options pull-right">
+                                            <a href="javascript:void(0)" class="btn btn-effect-ripple btn-default" data-toggle="tooltip" title="Save"><i class="fa fa-file-o"></i></a>
+                                            <a href="javascript:void(0)" class="btn btn-effect-ripple btn-default" data-toggle="tooltip" title="Reset"><i class="fa fa-refresh"></i></a>
                                         </div>
+                                        <h2><i class="fa fa-fw fa-database"></i> <strong>我的程式頁 - 共<span id="page-count"> </span>頁</strong></h2>
                                     </div>
+                                    <!-- END Button Styles Title -->
+
+                                    <!-- Ajax Form  -->
+                                    <form id="moduleForm">
+                                            
+                                   </form>
+                                   <!-- END Button Styles Content -->
                                 </div>
-                                <!-- END Data Table -->
+                                <!-- END Button Styles Block -->
                             </div>
                             <div class="col-sm-6 col-lg-4">
                                 <!-- Stats User Widget -->
@@ -236,23 +226,19 @@ if(!V6Util.isLogined(request)){
                                     <div class="widget-content">
                                             <div class="row text-center">
                                             <div class="col-xs-2">
-                                                <a href="javascript:void(0)" class="widget">
-                                                <div class="widget-icon themed-background-success pull center-block">
-                                                        <i class="fa fa-info-circle text-light-op"></i>
-                                                </div>
+                                                <a class="widget moduleWidget" id="moduleAboutUs">
+                                                <%=ModuleTemplateUIConstants.getUIHtml_modListPage("moduleAboutUs") %>
                                                 <br>About Us
                                                 </a>
                                             </div>
                                             <div class="col-xs-2">
-                                                <a href="javascript:void(0)" class="widget">
-                                                <div class="widget-icon themed-background-danger pull center-block">
-                                                        <i class="fa fa-gift text-light-op"></i>
-                                                </div>
+                                                <a class="widget moduleWidget" id="moduleCatalog">
+                                                <%=ModuleTemplateUIConstants.getUIHtml_modListPage("moduleCatalog") %>
                                                 <br>Product Catalog
                                                 </a>
                                             </div>
                                             <div class="col-xs-2">
-                                                <a href="javascript:void(0)" class="widget">
+                                                <a class="widget moduleWidget" id="moduleForm">
                                                 <div class="widget-icon themed-background-social pull center-block">
                                                         <i class="hi hi-file text-light-op"></i>
                                                 </div>
@@ -260,13 +246,10 @@ if(!V6Util.isLogined(request)){
                                                 </a>
                                             </div>
                                             <div class="col-xs-2">
-                                                
                                             </div>
                                             <div class="col-xs-2">
-                                                
                                             </div>
                                             <div class="col-xs-2">
-                                                
                                             </div>
                                         </div>
                                     </div>
@@ -289,58 +272,7 @@ if(!V6Util.isLogined(request)){
         <jsp:include page="/jsp/v8/common_footer_js.jsp"></jsp:include>
         
         <!-- Load and execute javascript code used only in this page -->
-        <script src="<%=V8SystemConstants.V8_PATH %>js/pages/readyDashboard.js"></script>
-        <script>$(function(){ ReadyDashboard.init(); });</script>
-        <script>
-        function appEdit(guid){
-        	$.ajax({
-        		url:"/do/APP/AJ_SHOWEDIT?guid="+guid,
-        		cache: false
-        	}).done(function( html ) {
-                if($.trim(html).match("^Error")){
-                    // Server side validation and display error msg
-                    $('#error-msg').html(html.replace("Error:","")+"<br/>");
-                } else {
-                	$("#APP_EDIT_FORM").html(html);
-                	$('#edit-app-name').focus();
-                }
-            });
-        }
-        $.ajax({
-            url:"/do/APP/AJ_LIST",
-            cache: false
-        }).done(function( html ) {
-                $('#app-list').html(html);
-        });
-        
-        $('#app-add-submit').click(function(){
-        	$.ajax({
-                url:"/do/APP/AJ_APP_ADD",
-                data: $('#app_add_form').serialize(),
-                type: "post",               
-                cache: false
-            }).done(function( html ) {
-                if($.trim(html).match("^Error")){
-                    // Server side validation and display error msg
-                    $('#error-msg').html(html.replace("Error:","")+"<br/>");
-                } else {
-                	$('#app-name').val("");
-                	$('#app-type').val("");
-                    $('#APP_EDIT_FORM').html(
-                    '<div class="alert alert-success alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>'+
-                    '<h4><strong>Success</strong></h4>' +
-                    '<p>'+html.replace("Msg:","")+'</p></div>');
-                    //Reload List
-                    $.ajax({
-                        url:"/do/APP/AJ_LIST",
-                        cache: false
-                    }).done(function( html ) {
-                            $('#app-list').html(html);
-                    });
-                }
-            });
-        });
-        </script>
+        <script src="<%=V8SystemConstants.V8_PATH %>js/v81/pages/modMain.js"></script>
     </body>
 </html>
 <%}%>
