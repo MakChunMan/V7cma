@@ -4,10 +4,12 @@
  */
 package com.imagsky.v7.biz;
 
+import com.imagsky.common.ImagskySession;
 import com.imagsky.util.CommonUtil;
 import com.imagsky.util.logger.cmaLogger;
 import com.imagsky.v6.cma.constants.SystemConstants;
 import com.imagsky.v6.domain.Member;
+import com.imagsky.v8.domain.App;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -26,6 +28,8 @@ public abstract class V7AbstractBiz {
     private Map<String,String[]> paramMap;
     private Map<String,Object> returnAttributeMap;
 
+    private App thisWorkingApp;
+    
     protected V7AbstractBiz(Member thisMember){
         owner = thisMember;
         returnAttributeMap = new HashMap<String, Object>();
@@ -35,12 +39,14 @@ public abstract class V7AbstractBiz {
         owner = thisMember;
         returnAttributeMap = new HashMap<String, Object>();
         getParamFromHttpRequest(req);
+        thisWorkingApp = ((ImagskySession) req.getSession().getAttribute(SystemConstants.REQ_ATTR_SESSION)).getWorkingApp();
     }
     
     protected void reset(Member thisMember, HttpServletRequest req){
     	owner = thisMember;
         returnAttributeMap = new HashMap<String, Object>();
         getParamFromHttpRequest(req);
+        thisWorkingApp = ((ImagskySession) req.getSession().getAttribute(SystemConstants.REQ_ATTR_SESSION)).getWorkingApp();
     }
 
     protected Member owner;
@@ -48,7 +54,16 @@ public abstract class V7AbstractBiz {
     protected String sessionid;
     protected String lang;
     
-    public Member getOwner() {
+
+    public App getThisWorkingApp() {
+		return thisWorkingApp;
+	}
+
+	public void setThisWorkingApp(App thisWorkingApp) {
+		this.thisWorkingApp = thisWorkingApp;
+	}
+
+	public Member getOwner() {
         return owner;
     }
 

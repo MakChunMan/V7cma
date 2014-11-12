@@ -405,10 +405,12 @@ public abstract class AbstractDbDAO {
             throws BaseDBException {
         try {
             if (!Class.forName(domainClassName).isInstance(entityObj)) {
+            	cmaLogger.error("Using wrong DAO implementation: " + domainClassName + " with " + entityObj.getClass().getName());
                 throw new BaseDBException("Using wrong DAO implementation: " + domainClassName + " with " + entityObj.getClass().getName(), "");
             }
             Class.forName(domainClassName).cast(entityObj);
         } catch (ClassNotFoundException e) {
+        	cmaLogger.error("ClassNotFound for " + domainClassName, e);        	
             throw new BaseDBException("ClassNotFound for " + domainClassName, "", e);
 
         }

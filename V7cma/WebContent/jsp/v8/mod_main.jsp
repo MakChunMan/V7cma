@@ -10,7 +10,7 @@ String lang = (String)request.getAttribute(SystemConstants.REQ_ATTR_LANG);
 Member thisUser = null;
 App thisApp = null;
 if(!V6Util.isLogined(request)){
-	out.println("<script>self.location='/v81/zh/page_ready_login.php';</script>");
+    out.println("<script>self.location='/v81/zh/page_ready_login.php';</script>");
 } else {
     thisUser = ((ImagskySession)request.getSession().getAttribute(SystemConstants.REQ_ATTR_SESSION)).getUser();
     thisApp = ((ImagskySession) request.getSession().getAttribute(SystemConstants.REQ_ATTR_SESSION)).getWorkingApp();
@@ -165,7 +165,7 @@ if(!V6Util.isLogined(request)){
                             </div>
                         </div>
                         <!-- END Forms Components Header -->
-                        <!-- First Row -->
+                        <!-- First Row (My Module) -->
                         <div class="row">
                             <div class="col-sm-6 col-lg-8">
                                 <!-- Button Styles Block -->
@@ -185,6 +185,13 @@ if(!V6Util.isLogined(request)){
                                     <form id="moduleListForm">
                                             
                                    </form>
+                                   <div class="form-group" id="save_alert">
+                                            <%=MessageUtil.getV8Message(lang,"MOD_SAVE_ALERT") %> <button type="button" class="btn btn-xs btn-effect-ripple btn-primary" onclick="javascript:topSave()"><%=MessageUtil.getV8Message(lang,"BTN_SAVE")%></button>
+                                   </div>
+                                   <!-- Debug -->
+                                   <a href="javascript:void(0)" onclick="$('#ajax_source').text($( '#moduleListForm').html());">Source</a>
+                                    <div id="ajax_source" style="color:grey"></div>
+                                   <!-- End Debug -->
                                    <!-- END Button Styles Content -->
                                 </div>
                                 <!-- END Button Styles Block -->
@@ -216,7 +223,7 @@ if(!V6Util.isLogined(request)){
                             </div>
                         </div>
                         <!-- END First Row -->
-                        <!-- Second Row -->
+                        <!-- Second Row (Template Sample Row) -->
                         <div class="row" id="moduleTemplateRow" style="display:none">
                             <div class="col-sm-6 col-lg-8">
                                 <!-- Data Table -->
@@ -230,19 +237,19 @@ if(!V6Util.isLogined(request)){
                                     <div class="widget-content">
                                             <div class="row text-center">
                                             <div class="col-xs-2">
-                                                <a class="widget moduleWidget" id="moduleAboutUs">
-                                                <%=ModuleTemplateUIConstants.getUIHtml_modListPage("modAboutUs") %>
+                                                <a class="widget moduleWidget" id="moduleAboutPage"  typename="modAboutPage">
+                                                <%=ModuleTemplateUIConstants.getUIHtml_modListPage("modAboutPage") %>
                                                <br>About Us <i class="fa fa-info-circle info" onmousedown="javascript:$('#modal-small').modal('show');return false;"></i>
                                                </a>
                                             </div>
                                             <div class="col-xs-2">
-                                                <a class="widget moduleWidget" id="moduleCatalog">
+                                                <a class="widget moduleWidget" id="moduleCatalog" typename="modCatalog">
                                                 <%=ModuleTemplateUIConstants.getUIHtml_modListPage("modCatalog") %>
                                                 <br>Catalog <i class="fa fa-info-circle info" onmousedown="javascript:$('#modal-small').modal('show');return false;"></i>
                                                 </a>
                                             </div>
                                             <div class="col-xs-2">
-                                                <a class="widget moduleWidget" id="moduleForm"> 
+                                                <a class="widget moduleWidget" id="moduleForm" typename="modForm"> 
                                                 <%=ModuleTemplateUIConstants.getUIHtml_modListPage("modForm") %>
                                                 <br>Online Form <i class="fa fa-info-circle info" onmousedown="javascript:$('#modal-small').modal('show');return false;"></i>
                                                 </a>
@@ -260,16 +267,13 @@ if(!V6Util.isLogined(request)){
                             </div>
                         </div>
                         <!-- END Second Row -->
-                        <!--  Third Row -->
+                        <!--  Third Row (Edit widget)-->
                         <div class="row" id="moduleEditRow">
                             <div class="col-sm-6 col-lg-8">
-                                <!-- Data Table -->
-                                <div class="widget">
-                                    <div class="widget-content widget-content-mini themed-background-dark text-light-op">
-                                        <i class="fa fa-fw fa-database"></i> <strong>Edit</strong>
-                                    </div>
-                                 </div>
-                                <!-- END Data Table -->                                 
+                                <!-- AJAX EDIT Table -->
+                                <div class="block" id="modEditForm">
+                                </div>
+                                <!-- END AJAX EDIT Table -->                                 
                         </div>
                         <!--  End Third Row -->
                     </div>

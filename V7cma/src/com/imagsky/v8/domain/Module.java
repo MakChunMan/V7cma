@@ -33,14 +33,13 @@ public class Module extends SysObject {
 		ModShopCatalog
 	};
 
-	@ManyToOne (cascade=CascadeType.ALL)
-	@JoinColumn(name = "MOD_OWNER_APP")
-	private App modOwnerApp;
-	
 	@OneToOne 
 	@JoinColumn(name = "MOD_ICON")
 	private AppImage modIcon;
 
+	@Column(name="MOD_DISPLAY_ORDER")
+	private int modDisplayOrder;
+	
 	public String getModuleTypeName() {
 		return moduleType.name();
 	}
@@ -52,7 +51,12 @@ public class Module extends SysObject {
 	public void setModuleType(ModuleTypes moduleType) {
 		this.moduleType = moduleType;
 	}
+	
+	public void setModuleType(String moduleTypeName){
+		this.moduleType = ModuleTypes.valueOf(moduleTypeName);
+	}
 
+	/***
 	public App getModOwnerApp() {
 		return modOwnerApp;
 	}
@@ -60,7 +64,8 @@ public class Module extends SysObject {
 	public void setModOwnerApp(App modOwnerApp) {
 		this.modOwnerApp = modOwnerApp;
 	}
-
+	***/
+	
 	public AppImage getModIcon() {
 		return modIcon;
 	}
@@ -68,7 +73,13 @@ public class Module extends SysObject {
 	public void setModIcon(AppImage modIcon) {
 		this.modIcon = modIcon;
 	}
-	
-	
+
+	public int getModDisplayOrder() {
+		return modDisplayOrder;
+	}
+
+	public void setModDisplayOrder(int modDisplayOrder) {
+		this.modDisplayOrder = modDisplayOrder;
+	}
 	
 }

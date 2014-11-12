@@ -27,13 +27,13 @@ public class ModuleTemplateUIConstants {
 		
 	}
 	
-	public static final ModuleUI modAboutUs = new ModuleUI("success","fa fa-info-circle"); 
+	public static final ModuleUI modAboutPage = new ModuleUI("success","fa fa-info-circle"); 
 	public static final ModuleUI modCatalog = new ModuleUI("danger","fa fa-gift");
 	public static final ModuleUI modForm = new ModuleUI("social","hi hi-file");
 	
 	public static ModuleUI getUI(String modname){
-		if(modname.toUpperCase().equalsIgnoreCase("MODABOUTUS")){
-			return modAboutUs;
+		if(modname.toUpperCase().equalsIgnoreCase("ModAboutPage")){
+			return modAboutPage;
 		} else if(modname.toUpperCase().equalsIgnoreCase("MODCATALOG")){
 			return modCatalog;
 		} else if(modname.toUpperCase().equalsIgnoreCase("MODFORM")){

@@ -20,11 +20,14 @@
      thisApp = ((ImagskySession)request.getSession().getAttribute(SystemConstants.REQ_ATTR_SESSION)).getWorkingApp();
  %>
 <div class="row block-section">
-<% for (int x =0 ; x < 6 ;x++){ 
+<% for (int x =0 ; x < V8SystemConstants.V8_MAX_NO_MODULE ;x++){ 
                        if(thisApp.getModules()!=null && thisApp.getModules().size()>x){
                     	    if(al==null) al = new ArrayList(thisApp.getModules());                    	   
                     	   thisModule = (Module)al.get(x);
+                    	   out.println("<div class=\"col-xs-2\" id=\"module"+ (x+1)+ "\">");
                     	   out.println(ModuleTemplateUIConstants.getUIHtml_modListPage(thisModule.getModuleTypeName()));
+                    	   out.println("<input type=\"hidden\" name=\"module"+x+"\" values=\""+thisModule.getSys_guid()+"\"");
+                    	   out.println("</div>");
                        } else if(isCurrentFirst){
                     	    isCurrentFirst = false;
                        %>
@@ -37,9 +40,6 @@
                         </div>    	   
                 <%  } %>       
 <% } %>
+<script>var currentAdd = <%=thisApp.getModules()==null?0:thisApp.getModules().size()%>;</script>
 </div>
-<div class="block-section" id="block_save_btn" style="display:none">
-          <button type="button" class="btn btn-block btn-primary">Save Button</button>
-</div>
-
 <% } %>

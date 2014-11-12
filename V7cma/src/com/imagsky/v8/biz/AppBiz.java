@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import com.imagsky.dao.AppDAO;
 import com.imagsky.dao.ContentFolderDAO;
+import com.imagsky.exception.BaseDBException;
 import com.imagsky.util.logger.cmaLogger;
 import com.imagsky.v6.biz.MemberBiz;
 import com.imagsky.v6.dao.MemberDAO;
@@ -48,7 +49,7 @@ public class AppBiz extends V7AbstractBiz {
 		newApp.setAPP_TYPE(Integer.parseInt(this.getParam("app-type")[0]));
 		newApp.setAPP_CREATOR(getOwner());
 		newApp.setAPP_STATUS("");
-		
+		newApp.setAPP_DESC("");
 		AppDAO aDao = AppDAO.getInstance();
 		MemberDAO mDao = MemberDAO.getInstance();
 		try{
@@ -100,6 +101,21 @@ public class AppBiz extends V7AbstractBiz {
         }
     }
 	
+	//#6 Reload App
+	public App reloadApp(App oldApp){
+		AppDAO dao = AppDAO.getInstance();
+		App enqObj = new App();
+		enqObj.setSys_guid(oldApp.getSys_guid());
+		List aList;
+		try {
+			aList = dao.CNT_findListWithSample(enqObj);
+			return (App)aList.get(0);
+		} catch (BaseDBException e) {
+			// TODO Auto-generated catch block
+			cmaLogger.error("reloadApp error:" + oldApp.getSys_guid(), e );
+			return null;
+		}
+	}
 	
 	public App testAddApp(){
 		App newApp = new App();

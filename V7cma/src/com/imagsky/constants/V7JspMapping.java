@@ -43,6 +43,11 @@ public class V7JspMapping {
     public static final String MOD_ADD_MAIN = "/jsp/v8/mod_main.jsp";
     public static final String MOD_AJ_LIST = "/jsp/v8/inc_mod_list.jsp";
     
+    //Module Details Edit page (TODO: Add here for more module
+    public static final String MOD_EDIT_ABOUTUS = "/jsp/v8/inc_mod_aboutus.jsp";
+    
+    
+    
     //Ajax Response
     public static final String COMMON_AJAX_RESPONSE = "/jsp/v8/common_ajax.jsp";
     

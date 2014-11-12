@@ -48,6 +48,8 @@ public class AppDAOImpl  extends AppDAO{
 	            cmaLogger.debug("DAO is_published:"+ app.isSys_is_published());
 	            app.setSys_is_node(app.isSys_is_node());
 
+	            tmpApp.setModules(app.getModules());
+	            
 	            em.merge(tmpApp);
 	            em.getTransaction().commit();
 	            app = em.find(App.class, app.getSys_guid());

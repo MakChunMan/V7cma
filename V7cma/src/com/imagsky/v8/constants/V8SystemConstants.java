@@ -10,5 +10,7 @@ public class V8SystemConstants {
 	//
 	public static final String V8_PATH = "/v81/";
 	public static final String V8_ZH_PATH = "/v81/zh/";		
-			
+
+	//
+	public static final int V8_MAX_NO_MODULE = 6; 
 }
