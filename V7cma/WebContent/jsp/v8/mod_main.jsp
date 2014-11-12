@@ -280,27 +280,25 @@ if(!V6Util.isLogined(request)){
             <!-- END Page Container -->
         </div>
         <!-- END Page Wrapper -->
-        
-        
-        <!-- Small Modal -->
-        <div id="modal-small" class="modal" tabindex="-1" role="dialog" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <h5 class="modal-title"><strong>Regular Modal</strong></h5>
-                    </div>
-                    <div class="modal-body">
-                        Content..
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-effect-ripple btn-primary">Add</button>
-                        <button type="button" class="btn btn-effect-ripple btn-danger" data-dismiss="modal">Close</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- END Small Modal -->
+                                    <!-- Small Modal -->
+                                    <div id="modal-small" class="modal" tabindex="-1" role="dialog" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                                    <h5 class="modal-title"><strong>Regular Modal</strong></h5>
+                                                </div>
+                                                <div class="modal-body">
+                                                    Content..
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-effect-ripple btn-primary">Add</button>
+                                                    <button type="button" class="btn btn-effect-ripple btn-danger" data-dismiss="modal">Close</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- END Small Modal -->
 
     
         <!-- Include Jquery library from Google's CDN but if something goes wrong get Jquery from local file (Remove 'http:' if you have SSL) -->
