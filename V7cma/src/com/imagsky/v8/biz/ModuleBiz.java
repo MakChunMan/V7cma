@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import com.imagsky.dao.AppDAO;
 import com.imagsky.dao.ModAboutPageDAO;
 import com.imagsky.util.logger.cmaLogger;
+import com.imagsky.v6.cma.servlet.handler.HandlerFactory;
 import com.imagsky.v6.domain.Member;
 import com.imagsky.v7.biz.V7AbstractBiz;
 import com.imagsky.v8.domain.App;
@@ -33,7 +34,11 @@ public class ModuleBiz  extends V7AbstractBiz {
 
 	public Module createModule(int idx, App thisApp, String moduleTypeName){
 		Module returnModule = null;
+		BaseModuleBiz moduleBiz;
 		try{
+			moduleBiz = ModuleBizFactory.createBusiness(moduleTypeName);
+			
+			
 			if(Module.ModuleTypes.ModAboutPage.name().equalsIgnoreCase(moduleTypeName)){
 				AppDAO dao = AppDAO.getInstance();
 				ModAboutPage newMod = new ModAboutPage();

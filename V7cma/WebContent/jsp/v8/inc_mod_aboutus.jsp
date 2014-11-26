@@ -5,11 +5,15 @@
  <%@ page import="com.imagsky.v6.domain.Member" %>
  <%@ page import="com.imagsky.v8.domain.App" %>
  <%@ page import="com.imagsky.v8.domain.ModAboutPage" %>
+ <%@ page import="com.imagsky.v8.constants.*" %>
  <%@ page import="com.imagsky.util.*" %>
 <% 
 App thisApp = ((ImagskySession) request.getSession().getAttribute(SystemConstants.REQ_ATTR_SESSION)).getWorkingApp();
 ModAboutPage thisMod = (ModAboutPage)request.getAttribute(SystemConstants.REQ_ATTR_OBJ);
 String lang = (String)request.getAttribute(SystemConstants.REQ_ATTR_LANG); 
+
+if(thisMod == null)
+	thisMod = new ModAboutPage();
 %>
 <!-- Horizontal Form Title -->
       <div class="block-title">
@@ -18,49 +22,73 @@ String lang = (String)request.getAttribute(SystemConstants.REQ_ATTR_LANG);
       <!-- END Horizontal Form Title -->
 
       <!-- Horizontal Form Content -->
-      <form id="mod_details_edit_form" method="post" class="form-horizontal form-bordered" onsubmit="return false;">
+      <form id="mod_details_edit_form" method="post" class="form-horizontal form-bordered" onsubmit="return fase;">
+           <input type=hidden name="edit_mod_type" value="modAboutPage"/>
            <input type=hidden name="edit_guid" value="<%=thisApp.getSys_guid()%>"/>
           <div class="form-group">
               <label class="col-md-3 control-label" for="edit-abt-title"><%=MessageUtil.getV8Message(lang,"ABT_TITLE") %></label>
               <div class="col-md-9">
-                  <input type="text" id="edit-app-name" name="edit-app-name" class="form-control" value="<%=thisApp.getAPP_NAME()%>">
-                  <span class="help-block"><%=MessageUtil.getV8Message(lang,"APP_NAME_LABEL") %></span>
+                  <input type="text" id="edit-abt-title" name="edit-abt-title" class="form-control" value="<%=CommonUtil.null2Empty(thisMod.getPageTitle())%>">
+                  <span class="help-block"><%=MessageUtil.getV8Message(lang,"ABT_TITLE_LABEL") %></span>
               </div>
           </div>
           <div class="form-group">
-              <label class="col-md-3 control-label" for="edit-app-desc"><%=MessageUtil.getV8Message(lang,"APP_DESC") %></label>
+              <label class="col-md-3 control-label" for="edit-abt-about"><%=MessageUtil.getV8Message(lang,"ABT_ABOUT") %></label>
               <div class="col-md-9">
-                  <input type="text" id="edit-app-desc" name="edit-app-desc" class="form-control" value="">
-                  <span class="help-block"><%=MessageUtil.getV8Message(lang,"APP_DESC_LABEL") %></span>
+                  <textarea  id="edit-abt-about" name="edit-abt-about" class="form-control"><%=CommonUtil.null2Empty(thisMod.getPageAbout())%></textarea>
+                  <span class="help-block"><%=MessageUtil.getV8Message(lang,"ABT_ABOUT_LABEL") %></span>
               </div>
           </div>
           <div class="form-group">
-              <label class="col-md-3 control-label"><%=MessageUtil.getV8Message(lang,"APP_TYPE") %></label>
+              <label class="col-md-3 control-label" for="edit-abt-desc"><%=MessageUtil.getV8Message(lang,"ABT_DESC") %></label>
               <div class="col-md-9">
-                  <label class="radio-inline" for="apptype_basic">
-                      <input type="radio" id="apptype_basic" name="edit-app-type" value="1" ><%=MessageUtil.getV8Message(lang,"APP_TYPE_BASIC") %>
-                  </label>
-                  <label class="radio-inline" for="apptype_shop">
-                      <input type="radio" id="apptype_shop" name="edit-app-type" value="2" ><%=MessageUtil.getV8Message(lang,"APP_TYPE_SHOP") %> 
-                  </label>
-                  <label class="radio-inline" for="apptype_pda">
-                      <input type="radio" id="apptype_pda" name="edit-app-type" value="3" ><%=MessageUtil.getV8Message(lang,"APP_TYPE_PDA") %>
-                  </label>
+                  <textarea  id="edit-abt-about" name="edit-abt-desc" class="form-control"><%=CommonUtil.null2Empty(thisMod.getPageDescription())%></textarea>
+                  <span class="help-block"><%=MessageUtil.getV8Message(lang,"ABT_DESC_LABEL") %></span>
               </div>
           </div>
-          <div class="form-group form-actions">
+          <div class="form-group">
+              <label class="col-md-3 control-label" for="edit-abt-fb"><%=MessageUtil.getV8Message(lang,"ABT_FACEBOOK") %></label>
+              <div class="col-md-9">
+                  <input type="text" id="edit-abt-fb" name="edit-abt-fb" class="form-control" value="<%=CommonUtil.null2Empty(thisMod.getPageFacebookLink())%>">
+                  <span class="help-block"><%=MessageUtil.getV8Message(lang,"ABT_FACEBOOK_LABEL") %></span>
+              </div>
+          </div>
+          <div class="form-group">
+              <label class="col-md-3 control-label" for="edit-abt-email"><%=MessageUtil.getV8Message(lang,"ABT_EMAIL") %></label>
+              <div class="col-md-9">
+                  <input type="text" id="edit-abt-email" name="edit-abt-email" class="form-control" value="<%=CommonUtil.null2Empty(thisMod.getPageEmail())%>">
+                  <span class="help-block"><%=MessageUtil.getV8Message(lang,"ABT_EMAIL_LABEL") %></span>
+              </div>
+          </div>
+          <div class="form-group">
+              <label class="col-md-3 control-label" for="edit-abt-address"><%=MessageUtil.getV8Message(lang,"ABT_ADDRESS") %></label>
+              <div class="col-md-9">
+                  <input type="text" id="edit-abt-address" name="edit-abt-address" class="form-control" value="<%=CommonUtil.null2Empty(thisMod.getPageAddress())%>">
+                  <span class="help-block"><%=MessageUtil.getV8Message(lang,"ABT_ADDRESS_LABEL") %></span>
+              </div>
+          </div>
+        <div class="form-group">
+              <label class="col-md-3 control-label" for="edit-abt-image"><%=MessageUtil.getV8Message(lang,"ABT_IMAGE") %></label>
+              <div class="col-md-9">
+                   <div id="abt_image_response"></div>
+                  <button type=button  class="btn btn-effect-ripple btn-warning" onclick="javascript:$('#modal-upload').modal('show');return false;">
+                  <%=MessageUtil.getV8Message(lang,"ABT_IMAGE_LABEL") %></button>
+              </div>
+       </div>          
+        <div class="form-group form-actions">
               <div class="col-md-9 col-md-offset-3">
                   <button type="submit" id="app_edit_submit" class="btn btn-effect-ripple btn-primary"><%=MessageUtil.getV8Message(lang,"BTN_SUBMIT") %></button>
-                  <button type="reset" class="btn btn-effect-ripple btn-danger"><%=MessageUtil.getV8Message(lang,"BTN_RESET") %></button>
+                  <button type="reset" class="btn btn-effect-ripple btn-danger" onclick="javascript:$('#abt_image_response').html('');return true;"><%=MessageUtil.getV8Message(lang,"BTN_RESET") %></button>
               </div>
-          </div>
-      </form>
+           </div>
+        </form>
       <!-- END Horizontal Form Content -->
+      <script src="<%=V8SystemConstants.V8_PATH %>/fileinput/js/fileinput.js" type="text/javascript"></script>
       <script>
       $('#app_edit_submit').click(function(){
           $.ajax({
-              url:"/do/APP/DO_EDIT_SAVE",
-              data: $('#app_edit_form').serialize(),
+              url:"/do/MOD/DO_SAVE_MOD_CONTENT",
+              data: $('#mod_details_edit_form').serialize(),
               type: "post",               
               cache: false
           }).done(function( html ) {

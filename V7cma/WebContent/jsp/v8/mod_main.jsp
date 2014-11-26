@@ -20,6 +20,7 @@ if(!V6Util.isLogined(request)){
 <!--[if gt IE 9]><!--> <html class="no-js"> <!--<![endif]-->
     <head>
     <jsp:include page="/jsp/v8/common_head_css_js.jsp"></jsp:include>
+    <link href="<%=V8SystemConstants.V8_PATH %>/fileinput/css/fileinput.css" media="all" rel="stylesheet" type="text/css" />
     </head>
     <body>
         <!-- Page Wrapper -->
@@ -305,11 +306,66 @@ if(!V6Util.isLogined(request)){
             </div>
         </div>
         <!-- END Small Modal -->
-
-    
+        
+       <!-- Upload Modal -->
+        <div id="modal-upload" class="modal" tabindex="-1" role="dialog" aria-hidden="true">
+            <form enctype="multipart/form-data">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h5 class="modal-title"><strong>Upload Modal</strong></h5>
+                    </div>
+                    <div class="modal-body">
+                        <input id="file-1a" name="imageURL" type="file" multiple=true class="file" data-show-upload='false' data-preview-file-type="any" data-initial-caption="Please" data-overwrite-initial="false">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" id="btn_image_upload_add" class="btn btn-effect-ripple btn-primary">Add</button>
+                        <button type="button" class="btn btn-effect-ripple btn-danger" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+            </form>
+        </div>
+        <!-- END Small Modal -->
+        
         <!-- Include Jquery library from Google's CDN but if something goes wrong get Jquery from local file (Remove 'http:' if you have SSL) -->
         <jsp:include page="/jsp/v8/common_footer_js.jsp"></jsp:include>
+        <script src="<%=V8SystemConstants.V8_PATH %>/fileinput/js/fileinput.js" type="text/javascript"></script>
+        <script>
+        /***
+        $(document).ready(function() {
+            $("#file-1a").on('fileloaded', function(event, file, previewId, index) {
+                alert('i = ' + index + ', id = ' + previewId + ', file = ' + file.name);
+            });
+        });***/
         
+        $('#btn_image_upload_add').click(function(){
+        	var data = new FormData();
+        	jQuery.each($('#file-1a')[0].files, function(i, file) {
+        	    data.append('file-'+i, file);
+        	});
+        	data.append('modtype','ABT'); //Manually add parameter
+        	$.ajax({
+        	    url: '<%=V8SystemConstants.V8_PATH %>fileinput/examples/filehandler.php',
+        	    contentType:"multipart/form-data",
+        	    data: data,
+        	    cache: false,
+        	    contentType: false,
+        	    processData: false,
+        	    type: 'POST',
+        	    success: function(data){
+        	    	if($.trim(data).match("^Error")){
+                        // Server side validation and display error msg
+                        $('#abt_image_response').html(datas.replace("Error:","")+"<br/>");
+                    } else {
+                    	$('#abt_image_response').html("<img width='300' src='<%=V8SystemConstants.V8_PATH %>userfiles/tmp/"+data.replace("Msg:","")+"'><input type=hidden name=edit-abt-image value='"+data.replace("Msg:","")+"'/>");
+                        $('#modal-upload').modal('hide');	
+                    }
+        	    }
+        	});
+        });
+        </script>
         <!-- Load and execute javascript code used only in this page -->
         <script src="<%=V8SystemConstants.V8_PATH %>js/v81/pages/modMain.js"></script>
     </body>

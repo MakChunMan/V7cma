@@ -54,10 +54,17 @@ public class MOD_Handler extends BaseHandler {
 					thisResp = modSave(request, response); //ajax;
 		} else if(appCodeToken[1].equalsIgnoreCase(Pages.MOD_EDIT_ABOUTUS.name())){
 					thisResp = modShowAboutUs(request, response);
+		}  else if(appCodeToken[1].equalsIgnoreCase(Pages.DO_SAVE_MOD_CONTENT.name())){
+					thisResp = doSaveModContent(request, response); //Save Module Content
 		}
 		return thisResp;
 	}
 	
+	private SiteResponse doSaveModContent(HttpServletRequest request, HttpServletResponse response) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	private SiteResponse modShowAboutUs(HttpServletRequest request, HttpServletResponse response) {
 		SiteResponse thisResp = super.createResponse();
 		thisResp.setTargetJSP(V7JspMapping.MOD_EDIT_ABOUTUS);
@@ -128,6 +135,7 @@ public class MOD_Handler extends BaseHandler {
 		MOD_LIST_MOD,
 		MOD_SAVE,
 		MOD_EDIT_ABOUTUS,
-		MOD_EDIT_FORM
+		MOD_EDIT_FORM,
+		DO_SAVE_MOD_CONTENT
 	};
 }
