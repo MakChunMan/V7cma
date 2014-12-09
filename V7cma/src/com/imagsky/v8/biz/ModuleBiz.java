@@ -1,6 +1,8 @@
 package com.imagsky.v8.biz;
 
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
@@ -32,32 +34,23 @@ public class ModuleBiz  extends V7AbstractBiz {
 	      return instance;
 	}
 
+	public enum ACTION_CODE { CREATE, UPDATE, DELETE };
+	
 	public Module createModule(int idx, App thisApp, String moduleTypeName){
 		Module returnModule = null;
 		BaseModuleBiz moduleBiz;
 		try{
-			moduleBiz = ModuleBizFactory.createBusiness(moduleTypeName);
-			
-			
-			if(Module.ModuleTypes.ModAboutPage.name().equalsIgnoreCase(moduleTypeName)){
 				AppDAO dao = AppDAO.getInstance();
-				ModAboutPage newMod = new ModAboutPage();
-				//newMod.setModOwnerApp(super.getThisWorkingApp());
-				newMod.setModDisplayOrder(idx);
-				newMod.setPageTitle("A new "+ Module.ModuleTypes.ModAboutPage.name());
-				//newMod = (ModAboutPage)dao.CNT_create(newMod);
-
+				Map aParamMap = new HashMap();
+				aParamMap.put("idx", new Integer(idx));
 				//Create Child
-				ModAboutPageDAO mdao = ModAboutPageDAO.getInstance();
-				newMod = (ModAboutPage)mdao.CNT_create(newMod);
+				moduleBiz = ModuleBizFactory.createBusiness(moduleTypeName);
+				returnModule = moduleBiz.execute(this, ACTION_CODE.CREATE.name(), aParamMap);
 				//Add association
 				Set<Module> aSet = new HashSet<Module>(thisApp.getModules());
-				aSet.add(newMod);
-
+				aSet.add(returnModule);
 				thisApp.setModules(aSet);
 				dao.CNT_update(thisApp);
-				returnModule = newMod;
-			} else {}
 		} catch (Exception e){
 			cmaLogger.error("ModuleBiz exception:", e);
 		}
