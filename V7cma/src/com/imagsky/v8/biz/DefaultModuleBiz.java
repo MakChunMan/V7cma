@@ -1,7 +1,6 @@
 package com.imagsky.v8.biz;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import java.util.Map;
 
 import com.imagsky.exception.BaseException;
 import com.imagsky.v8.domain.Module;
@@ -9,9 +8,10 @@ import com.imagsky.v8.domain.Module;
 public class DefaultModuleBiz extends BaseModuleBiz{
 
 	@Override
-	public Module update(HttpServletRequest request, HttpServletResponse response) throws BaseException {
+	public Module execute(ModuleBiz biz, String actionCode, Map paramMap)
+			throws BaseException {
 		// TODO Auto-generated method stub
-		return null;
+		return  new Module();
 	}
 
 }
