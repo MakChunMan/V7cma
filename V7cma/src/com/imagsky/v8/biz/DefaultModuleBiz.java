@@ -1,7 +1,6 @@
 package com.imagsky.v8.biz;
 
 import java.util.Map;
-
 import com.imagsky.exception.BaseException;
 import com.imagsky.v8.domain.Module;
 
