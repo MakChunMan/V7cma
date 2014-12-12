@@ -22,11 +22,12 @@
 <div class="row block-section">
 <% for (int x =0 ; x < V8SystemConstants.V8_MAX_NO_MODULE ;x++){ 
                        if(thisApp.getModules()!=null && thisApp.getModules().size()>x){
-                    	    if(al==null) al = new ArrayList(thisApp.getModules());                    	   
+                    	   if(al==null) al = new ArrayList(thisApp.getModules());                    	   
                     	   thisModule = (Module)al.get(x);
-                    	   out.println("<div class=\"col-xs-2\" id=\"module"+ (x+1)+ "\">");
+                    	   out.println("<div class=\"col-xs-2 text-center clickbind\" id=\"module"+ (x+1)+ "\" style=\"padding: 5px;\">");
                     	   out.println(ModuleTemplateUIConstants.getUIHtml_modListPage(thisModule.getModuleTypeName()));
-                    	   out.println("<input type=\"hidden\" name=\"module"+x+"\" values=\""+thisModule.getSys_guid()+"\"");
+                    	   out.println("<br/>"+thisModule.getModuleTitle());
+                    	   out.println("<input type=\"hidden\" name=\"module"+(x+1)+"\" value=\""+thisModule.getSys_guid()+"\">");
                     	   out.println("</div>");
                        } else if(isCurrentFirst){
                     	    isCurrentFirst = false;
@@ -40,6 +41,8 @@
                         </div>    	   
                 <%  } %>       
 <% } %>
-<script>var currentAdd = <%=thisApp.getModules()==null?0:thisApp.getModules().size()%>;</script>
+<script>var currentAdd = <%=thisApp.getModules()==null?0:thisApp.getModules().size()%>;
+bindClickEvent();
+</script>
 </div>
 <% } %>

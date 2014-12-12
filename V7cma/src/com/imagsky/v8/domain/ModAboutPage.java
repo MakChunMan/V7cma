@@ -99,6 +99,11 @@ public class ModAboutPage extends Module {
 	public void setPageAddress(String pageAddress) {
 		this.pageAddress = pageAddress;
 	}
+
+	@Override
+	public String getModuleTitle() {
+		return this.pageTitle;
+	}
 	
 	
 }

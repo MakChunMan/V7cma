@@ -49,6 +49,13 @@ public class ModAboutPageBiz extends BaseModuleBiz {
 		try {
 			newMod.setModDisplayOrder((Integer)thisParamMap.get("idx"));
 			newMod.setPageTitle("A new "+ Module.ModuleTypes.ModAboutPage.name());
+			newMod.setPageAbout("");
+			newMod.setPageAddress("");
+			newMod.setPageDescription("");
+			newMod.setPageFacebookLink("");
+			newMod.setPageImage(null);
+			newMod.setPageEmail("");
+			newMod.setPageFacebookLink("");
 			newMod = (ModAboutPage)mdao.CNT_create(newMod);
 		} catch (BaseDBException e) {
 			cmaLogger.error("ModAboutPageBiz.doCreate()", e);

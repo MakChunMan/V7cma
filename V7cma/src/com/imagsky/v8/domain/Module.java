@@ -19,7 +19,7 @@ import com.imagsky.v6.domain.SysObject;
 @Table(name = "tb8_module")
 @Inheritance(strategy = InheritanceType.JOINED)
 @PrimaryKeyJoinColumn(name = "SYS_GUID", referencedColumnName = "SYS_GUID")
-public class Module extends SysObject {
+public abstract class Module extends SysObject {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -55,6 +55,9 @@ public class Module extends SysObject {
 	public void setModuleType(String moduleTypeName){
 		this.moduleType = ModuleTypes.valueOf(moduleTypeName);
 	}
+	
+	public abstract String getModuleTitle();
+
 
 	/***
 	public App getModOwnerApp() {

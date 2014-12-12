@@ -14,9 +14,11 @@ public abstract class BaseModuleBiz{
 	
 	protected Class<? extends Module> thisClass;
 	protected Map thisParamMap;
+	protected String thisClassName;
 	
 	protected void assignClass(Class<? extends Module> thisClass){
 		this.thisClass = thisClass;
+		this.thisClassName = thisClass.getName();
 	}
 	
 	protected Class<? extends Module> getModuleClass(){
