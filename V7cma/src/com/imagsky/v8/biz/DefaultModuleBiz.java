@@ -10,7 +10,7 @@ public class DefaultModuleBiz extends BaseModuleBiz{
 	public Module execute(ModuleBiz biz, String actionCode, Map paramMap)
 			throws BaseException {
 		// TODO Auto-generated method stub
-		return  new Module();
+		return  null;
 	}
 
 }

@@ -15,6 +15,7 @@ import com.imagsky.v8.biz.AppBiz;
 import com.imagsky.v8.biz.ModuleBiz;
 import com.imagsky.v8.constants.V8SystemConstants;
 import com.imagsky.v8.domain.App;
+import com.imagsky.v8.domain.ModAboutPage;
 import com.imagsky.v8.domain.Module;
 
 public class MOD_Handler extends BaseHandler {
@@ -55,24 +56,51 @@ public class MOD_Handler extends BaseHandler {
 		} else if(appCodeToken[1].equalsIgnoreCase(Pages.MOD_EDIT_ABOUTUS.name())){
 					thisResp = modShowAboutUs(request, response);
 		}  else if(appCodeToken[1].equalsIgnoreCase(Pages.DO_SAVE_MOD_CONTENT.name())){
-					thisResp = doSaveModContent(request, response); //Save Module Content
+					thisResp = doSaveModContent(request, response); //Save Module Content / Details
 		}
 		return thisResp;
 	}
 	
+	//Generic Save Module Details (For different type of module details)
 	private SiteResponse doSaveModContent(HttpServletRequest request, HttpServletResponse response) {
-		// TODO Auto-generated method stub
-		return null;
+		SiteResponse thisResp = super.createResponse();
+		ModuleBiz biz = ModuleBiz.getInstance(thisMember, request);
+		
+		if(CommonUtil.isNullOrEmpty(request.getParameter("MODTYPE"))){
+			thisResp.addErrorMsg(new SiteErrorMessage("MISSING_MODTYPE"));
+		} else if(CommonUtil.isNullOrEmpty(request.getParameter("MODGUID"))){
+			thisResp.addErrorMsg(new SiteErrorMessage("MISSING_MODGUID"));
+		//} else if(CommonUtil.isNullOrEmpty(request.getParameter("MODTYPE"))){			
+		} else {
+			Module obj = biz.updateModule(request.getParameter("MODTYPE"), request.getParameter("MODGUID"));
+			request.setAttribute(SystemConstants.REQ_ATTR_OBJ, obj);
+		}
+		
+		if(thisResp.hasError()){
+			thisResp.setTargetJSP(V7JspMapping.COMMON_AJAX_RESPONSE);
+		} else {
+			request.setAttribute(V8SystemConstants.AJAX_RESULT, V8SystemConstants.AJAX_RESULT_TRUE);
+			request.setAttribute(SystemConstants.REQ_ATTR_DONE_MSG, "Save Successfully");
+			thisResp.setTargetJSP(V7JspMapping.COMMON_AJAX_RESPONSE);
+		}
+		return thisResp;
 	}
 
 	private SiteResponse modShowAboutUs(HttpServletRequest request, HttpServletResponse response) {
 		SiteResponse thisResp = super.createResponse();
+		//Find saved details if necessary
+		if(appCodeToken.length>2 && !CommonUtil.isNullOrEmpty(appCodeToken[2])){
+			ModuleBiz biz = ModuleBiz.getInstance(thisMember, request);
+			ModAboutPage obj = (ModAboutPage)biz.getModule(Module.ModuleTypes.ModAboutPage.name(), appCodeToken[2]);
+			request.setAttribute(SystemConstants.REQ_ATTR_OBJ, obj);
+		}
 		thisResp.setTargetJSP(V7JspMapping.MOD_EDIT_ABOUTUS);
 		return thisResp;
 	}
 
 	/***
 	 * TODO: Update priority or change something by batch (Drag and drop)
+	 * Description:  MY MODULE section -Save the order and create module (Dummy) into the App
 	 * @param request
 	 * @param response
 	 * @return
@@ -81,7 +109,7 @@ public class MOD_Handler extends BaseHandler {
 		SiteResponse thisResp = super.createResponse();
 		ModuleBiz biz = ModuleBiz.getInstance(thisMember, request);
 		AppBiz appBiz = AppBiz.getInstance(thisMember, request);
-		cmaLogger.debug("modSave");
+		
 		for(int x = 1 ; x <= V8SystemConstants.V8_MAX_NO_MODULE ; x++){
 			if(!CommonUtil.isNullOrEmpty(request.getParameter("module"+x))){
 				//No change

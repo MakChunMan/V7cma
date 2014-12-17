@@ -92,6 +92,9 @@ public class AppBiz extends V7AbstractBiz {
         	app.setAPP_NAME(this.getParam("edit-app-name")[0]);
         	app.setAPP_DESC(this.getParam("edit-app-desc")[0]);
             app.setAPP_TYPE(Integer.parseInt(this.getParam("edit-app-type")[0]));
+            
+            app.setSys_updator(owner.getSys_guid());
+            
             app = (App) dao.CNT_update(app);
             return app;
         } catch (Exception e) {

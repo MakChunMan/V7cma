@@ -34,7 +34,7 @@ public class ModuleBiz  extends V7AbstractBiz {
 	      return instance;
 	}
 
-	public enum ACTION_CODE { CREATE, UPDATE, DELETE };
+	public enum ACTION_CODE { CREATE, UPDATE, DELETE, FIND };
 	
 	public Module createModule(int idx, App thisApp, String moduleTypeName){
 		Module returnModule = null;
@@ -51,6 +51,37 @@ public class ModuleBiz  extends V7AbstractBiz {
 				aSet.add(returnModule);
 				thisApp.setModules(aSet);
 				dao.CNT_update(thisApp);
+		} catch (Exception e){
+			cmaLogger.error("ModuleBiz exception:", e);
+		}
+		return returnModule;
+	}
+	
+	public Module getModule(String moduleTypeName, String guid){
+		Module returnModule = null;
+		BaseModuleBiz moduleBiz;
+		try{
+				Map aParamMap = new HashMap();
+				aParamMap.put("guid", guid);
+				//Find Child by guid
+				moduleBiz = ModuleBizFactory.createBusiness(moduleTypeName);
+				returnModule = moduleBiz.execute(this, ACTION_CODE.FIND.name(), aParamMap);
+		} catch (Exception e){
+			cmaLogger.error("ModuleBiz exception:", e);
+		}
+		return returnModule;
+	}
+	
+	public Module updateModule(String moduleTypeName, String moduleGuid){
+		Module returnModule = null;
+		BaseModuleBiz moduleBiz;
+		Module thisModule;
+		try{
+			Map aParamMap = new HashMap();
+			aParamMap.put("guid", moduleGuid);
+			aParamMap.putAll(paramMap);
+			moduleBiz = ModuleBizFactory.createBusiness(moduleTypeName);
+			returnModule = moduleBiz.execute(this, ACTION_CODE.UPDATE.name(), aParamMap);
 		} catch (Exception e){
 			cmaLogger.error("ModuleBiz exception:", e);
 		}

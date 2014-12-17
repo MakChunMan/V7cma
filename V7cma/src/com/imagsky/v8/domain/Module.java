@@ -8,7 +8,6 @@ import javax.persistence.Enumerated;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
@@ -28,6 +27,7 @@ public abstract class Module extends SysObject {
 	protected ModuleTypes moduleType;
 	
 	public static enum ModuleTypes{
+		ModDefault,
 		ModAboutPage,
 		ModForm,
 		ModShopCatalog

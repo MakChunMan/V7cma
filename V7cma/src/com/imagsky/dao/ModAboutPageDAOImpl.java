@@ -2,7 +2,13 @@ package com.imagsky.dao;
 
 import java.util.List;
 
+import javax.persistence.EntityManager;
+
 import com.imagsky.exception.BaseDBException;
+import com.imagsky.util.CommonUtil;
+import com.imagsky.util.logger.cmaLogger;
+import com.imagsky.v8.domain.App;
+import com.imagsky.v8.domain.ModAboutPage;
 
 public class ModAboutPageDAOImpl extends ModAboutPageDAO {
 
@@ -19,8 +25,40 @@ public class ModAboutPageDAOImpl extends ModAboutPageDAO {
     
 	@Override
 	public Object CNT_update(Object obj) throws BaseDBException {
-		// TODO Auto-generated method stub
-		return null;
+		Class thisContentClass = contentClassValidation(domainClassName);
+        EntityManager em = factory.createEntityManager();
+
+        beanValidate(obj);
+        ModAboutPage module = (ModAboutPage) obj;
+
+        try {
+            em.getTransaction().begin();
+            ModAboutPage tmpModule = em.find(ModAboutPage.class, module.getSys_guid());
+
+            if (!CommonUtil.isNullOrEmpty(module.getPageTitle())) {
+            	tmpModule.setPageTitle(module.getPageTitle());
+            }
+            tmpModule.setPageAbout(module.getPageAbout());
+            tmpModule.setPageAddress(module.getPageAddress());
+            tmpModule.setPageDescription(module.getPageDescription());
+            tmpModule.setPageEmail(module.getPageEmail());
+            tmpModule.setPageFacebookLink(module.getPageFacebookLink());
+
+           tmpModule.setSys_update_dt(new java.util.Date());
+            tmpModule.setSys_updator(module.getSys_updator());
+            tmpModule.setSys_clfd_guid(module.getSys_clfd_guid());
+            tmpModule.setSys_is_live(module.isSys_is_live());
+            tmpModule.setSys_is_published(module.isSys_is_published());
+            tmpModule.setSys_is_node(module.isSys_is_node());
+            
+            em.merge(module);
+            em.getTransaction().commit();
+            module = em.find(ModAboutPage.class, module.getPageTitle());
+        } catch (Exception e) {
+            cmaLogger.error("CNT_update Error: " + module.getPageTitle(), e);
+            return null;
+        }
+        return module;
 	}
 
 	@Override
@@ -78,3 +116,4 @@ public class ModAboutPageDAOImpl extends ModAboutPageDAO {
 	}
 
 }
+

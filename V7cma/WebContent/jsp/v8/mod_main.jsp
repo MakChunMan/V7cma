@@ -238,20 +238,20 @@ if(!V6Util.isLogined(request)){
                                     <div class="widget-content">
                                             <div class="row text-center">
                                             <div class="col-xs-2">
-                                                <a class="widget moduleWidget" id="moduleAboutPage"  typename="modAboutPage">
+                                                <a class="widget moduleWidget" id="moduleAboutPage"  typename="ModAboutPage">
                                                 <%=ModuleTemplateUIConstants.getUIHtml_modListPage("modAboutPage") %>
                                                <br>About Us <i class="fa fa-info-circle info" onmousedown="javascript:$('#modal-small').modal('show');return false;"></i>
                                                </a>
                                             </div>
                                             <div class="col-xs-2">
-                                                <a class="widget moduleWidget" id="moduleCatalog" typename="modCatalog">
-                                                <%=ModuleTemplateUIConstants.getUIHtml_modListPage("modCatalog") %>
+                                                <a class="widget moduleWidget" id="moduleCatalog" typename="ModCatalog">
+                                                <%=ModuleTemplateUIConstants.getUIHtml_modListPage("ModCatalog") %>
                                                 <br>Catalog <i class="fa fa-info-circle info" onmousedown="javascript:$('#modal-small').modal('show');return false;"></i>
                                                 </a>
                                             </div>
                                             <div class="col-xs-2">
-                                                <a class="widget moduleWidget" id="moduleForm" typename="modForm"> 
-                                                <%=ModuleTemplateUIConstants.getUIHtml_modListPage("modForm") %>
+                                                <a class="widget moduleWidget" id="moduleForm" typename="ModForm"> 
+                                                <%=ModuleTemplateUIConstants.getUIHtml_modListPage("ModForm") %>
                                                 <br>Online Form <i class="fa fa-info-circle info" onmousedown="javascript:$('#modal-small').modal('show');return false;"></i>
                                                 </a>
                                             </div>

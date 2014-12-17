@@ -25,7 +25,7 @@ import javax.servlet.http.HttpServletRequest;
 public abstract class V7AbstractBiz {
 
     private ArrayList<String> errMsgList;
-    private Map<String,String[]> paramMap;
+    protected Map<String,String[]> paramMap;
     private Map<String,Object> returnAttributeMap;
 
     private App thisWorkingApp;

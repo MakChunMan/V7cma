@@ -24,7 +24,7 @@
                        if(thisApp.getModules()!=null && thisApp.getModules().size()>x){
                     	   if(al==null) al = new ArrayList(thisApp.getModules());                    	   
                     	   thisModule = (Module)al.get(x);
-                    	   out.println("<div class=\"col-xs-2 text-center clickbind\" id=\"module"+ (x+1)+ "\" style=\"padding: 5px;\">");
+                    	   out.println("<div class=\"col-xs-2 text-center clickbind\" id=\"module"+ (x+1)+ "\" style=\"padding: 5px;\" typename=\""+thisModule.getModuleTypeName()+"\">");
                     	   out.println(ModuleTemplateUIConstants.getUIHtml_modListPage(thisModule.getModuleTypeName()));
                     	   out.println("<br/>"+thisModule.getModuleTitle());
                     	   out.println("<input type=\"hidden\" name=\"module"+(x+1)+"\" value=\""+thisModule.getSys_guid()+"\">");
@@ -33,7 +33,7 @@
                     	    isCurrentFirst = false;
                        %>
                     	<div class="col-xs-2" id="module<%=(x+1)%>">
-                            <button class="btn btn-lg btn-success" onClick="javascript:$('#moduleTemplateRow').show();$('#moduleEditRow').hide();return false;"><i class="fa fa-plus"></i> Add</button>
+                            <button class="btn btn-lg btn-success" onClick="javascript:$('#moduleTemplateRow').show();clearAllBorder();$('#moduleEditRow').hide();return false;"><i class="fa fa-plus"></i> Add</button>
                         </div>
                  <% } else { %>
                         <div class="col-xs-2" id="module<%=(x+1)%>">

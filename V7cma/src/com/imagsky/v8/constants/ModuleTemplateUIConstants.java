@@ -32,11 +32,11 @@ public class ModuleTemplateUIConstants {
 	public static final ModuleUI modForm = new ModuleUI("social","hi hi-file");
 	
 	public static ModuleUI getUI(String modname){
-		if(modname.toUpperCase().equalsIgnoreCase("ModAboutPage")){
+		if(modname.equalsIgnoreCase("ModAboutPage")){
 			return modAboutPage;
-		} else if(modname.toUpperCase().equalsIgnoreCase("MODCATALOG")){
+		} else if(modname.equalsIgnoreCase("MODCATALOG")){
 			return modCatalog;
-		} else if(modname.toUpperCase().equalsIgnoreCase("MODFORM")){
+		} else if(modname.equalsIgnoreCase("MODFORM")){
 			return modForm;
 		}
 		return null;

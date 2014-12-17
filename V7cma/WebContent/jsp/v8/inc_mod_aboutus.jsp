@@ -4,6 +4,8 @@
  <%@ page import="com.imagsky.v6.cma.constants.*" %>
  <%@ page import="com.imagsky.v6.domain.Member" %>
  <%@ page import="com.imagsky.v8.domain.App" %>
+ <%@ page import="com.imagsky.v8.domain.Module" %>
+ <%@ page import="com.imagsky.v8.domain.Module.*" %>
  <%@ page import="com.imagsky.v8.domain.ModAboutPage" %>
  <%@ page import="com.imagsky.v8.constants.*" %>
  <%@ page import="com.imagsky.util.*" %>
@@ -11,7 +13,9 @@
 App thisApp = ((ImagskySession) request.getSession().getAttribute(SystemConstants.REQ_ATTR_SESSION)).getWorkingApp();
 ModAboutPage thisMod = (ModAboutPage)request.getAttribute(SystemConstants.REQ_ATTR_OBJ);
 String lang = (String)request.getAttribute(SystemConstants.REQ_ATTR_LANG); 
-
+if(!V6Util.isLogined(request)){
+    out.println("<script>self.location='/v81/zh/page_ready_login.php';</script>");
+}  else {     
 if(thisMod == null)
 	thisMod = new ModAboutPage();
 %>
@@ -23,8 +27,11 @@ if(thisMod == null)
 
       <!-- Horizontal Form Content -->
       <form id="mod_details_edit_form" method="post" class="form-horizontal form-bordered" onsubmit="return fase;">
-           <input type=hidden name="edit_mod_type" value="modAboutPage"/>
-           <input type=hidden name="edit_guid" value="<%=thisApp.getSys_guid()%>"/>
+           <input type=hidden name="MODTYPE" value="<%=Module.ModuleTypes.ModAboutPage.name()%>"/>
+           <input type=hidden name="APPGUID" value="<%=thisApp.getSys_guid()%>"/>
+           <% if(!CommonUtil.isNullOrEmpty(thisMod.getSys_guid())){ %>
+           <input type=hidden name="MODGUID" value="<%=thisMod.getSys_guid()%>"/>
+           <% } %>
           <div class="form-group">
               <label class="col-md-3 control-label" for="edit-abt-title"><%=MessageUtil.getV8Message(lang,"ABT_TITLE") %></label>
               <div class="col-md-9">
@@ -111,3 +118,4 @@ if(thisMod == null)
           });
       });
       </script>
+<% } %>
