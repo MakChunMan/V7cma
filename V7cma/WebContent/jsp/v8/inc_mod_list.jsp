@@ -24,7 +24,7 @@
                        if(thisApp.getModules()!=null && thisApp.getModules().size()>x){
                     	   if(al==null) al = new ArrayList(thisApp.getModules());                    	   
                     	   thisModule = (Module)al.get(x);
-                    	   out.println("<div class=\"col-xs-2 text-center clickbind\" id=\"module"+ (x+1)+ "\" style=\"padding: 5px;\">");
+                    	   out.println("<div class=\"col-xs-2 text-center clickbind\" id=\"module"+ (x+1)+ "\" style=\"padding: 5px;\" typename=\""+thisModule.getModuleTypeName()+"\">");
                     	   out.println(ModuleTemplateUIConstants.getUIHtml_modListPage(thisModule.getModuleTypeName()));
                     	   out.println("<br/>"+thisModule.getModuleTitle());
                     	   out.println("<input type=\"hidden\" name=\"module"+(x+1)+"\" value=\""+thisModule.getSys_guid()+"\">");

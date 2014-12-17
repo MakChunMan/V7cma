@@ -1,6 +1,7 @@
 package com.imagsky.v8.biz;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -38,8 +39,28 @@ public class ModAboutPageBiz extends BaseModuleBiz {
 				
 			} else if(ModuleBiz.ACTION_CODE.DELETE.name().equalsIgnoreCase(actionCode)){
 				
+			} else  if(ModuleBiz.ACTION_CODE.FIND.name().equalsIgnoreCase(actionCode)){
+				returnModule = doFind();
 			}
 			return returnModule;
+	}
+
+
+	private Module doFind() {
+		ModAboutPageDAO mdao = ModAboutPageDAO.getInstance();
+		ModAboutPage enqObj = new ModAboutPage();
+		try{
+			enqObj.setSys_guid((String)thisParamMap.get("guid"));
+			List aList = mdao.CNT_findListWithSample(enqObj);
+			if(aList==null || aList.size()==0){
+				cmaLogger.debug(aList.toString());
+				return null;
+			}
+			enqObj = (ModAboutPage) aList.get(0);
+		} catch (BaseDBException e) {
+			cmaLogger.error("ModAboutPageBiz.doFind()", e);
+		}
+		return enqObj;
 	}
 
 

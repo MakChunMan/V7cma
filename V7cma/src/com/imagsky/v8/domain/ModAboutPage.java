@@ -1,5 +1,9 @@
 package com.imagsky.v8.domain;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.TreeMap;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Inheritance;
@@ -7,6 +11,8 @@ import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
+
+import com.imagsky.v6.domain.SysObject;
 
 @Entity
 @Table(name = "tb8_mod_aboutpage")
@@ -44,6 +50,28 @@ public class ModAboutPage extends Module {
 	@Column(name="ABT_ADDRESS")
 	private String pageAddress;
 
+    public static List getWildFields() {
+        List returnList = new ArrayList();
+        returnList.add("ABT_TITLE");
+        returnList.add("ABT_ABOUT");
+        return returnList;
+    }
+
+    public static TreeMap<String, Object> getFields(Object thisObj) {
+        TreeMap<String, Object> aHt = new TreeMap<String, Object>();
+        if (ModAboutPage.class.isInstance(thisObj)) {
+        	ModAboutPage obj = (ModAboutPage) thisObj;
+            aHt.put("ABT_TITLE", obj.pageTitle);
+            aHt.put("ABT_ABOUT", obj.pageAbout);
+            aHt.put("ABT_DESC", obj.pageDescription);
+            aHt.put("ABT_IMAGE", obj.pageImage);
+            aHt.put("ABT_FACEBOOK", obj.pageFacebookLink);
+            aHt.put("ABT_EMAIL", obj.pageEmail);
+            aHt.put("ABT_ADDRESS", obj.pageAddress);
+            aHt.putAll(SysObject.getSysFields(obj));
+        }
+        return aHt;
+    }
 	public String getPageTitle() {
 		return pageTitle;
 	}

@@ -15,6 +15,7 @@ import com.imagsky.v8.biz.AppBiz;
 import com.imagsky.v8.biz.ModuleBiz;
 import com.imagsky.v8.constants.V8SystemConstants;
 import com.imagsky.v8.domain.App;
+import com.imagsky.v8.domain.ModAboutPage;
 import com.imagsky.v8.domain.Module;
 
 public class MOD_Handler extends BaseHandler {
@@ -67,6 +68,12 @@ public class MOD_Handler extends BaseHandler {
 
 	private SiteResponse modShowAboutUs(HttpServletRequest request, HttpServletResponse response) {
 		SiteResponse thisResp = super.createResponse();
+		//Find saved details if necessary
+		if(appCodeToken.length>2 && !CommonUtil.isNullOrEmpty(appCodeToken[2])){
+			ModuleBiz biz = ModuleBiz.getInstance(thisMember, request);
+			ModAboutPage obj = (ModAboutPage)biz.getModule(Module.ModuleTypes.ModAboutPage.name(), appCodeToken[2]);
+			request.setAttribute(SystemConstants.REQ_ATTR_OBJ, obj);
+		}
 		thisResp.setTargetJSP(V7JspMapping.MOD_EDIT_ABOUTUS);
 		return thisResp;
 	}

@@ -28,6 +28,7 @@ public abstract class Module extends SysObject {
 	protected ModuleTypes moduleType;
 	
 	public static enum ModuleTypes{
+		ModDefault,
 		ModAboutPage,
 		ModForm,
 		ModShopCatalog
