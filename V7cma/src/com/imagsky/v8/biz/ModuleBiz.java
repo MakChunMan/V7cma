@@ -8,13 +8,10 @@ import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 
 import com.imagsky.dao.AppDAO;
-import com.imagsky.dao.ModAboutPageDAO;
 import com.imagsky.util.logger.cmaLogger;
-import com.imagsky.v6.cma.servlet.handler.HandlerFactory;
 import com.imagsky.v6.domain.Member;
 import com.imagsky.v7.biz.V7AbstractBiz;
 import com.imagsky.v8.domain.App;
-import com.imagsky.v8.domain.ModAboutPage;
 import com.imagsky.v8.domain.Module;
 
 public class ModuleBiz  extends V7AbstractBiz {
@@ -71,6 +68,7 @@ public class ModuleBiz  extends V7AbstractBiz {
 		}
 		return returnModule;
 	}
+
 	
 	public Module updateModule(String moduleTypeName, String moduleGuid){
 		Module returnModule = null;
@@ -79,10 +77,12 @@ public class ModuleBiz  extends V7AbstractBiz {
 		try{
 			Map aParamMap = new HashMap();
 			aParamMap.put("guid", moduleGuid);
+			aParamMap.put("updator", owner.getSys_guid()); //thismember
 			aParamMap.putAll(paramMap);
 			moduleBiz = ModuleBizFactory.createBusiness(moduleTypeName);
 			returnModule = moduleBiz.execute(this, ACTION_CODE.UPDATE.name(), aParamMap);
 		} catch (Exception e){
+			this.addErrorMsg("ModuleBiz update exception: "+  this.getParam("edit_guid")[0]);
 			cmaLogger.error("ModuleBiz exception:", e);
 		}
 		return returnModule;
