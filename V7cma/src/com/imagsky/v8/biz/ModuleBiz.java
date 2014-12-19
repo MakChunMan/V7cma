@@ -71,6 +71,7 @@ public class ModuleBiz  extends V7AbstractBiz {
 		}
 		return returnModule;
 	}
+
 	
 	public Module updateModule(String moduleTypeName, String moduleGuid){
 		Module returnModule = null;

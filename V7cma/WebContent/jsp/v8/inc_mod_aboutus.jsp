@@ -13,9 +13,11 @@
 App thisApp = ((ImagskySession) request.getSession().getAttribute(SystemConstants.REQ_ATTR_SESSION)).getWorkingApp();
 ModAboutPage thisMod = (ModAboutPage)request.getAttribute(SystemConstants.REQ_ATTR_OBJ);
 String lang = (String)request.getAttribute(SystemConstants.REQ_ATTR_LANG); 
+
 if(!V6Util.isLogined(request)){
     out.println("<script>self.location='/v81/zh/page_ready_login.php';</script>");
 }  else {     
+
 if(thisMod == null)
 	thisMod = new ModAboutPage();
 %>
