@@ -82,7 +82,7 @@ public class ModuleBiz  extends V7AbstractBiz {
 			moduleBiz = ModuleBizFactory.createBusiness(moduleTypeName);
 			returnModule = moduleBiz.execute(this, ACTION_CODE.UPDATE.name(), aParamMap);
 		} catch (Exception e){
-			this.addErrorMsg("ModuleBiz update exception: "+  this.getParam("edit_guid")[0]);
+			this.addErrorMsg("ModuleBiz update exception: "+ this.getAllParamToString());
 			cmaLogger.error("ModuleBiz exception:", e);
 		}
 		return returnModule;

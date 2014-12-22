@@ -44,19 +44,19 @@ public class ModAboutPageBiz extends BaseModuleBiz {
 		ModAboutPageDAO mdao = ModAboutPageDAO.getInstance();
 		ModAboutPage enqObj = new ModAboutPage();
 		
-        if (!CommonUtil.isNullOrEmpty((String)this.thisParamMap.get("MODGUID"))) {
-        	enqObj.setSys_guid((String)this.thisParamMap.get("MODGUID"));
+        if (!CommonUtil.isNullOrEmpty(this.getParamToString("MODGUID"))) {
+        	enqObj.setSys_guid(this.getParamToString("MODGUID"));
         }
         try{
-	        enqObj.setPageTitle((String)this.thisParamMap.get("edit-abt-title"));
-	        enqObj.setPageAbout((String)this.thisParamMap.get("edit-abt-about"));
-	        enqObj.setPageAddress((String)this.thisParamMap.get("edit-abt-address"));
-	        enqObj.setPageDescription((String)this.thisParamMap.get("edit-abt-desc"));
-	        enqObj.setPageEmail((String)this.thisParamMap.get("edit-abt-email"));
-	        enqObj.setPageFacebookLink((String)this.thisParamMap.get("edit-abt-fb"));
+	        enqObj.setPageTitle(this.getParamToString("edit-abt-title"));
+	        enqObj.setPageAbout(this.getParamToString("edit-abt-about"));
+	        enqObj.setPageAddress(this.getParamToString("edit-abt-address"));
+	        enqObj.setPageDescription(this.getParamToString("edit-abt-desc"));
+	        enqObj.setPageEmail(this.getParamToString("edit-abt-email"));
+	        enqObj.setPageFacebookLink(this.getParamToString("edit-abt-fb"));
 	
 	        enqObj.setSys_update_dt(new java.util.Date());
-	        enqObj.setSys_updator((String)this.thisParamMap.get("updator"));
+	        enqObj.setSys_updator(this.getParamToString("updator"));
 	        //enqObj.setSys_clfd_guid(module.getSys_clfd_guid());
 	        enqObj.setSys_is_live(Boolean.TRUE);
 	        enqObj.setSys_is_published(Boolean.TRUE);
