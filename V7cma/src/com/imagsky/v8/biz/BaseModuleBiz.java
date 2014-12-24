@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.imagsky.exception.BaseException;
 import com.imagsky.util.CommonUtil;
+import com.imagsky.v8.domain.App;
 import com.imagsky.v8.domain.Module;
 
 public abstract class BaseModuleBiz{
@@ -16,6 +17,7 @@ public abstract class BaseModuleBiz{
 	protected Class<? extends Module> thisClass;
 	protected Map thisParamMap;
 	protected String thisClassName;
+	protected App thisApp; 
 	
 	protected void assignClass(Class<? extends Module> thisClass){
 		this.thisClass = thisClass;
@@ -24,6 +26,10 @@ public abstract class BaseModuleBiz{
 	
 	protected Class<? extends Module> getModuleClass(){
 		return this.thisClass;
+	}
+	
+	protected void setApp(App app){
+		this.thisApp = app;
 	}
 	
     public String getParamToString(String key){

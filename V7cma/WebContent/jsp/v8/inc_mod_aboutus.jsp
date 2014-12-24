@@ -79,7 +79,12 @@ if(thisMod == null)
         <div class="form-group">
               <label class="col-md-3 control-label" for="edit-abt-image"><%=MessageUtil.getV8Message(lang,"ABT_IMAGE") %></label>
               <div class="col-md-9">
-                   <div id="abt_image_response"></div>
+                   <div id="abt_image_response">
+                   <% if(thisMod.getPageImage()!=null){ %>
+                   <img width='300' src='<%=V8SystemConstants.V8_PATH %>userfiles/tmp/<%=thisMod.getPageImage().getImageUrl() %>'>
+                   <input type=hidden name=edit-abt-image value='<%=thisMod.getPageImage().getImageUrl() %>'/>
+                   <% } %>
+                   </div>
                   <button type=button  class="btn btn-effect-ripple btn-warning" onclick="javascript:$('#modal-upload').modal('show');return false;">
                   <%=MessageUtil.getV8Message(lang,"ABT_IMAGE_LABEL") %></button>
               </div>

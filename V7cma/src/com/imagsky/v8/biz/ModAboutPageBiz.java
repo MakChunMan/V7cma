@@ -4,11 +4,15 @@ import java.util.List;
 import java.util.Map;
 
 
+
+
+import com.imagsky.dao.AppImageDAO;
 import com.imagsky.dao.ModAboutPageDAO;
 import com.imagsky.exception.BaseDBException;
 import com.imagsky.exception.BaseException;
 import com.imagsky.util.CommonUtil;
 import com.imagsky.util.logger.cmaLogger;
+import com.imagsky.v8.domain.AppImage;
 import com.imagsky.v8.domain.ModAboutPage;
 import com.imagsky.v8.domain.Module;
 
@@ -42,7 +46,11 @@ public class ModAboutPageBiz extends BaseModuleBiz {
 
 	private Module doUpdate() {
 		ModAboutPageDAO mdao = ModAboutPageDAO.getInstance();
+		AppImageDAO adao = AppImageDAO.getInstance();
+		
 		ModAboutPage enqObj = new ModAboutPage();
+		
+		AppImage thisAppImage = null;
 		
         if (!CommonUtil.isNullOrEmpty(this.getParamToString("MODGUID"))) {
         	enqObj.setSys_guid(this.getParamToString("MODGUID"));
@@ -55,6 +63,20 @@ public class ModAboutPageBiz extends BaseModuleBiz {
 	        enqObj.setPageEmail(this.getParamToString("edit-abt-email"));
 	        enqObj.setPageFacebookLink(this.getParamToString("edit-abt-fb"));
 	
+	        cmaLogger.debug("edit-abt-image: "+this.getParamToString("edit-abt-image"));
+	        if(!CommonUtil.isNullOrEmpty(this.getParamToString("edit-abt-image"))){
+	        	cmaLogger.debug("thisApp:" + this.thisApp);
+	        	thisAppImage = new AppImage(this.thisApp, this.getParamToString("edit-abt-image"));
+	        	List alist =  adao.CNT_findListWithSample(thisAppImage);
+	        	if(CommonUtil.isNullOrEmpty(alist)){
+	        		enqObj.setPageImage(thisAppImage);
+	        	} else {
+	        		thisAppImage = (AppImage)alist.get(0);
+	        		thisAppImage.setImageUrl(this.getParamToString("edit-abt-image"));
+	        		enqObj.setPageImage(thisAppImage);
+	        	}
+	        }
+	        
 	        enqObj.setSys_update_dt(new java.util.Date());
 	        enqObj.setSys_updator(this.getParamToString("updator"));
 	        //enqObj.setSys_clfd_guid(module.getSys_clfd_guid());

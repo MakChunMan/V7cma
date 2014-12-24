@@ -42,6 +42,7 @@ public class ModuleBiz  extends V7AbstractBiz {
 				aParamMap.put("idx", new Integer(idx));
 				//Create Child
 				moduleBiz = ModuleBizFactory.createBusiness(moduleTypeName);
+				moduleBiz.setApp(this.getThisWorkingApp());
 				returnModule = moduleBiz.execute(this, ACTION_CODE.CREATE.name(), aParamMap);
 				//Add association
 				Set<Module> aSet = new HashSet<Module>(thisApp.getModules());
@@ -62,6 +63,7 @@ public class ModuleBiz  extends V7AbstractBiz {
 				aParamMap.put("guid", guid);
 				//Find Child by guid
 				moduleBiz = ModuleBizFactory.createBusiness(moduleTypeName);
+				moduleBiz.setApp(this.getThisWorkingApp());
 				returnModule = moduleBiz.execute(this, ACTION_CODE.FIND.name(), aParamMap);
 		} catch (Exception e){
 			cmaLogger.error("ModuleBiz exception:", e);
@@ -80,6 +82,7 @@ public class ModuleBiz  extends V7AbstractBiz {
 			aParamMap.put("updator", owner.getSys_guid()); //thismember
 			aParamMap.putAll(paramMap);
 			moduleBiz = ModuleBizFactory.createBusiness(moduleTypeName);
+			moduleBiz.setApp(this.getThisWorkingApp());
 			returnModule = moduleBiz.execute(this, ACTION_CODE.UPDATE.name(), aParamMap);
 		} catch (Exception e){
 			this.addErrorMsg("ModuleBiz update exception: "+ this.getAllParamToString());
