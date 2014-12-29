@@ -5,12 +5,14 @@ package com.imagsky.v8.domain;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
 import java.util.TreeMap;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
@@ -54,7 +56,7 @@ public class App extends SysObject {
     private Member APP_CREATOR;
     
 	@JoinColumn(name = "MOD_OWNER_APP")
-	@OneToMany(targetEntity = Module.class, cascade = { CascadeType.ALL })
+	@OneToMany(targetEntity = Module.class, cascade = { CascadeType.ALL }, fetch=FetchType.EAGER)
 	private Collection<Module> modules = new ArrayList<Module>();
     
     public static List getWildFields() {
@@ -136,6 +138,17 @@ public class App extends SysObject {
 		APP_CREATOR = aPP_CREATOR;
 	}
     
+	public void updateModule(Module newModule){
+		if(modules == null || modules.size()==0){
+			modules = new ArrayList();
+			modules.add(newModule);
+		} else {
+			Iterator<Module> it = modules.iterator();
+			while(it.hasNext()){
+				
+			}
+		}
+	}
     
 	
 }

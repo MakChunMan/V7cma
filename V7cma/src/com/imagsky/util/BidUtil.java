@@ -171,6 +171,10 @@ public class BidUtil {
         enqObj.setBid_status(BidItem.BidStatus.BIDDING);
         List biddingList = null;
         Boolean result = false;
+        //2014-12-29] Disable this function
+        if(!result)
+        	return result;
+      //2014-12-29] Disable this function
         try{
             biddingList = biDAO.findListWithSample(enqObj);
             if(biddingList==null || biddingList.isEmpty()){

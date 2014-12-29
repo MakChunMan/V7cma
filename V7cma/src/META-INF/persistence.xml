@@ -36,6 +36,8 @@
 	    <class>com.imagsky.v8.domain.Module</class>
 	    <class>com.imagsky.v8.domain.ModAboutPage</class>
 	    <class>com.imagsky.v8.domain.AppImage</class>
+	    <class>com.imagsky.v8.domain.ModForm</class>
+	    <class>com.imagsky.v8.domain.FormField</class>
 		<properties>
 			<property name="eclipselink.ddl-generation" value="drop-and-create-tables" />
 			<property name="eclipselink.ddl-generation.output-mode" value="sql-script" />

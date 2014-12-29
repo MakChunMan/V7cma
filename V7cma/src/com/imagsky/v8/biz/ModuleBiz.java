@@ -43,6 +43,7 @@ public class ModuleBiz  extends V7AbstractBiz {
 				//Create Child
 				moduleBiz = ModuleBizFactory.createBusiness(moduleTypeName);
 				moduleBiz.setApp(this.getThisWorkingApp());
+				
 				returnModule = moduleBiz.execute(this, ACTION_CODE.CREATE.name(), aParamMap);
 				//Add association
 				Set<Module> aSet = new HashSet<Module>(thisApp.getModules());

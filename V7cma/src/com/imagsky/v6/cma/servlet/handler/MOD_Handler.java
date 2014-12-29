@@ -1,10 +1,18 @@
 package com.imagsky.v6.cma.servlet.handler;
 
+import java.util.ArrayList;
+
+import java.util.HashSet;
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.imagsky.common.*;
 import com.imagsky.constants.V7JspMapping;
+import com.imagsky.dao.AppDAO;
+import com.imagsky.dao.FormDAO;
+import com.imagsky.exception.BaseDBException;
 import com.imagsky.exception.BaseException;
 import com.imagsky.util.CommonUtil;
 import com.imagsky.util.V8Util;
@@ -16,6 +24,7 @@ import com.imagsky.v8.biz.ModuleBiz;
 import com.imagsky.v8.constants.V8SystemConstants;
 import com.imagsky.v8.domain.App;
 import com.imagsky.v8.domain.ModAboutPage;
+import com.imagsky.v8.domain.ModForm;
 import com.imagsky.v8.domain.Module;
 
 public class MOD_Handler extends BaseHandler {
@@ -55,6 +64,8 @@ public class MOD_Handler extends BaseHandler {
 					thisResp = modSave(request, response); //ajax;
 		} else if(appCodeToken[1].equalsIgnoreCase(Pages.MOD_EDIT_ABOUTUS.name())){
 					thisResp = modShowAboutUs(request, response);
+		} else if(appCodeToken[1].equalsIgnoreCase(Pages.MOD_EDIT_FORM.name())){
+			thisResp = modShowForm(request, response);					
 		}  else if(appCodeToken[1].equalsIgnoreCase(Pages.DO_SAVE_MOD_CONTENT.name())){
 					thisResp = doSaveModContent(request, response); //Save Module Content / Details
 		}
@@ -65,6 +76,7 @@ public class MOD_Handler extends BaseHandler {
 	private SiteResponse doSaveModContent(HttpServletRequest request, HttpServletResponse response) {
 		SiteResponse thisResp = super.createResponse();
 		ModuleBiz biz = ModuleBiz.getInstance(thisMember, request);
+		AppBiz appBiz = AppBiz.getInstance(thisMember, request);
 		
 		if(CommonUtil.isNullOrEmpty(request.getParameter("MODTYPE"))){
 			thisResp.addErrorMsg(new SiteErrorMessage("MISSING_MODTYPE"));
@@ -83,9 +95,16 @@ public class MOD_Handler extends BaseHandler {
 			request.setAttribute(SystemConstants.REQ_ATTR_DONE_MSG, "Save Successfully");
 			thisResp.setTargetJSP(V7JspMapping.COMMON_AJAX_RESPONSE);
 		}
+		//Reload working app
+		ImagskySession aSession = ((ImagskySession) request.getSession().getAttribute(SystemConstants.REQ_ATTR_SESSION));
+		App thisApp = aSession.getWorkingApp();
+		
+		aSession.setWorkingApp(appBiz.reloadApp(aSession.getWorkingApp()));
+		request.getSession().setAttribute(SystemConstants.REQ_ATTR_SESSION,aSession);
 		return thisResp;
 	}
 
+	//Load About Us Edit Form
 	private SiteResponse modShowAboutUs(HttpServletRequest request, HttpServletResponse response) {
 		SiteResponse thisResp = super.createResponse();
 		//Find saved details if necessary
@@ -98,6 +117,19 @@ public class MOD_Handler extends BaseHandler {
 		return thisResp;
 	}
 
+	//Load Form Edit Form
+	private SiteResponse modShowForm(HttpServletRequest request, HttpServletResponse response) {
+		SiteResponse thisResp = super.createResponse();
+		//Find saved details if necessary
+		if(appCodeToken.length>2 && !CommonUtil.isNullOrEmpty(appCodeToken[2])){
+			ModuleBiz biz = ModuleBiz.getInstance(thisMember, request);
+			ModForm obj = (ModForm)biz.getModule(Module.ModuleTypes.ModForm.name(), appCodeToken[2]);
+			request.setAttribute(SystemConstants.REQ_ATTR_OBJ, obj);
+		}
+		thisResp.setTargetJSP(V7JspMapping.MOD_EDIT_FORM);
+		return thisResp;
+	}
+	
 	/***
 	 * TODO: Update priority or change something by batch (Drag and drop)
 	 * Description:  MY MODULE section -Save the order and create module (Dummy) into the App
@@ -122,6 +154,9 @@ public class MOD_Handler extends BaseHandler {
 				aSession.setWorkingApp(appBiz.reloadApp(aSession.getWorkingApp()));
 			}
 		}
+		request.setAttribute(V8SystemConstants.AJAX_RESULT, V8SystemConstants.AJAX_RESULT_TRUE);
+		request.setAttribute(SystemConstants.REQ_ATTR_DONE_MSG, "Save Successfully");
+		thisResp.setTargetJSP(V7JspMapping.COMMON_AJAX_RESPONSE);
 		return thisResp;
 	}
 
@@ -133,7 +168,6 @@ public class MOD_Handler extends BaseHandler {
 
 	private SiteResponse showAddModuleMain(HttpServletRequest request, HttpServletResponse response) {
 		SiteResponse thisResp = super.createResponse();
-		
 		//Assign working App by GUID
 		if(appCodeToken.length>=3){
 			workingApp = getCurrentApp(thisMember, appCodeToken[2]);

@@ -196,7 +196,7 @@ public abstract class AbstractDbDAO {
 
     public Object CNT_create(Object obj) throws BaseDBException {
         Class thisContentClass = contentClassValidation(domainClassName);
-
+        cmaLogger.debug("CNT_create: start");
         EntityManager em = factory.createEntityManager();
         em.getTransaction().begin();
         beanValidate(obj);
@@ -211,18 +211,25 @@ public abstract class AbstractDbDAO {
             }
             em.persist(obj);
             em.getTransaction().commit();
+            cmaLogger.debug("CNT_create: end");
         } catch (SecurityException e) {
+        	cmaLogger.error("SecurityException", e);
+        	return null;
         } catch (NoSuchMethodException e) {
             //Without get/set SysGuid
             em.persist(obj);
             em.getTransaction().commit();
         } catch (IllegalArgumentException e) {
-            return null;
+        	cmaLogger.error("IllegalArgumentException", e);
+        	return null;
         } catch (IllegalAccessException e) {
+        	cmaLogger.error("IllegalAccessException", e);
             return null;
         } catch (InvocationTargetException e) {
+        	cmaLogger.error("InvocationTargetException", e);
             return null;
         }
+        cmaLogger.debug("CNT_create: return obj");
         return obj;
     }
 

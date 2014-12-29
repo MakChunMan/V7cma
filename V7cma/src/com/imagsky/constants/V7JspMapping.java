@@ -45,6 +45,7 @@ public class V7JspMapping {
     
     //Module Details Edit page (TODO: Add here for more module
     public static final String MOD_EDIT_ABOUTUS = "/jsp/v8/inc_mod_aboutus.jsp";
+    public static final String MOD_EDIT_FORM = "/jsp/v8/inc_mod_form.jsp";
     
     
     

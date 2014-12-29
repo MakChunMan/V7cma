@@ -1,9 +1,15 @@
 package com.imagsky.common;
 
 import java.util.Date;
+import java.util.Iterator;
+
+import com.imagsky.util.CommonUtil;
+import com.imagsky.util.logger.cmaLogger;
 import com.imagsky.v6.domain.*;
+
 import javax.servlet.*;
 import javax.servlet.http.*;
+
 //import com.imagsky.v5.common.Site;
 //import com.imagsky.v5.bean.*;
 import com.imagsky.v8.domain.*;
@@ -87,6 +93,12 @@ public class ImagskySession {
 		this.fbAccessToken = fbAccessToken;
 	}
 	public App getWorkingApp() {
+		if(!CommonUtil.isNullOrEmpty(workingApp.getModules())){
+			Iterator it = workingApp.getModules().iterator();
+			while(it.hasNext()){
+				cmaLogger.debug(((Module)it.next()).getModuleTitle());
+			}
+		}
 		return workingApp;
 	}
 	public void setWorkingApp(App workingApp) {

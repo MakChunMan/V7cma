@@ -69,8 +69,11 @@ public class ModAboutPageBiz extends BaseModuleBiz {
 	        	thisAppImage = new AppImage(this.thisApp, this.getParamToString("edit-abt-image"));
 	        	List alist =  adao.CNT_findListWithSample(thisAppImage);
 	        	if(CommonUtil.isNullOrEmpty(alist)){
+	        		cmaLogger.debug("empty List");
 	        		enqObj.setPageImage(thisAppImage);
 	        	} else {
+	        		cmaLogger.debug("not empty List");
+	        		//(AppImage)subdao.CNT_update(tmpAppImage));
 	        		thisAppImage = (AppImage)alist.get(0);
 	        		thisAppImage.setImageUrl(this.getParamToString("edit-abt-image"));
 	        		enqObj.setPageImage(thisAppImage);

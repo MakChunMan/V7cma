@@ -21,7 +21,7 @@ import com.imagsky.v6.domain.SysObject;
 public abstract class Module extends SysObject {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	@Enumerated(EnumType.STRING)
 	@Column(name = "MOD_TYPE", columnDefinition = "ENUM('ModAboutPage', 'ModForm', 'ModShopCatalog')")
 	protected ModuleTypes moduleType;

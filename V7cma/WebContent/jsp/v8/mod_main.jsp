@@ -240,19 +240,19 @@ if(!V6Util.isLogined(request)){
                                             <div class="col-xs-2">
                                                 <a class="widget moduleWidget" id="moduleAboutPage"  typename="ModAboutPage">
                                                 <%=ModuleTemplateUIConstants.getUIHtml_modListPage("modAboutPage") %>
-                                               <br>About Us <i class="fa fa-info-circle info" onmousedown="javascript:$('#modal-small').modal('show');return false;"></i>
+                                               <br>About Us <i class="fa fa-info-circle info"></i>
                                                </a>
                                             </div>
                                             <div class="col-xs-2">
                                                 <a class="widget moduleWidget" id="moduleCatalog" typename="ModCatalog">
                                                 <%=ModuleTemplateUIConstants.getUIHtml_modListPage("ModCatalog") %>
-                                                <br>Catalog <i class="fa fa-info-circle info" onmousedown="javascript:$('#modal-small').modal('show');return false;"></i>
+                                                <br>Catalog <i class="fa fa-info-circle info"></i>
                                                 </a>
                                             </div>
                                             <div class="col-xs-2">
                                                 <a class="widget moduleWidget" id="moduleForm" typename="ModForm"> 
                                                 <%=ModuleTemplateUIConstants.getUIHtml_modListPage("ModForm") %>
-                                                <br>Online Form <i class="fa fa-info-circle info" onmousedown="javascript:$('#modal-small').modal('show');return false;"></i>
+                                                <br>Online Form <i class="fa fa-info-circle info"></i>
                                                 </a>
                                             </div>
                                             <div class="col-xs-2">
@@ -286,27 +286,6 @@ if(!V6Util.isLogined(request)){
         </div>
         <!-- END Page Wrapper -->
         
-        
-        <!-- Small Modal -->
-        <div id="modal-small" class="modal" tabindex="-1" role="dialog" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <h5 class="modal-title"><strong>Regular Modal</strong></h5>
-                    </div>
-                    <div class="modal-body">
-                        Content..
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-effect-ripple btn-primary">Add</button>
-                        <button type="button" class="btn btn-effect-ripple btn-danger" data-dismiss="modal">Close</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- END Small Modal -->
-        
        <!-- Upload Modal -->
         <div id="modal-upload" class="modal" tabindex="-1" role="dialog" aria-hidden="true">
             <form enctype="multipart/form-data">
@@ -333,13 +312,6 @@ if(!V6Util.isLogined(request)){
         <jsp:include page="/jsp/v8/common_footer_js.jsp"></jsp:include>
         <script src="<%=V8SystemConstants.V8_PATH %>/fileinput/js/fileinput.js" type="text/javascript"></script>
         <script>
-        /***
-        $(document).ready(function() {
-            $("#file-1a").on('fileloaded', function(event, file, previewId, index) {
-                alert('i = ' + index + ', id = ' + previewId + ', file = ' + file.name);
-            });
-        });***/
-        
         $('#btn_image_upload_add').click(function(){
         	var data = new FormData();
         	jQuery.each($('#file-1a')[0].files, function(i, file) {

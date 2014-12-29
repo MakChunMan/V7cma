@@ -19,7 +19,7 @@
      thisUser = ((ImagskySession)request.getSession().getAttribute(SystemConstants.REQ_ATTR_SESSION)).getUser();
      thisApp = ((ImagskySession)request.getSession().getAttribute(SystemConstants.REQ_ATTR_SESSION)).getWorkingApp();
  %>
-<div class="row block-section">
+  <div class="row block-section">
 <% for (int x =0 ; x < V8SystemConstants.V8_MAX_NO_MODULE ;x++){ 
                        if(thisApp.getModules()!=null && thisApp.getModules().size()>x){
                     	   if(al==null) al = new ArrayList(thisApp.getModules());                    	   
