@@ -2,6 +2,7 @@ package com.imagsky.v8.biz;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -10,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import com.imagsky.dao.AppDAO;
 import com.imagsky.dao.ContentFolderDAO;
 import com.imagsky.exception.BaseDBException;
+import com.imagsky.util.CommonUtil;
 import com.imagsky.util.logger.cmaLogger;
 import com.imagsky.v6.biz.MemberBiz;
 import com.imagsky.v6.dao.MemberDAO;
@@ -17,6 +19,8 @@ import com.imagsky.v6.domain.Member;
 import com.imagsky.v7.biz.V7AbstractBiz;
 import com.imagsky.v7.domain.ContentFolder;
 import com.imagsky.v8.domain.App;
+import com.imagsky.v8.domain.Module;
+
 
 public class AppBiz extends V7AbstractBiz {
 
@@ -109,40 +113,18 @@ public class AppBiz extends V7AbstractBiz {
 		AppDAO dao = AppDAO.getInstance();
 		App enqObj = new App();
 		enqObj.setSys_guid(oldApp.getSys_guid());
+		enqObj.setAPP_TYPE(oldApp.getAPP_TYPE());
 		List aList;
 		try {
 			aList = dao.CNT_findListWithSample(enqObj);
-			return (App)aList.get(0);
+			if(CommonUtil.isNullOrEmpty(aList)){
+				cmaLogger.error("Cannot find app:"+ oldApp.getSys_guid());
+			}
+			return (App)(aList.get(0));
 		} catch (BaseDBException e) {
 			// TODO Auto-generated catch block
 			cmaLogger.error("reloadApp error:" + oldApp.getSys_guid(), e );
 			return null;
 		}
-	}
-	
-	public App testAddApp(){
-		App newApp = new App();
-		newApp.setAPP_NAME("Test."+ new java.util.Date());
-		newApp.setAPP_DESC("Desc."+ new java.util.Date());
-		newApp.setAPP_CREATOR(getOwner());
-		newApp.setAPP_STATUS("");
-		newApp.setAPP_TYPE(0);
-		AppDAO aDao = AppDAO.getInstance();
-		MemberDAO mDao = MemberDAO.getInstance();
-				
-		try{
-			aDao.CNT_create(newApp);
-			Set<App> aSet = this.getOwner().getApps();
-			if(aSet == null){
-				aSet = new HashSet<App>();
-			}
-			aSet.add(newApp);
-			this.getOwner().setApps(aSet);
-			mDao.update(this.getOwner());
-		} catch (Exception e){
-			cmaLogger.error("Error AppDAO", e);
-		}
-		
-		return newApp;
 	}
 }

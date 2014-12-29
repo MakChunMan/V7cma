@@ -65,6 +65,7 @@ public class MOD_Handler extends BaseHandler {
 	private SiteResponse doSaveModContent(HttpServletRequest request, HttpServletResponse response) {
 		SiteResponse thisResp = super.createResponse();
 		ModuleBiz biz = ModuleBiz.getInstance(thisMember, request);
+		AppBiz appBiz = AppBiz.getInstance(thisMember, request);
 		
 		if(CommonUtil.isNullOrEmpty(request.getParameter("MODTYPE"))){
 			thisResp.addErrorMsg(new SiteErrorMessage("MISSING_MODTYPE"));
@@ -83,6 +84,12 @@ public class MOD_Handler extends BaseHandler {
 			request.setAttribute(SystemConstants.REQ_ATTR_DONE_MSG, "Save Successfully");
 			thisResp.setTargetJSP(V7JspMapping.COMMON_AJAX_RESPONSE);
 		}
+		//Reload working app
+		ImagskySession aSession = ((ImagskySession) request.getSession().getAttribute(SystemConstants.REQ_ATTR_SESSION));
+		App thisApp = aSession.getWorkingApp();
+		
+		aSession.setWorkingApp(appBiz.reloadApp(aSession.getWorkingApp()));
+		request.getSession().setAttribute(SystemConstants.REQ_ATTR_SESSION,aSession);
 		return thisResp;
 	}
 
@@ -133,7 +140,6 @@ public class MOD_Handler extends BaseHandler {
 
 	private SiteResponse showAddModuleMain(HttpServletRequest request, HttpServletResponse response) {
 		SiteResponse thisResp = super.createResponse();
-		
 		//Assign working App by GUID
 		if(appCodeToken.length>=3){
 			workingApp = getCurrentApp(thisMember, appCodeToken[2]);

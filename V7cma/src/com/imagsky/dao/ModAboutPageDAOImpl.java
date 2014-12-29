@@ -36,13 +36,6 @@ public class ModAboutPageDAOImpl extends ModAboutPageDAO {
         try {
             em.getTransaction().begin();
             ModAboutPage tmpModule = em.find(ModAboutPage.class, module.getSys_guid());
-            AppImage tmpAppImage = em.find(AppImage.class, tmpModule.getPageImage().getSys_guid());
-            //Update AppImage
-            if(tmpModule.getPageImage()!=null && tmpAppImage!=null){
-            	tmpAppImage.setImageUrl(module.getPageImage().getImageUrl());
-            	subdao.CNT_update(tmpAppImage);
-            }
-            
             if (!CommonUtil.isNullOrEmpty(module.getPageTitle())) {
             	tmpModule.setPageTitle(module.getPageTitle());
             }
@@ -52,24 +45,17 @@ public class ModAboutPageDAOImpl extends ModAboutPageDAO {
             tmpModule.setPageEmail(module.getPageEmail());
             tmpModule.setPageFacebookLink(module.getPageFacebookLink());
 
-            cmaLogger.debug("tmpModule:"+ tmpModule.getPageImage());
-            cmaLogger.debug("module:"+module.getPageImage());
-            
-        	
             if(tmpModule.getPageImage()==null && module.getPageImage()!=null){
             	//Create
+            	cmaLogger.debug("Create app image");
             	tmpModule.setPageImage((AppImage)subdao.CNT_create(module.getPageImage()));
             } else if(tmpModule.getPageImage()!=null && module.getPageImage()!=null) { 
             	//Update
-            	/****
-            	AppImage tmpAppImage = em.find(AppImage.class, tmpModule.getPageImage().getSys_guid());
-            	tmpAppImage.setImageUrl(module.getPageImage().getImageUrl());
-            	cmaLogger.debug("guid:"+ tmpAppImage.getSys_guid());
-            	subdao.CNT_update(tmpAppImage);
-            	****/
-            	//tmpModule.setPageImage((AppImage)subdao.CNT_update(tmpAppImage));
+            	cmaLogger.debug("Update app image");
+            	tmpModule.getPageImage().setImageUrl(module.getPageImage().getImageUrl());
             } else { 
             	//Remove
+            	cmaLogger.debug("Remove app image");
             	subdao.CNT_delete(tmpModule.getPageImage());
             	tmpModule.setPageImage(null);
             }
@@ -81,7 +67,7 @@ public class ModAboutPageDAOImpl extends ModAboutPageDAO {
             tmpModule.setSys_is_published(module.isSys_is_published());
             tmpModule.setSys_is_node(module.isSys_is_node());
             
-            em.merge(module);
+            em.merge(tmpModule);
             em.getTransaction().commit();
             module = em.find(ModAboutPage.class, module.getPageTitle());
         } catch (Exception e) {

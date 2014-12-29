@@ -28,7 +28,7 @@ if(thisMod == null)
       <!-- END Horizontal Form Title -->
 
       <!-- Horizontal Form Content -->
-      <form id="mod_details_edit_form" method="post" class="form-horizontal form-bordered" onsubmit="return fase;">
+      <form id="mod_details_edit_form" method="post" class="form-horizontal form-bordered" onsubmit="return false;">
            <input type=hidden name="MODTYPE" value="<%=Module.ModuleTypes.ModAboutPage.name()%>"/>
            <input type=hidden name="APPGUID" value="<%=thisApp.getSys_guid()%>"/>
            <% if(!CommonUtil.isNullOrEmpty(thisMod.getSys_guid())){ %>
@@ -110,17 +110,12 @@ if(thisMod == null)
                   // Server side validation and display error msg
                   $('#error-msg').html(html.replace("Error:","")+"<br/>");
               } else {
-                  $('#APP_EDIT_FORM').html(
+                  $('#modEditForm').html(
                   '<div class="alert alert-success alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>'+
                   '<h4><strong><%=MessageUtil.getV8Message(lang, "COMMON_LABEL")%></strong></h4>' +
                   '<p>'+html.replace("Msg:","")+'</p></div>');
                   //Reload List
-                  $.ajax({
-                      url:"/do/APP/AJ_LIST",
-                      cache: false
-                  }).done(function( html ) {
-                          $('#app-list').html(html);
-                  });
+                  topRefresh();
               }
           });
       });
