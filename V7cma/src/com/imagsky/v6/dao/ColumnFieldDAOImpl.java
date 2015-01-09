@@ -64,29 +64,6 @@ public class ColumnFieldDAOImpl extends ColumnFieldDAO{
 		return null;
 	}
 
-	@Override
-	public boolean delete(String id) throws BaseDBException {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean delete(Object obj) throws BaseDBException {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public int deleteAll(Object[] objs) throws BaseDBException {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int deleteAll(String[] strs) throws BaseDBException {
-		// TODO Auto-generated method stub
-		return 0;
-	}
 
 	@Override
 	public List<Object> findAll() throws BaseDBException {

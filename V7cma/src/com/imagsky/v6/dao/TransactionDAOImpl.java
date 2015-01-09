@@ -53,38 +53,6 @@ public class TransactionDAOImpl extends TransactionDAO{
 	}
 
 	@Override
-	public boolean delete(String id) throws BaseDBException {
-		/***
-		EntityManager em = factory.createEntityManager();
-		em.getTransaction().begin();
-		Transaction prod = new Transaction();
-		prod.setSys_guid(id);
-		em.remove(em.merge(prod));
-		em.getTransaction().commit();
-		return true;
-		****/
-		return false; //NOT YET IMPLEYTMENT
-	}
-
-	@Override
-	public boolean delete(Object obj) throws BaseDBException {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public int deleteAll(Object[] objs) throws BaseDBException {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int deleteAll(String[] strs) throws BaseDBException {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
 	public List<Object> findAll() throws BaseDBException {
 		// TODO Auto-generated method stub
 		return null;

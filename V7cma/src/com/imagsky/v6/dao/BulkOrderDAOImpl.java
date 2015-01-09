@@ -52,60 +52,6 @@ public class BulkOrderDAOImpl extends BulkOrderDAO {
         return BulkOrder;
     }
 
-    /**
-     * **
-     * Used by BO Admin Control
-     *
-     * @param obj Bulk Order Object
-     * @param sellitemId ID of Sell Item to be deleted from Bulk Order
-     * @return
-     * @throws BaseDBException
-     */
-    /**
-     * **
-     * public boolean delete(Object obj, String sellitemId) throws
-     * BaseDBException { beanValidate(obj); try { BulkOrderItem bulkOrder =
-     * (BulkOrderItem) obj; EntityManager em = factory.createEntityManager();
-     * em.getTransaction().begin(); BulkOrderItem tmpBO =
-     * em.find(BulkOrderItem.class, bulkOrder.getId()); if
-     * (BulkOrderItem.isProductInBulkOrder(tmpBO, sellitemId)) {
-     * Iterator<SellItem> it = tmpBO.getSellItems().iterator(); SellItem tmpObj;
-     * Collection<SellItem> newCollection = new ArrayList<SellItem>(); while
-     * (it.hasNext()) { tmpObj = (SellItem) it.next(); if
-     * (!tmpObj.getSys_guid().equalsIgnoreCase(sellitemId)) {
-     * newCollection.add(tmpObj); } } tmpBO.setSellItems(newCollection); }
-     * em.getTransaction().commit(); } catch (Exception e) { throw new
-     * BaseDBException("BulkOrder Exception: ", "", e); } return true; }
-    * ***
-     */
-    @Override
-    public boolean delete(Object obj) throws BaseDBException {
-        beanValidate(obj); 
-        try { 
-            BulkOrderItem bulkOrder =(BulkOrderItem) obj;
-            EntityManager em = factory.createEntityManager();
-            em.getTransaction().begin(); 
-            BulkOrderItem tmpBO =em.find(BulkOrderItem.class, bulkOrder.getId()); 
-            em.remove(tmpBO);
-            em.getTransaction().commit();
-            return true; 
-        } catch (Exception e) { 
-            throw new BaseDBException("BulkOrder Exception: ", "", e); 
-        } 
-    }
-
-    @Override
-    public int deleteAll(Object[] objs) throws BaseDBException {
-        // TODO Auto-generated method stub
-        return 0;
-    }
-
-    @Override
-    public int deleteAll(String[] strs) throws BaseDBException {
-        // TODO Auto-generated method stub
-        return 0;
-    }
-
     @Override
     public List<Object> findAll() throws BaseDBException {
         // TODO Auto-generated method stub
@@ -346,11 +292,5 @@ public class BulkOrderDAOImpl extends BulkOrderDAO {
             cmaLogger.debug("Result not found");
             return null;
         }
-    }
-
-    @Override
-    public boolean delete(String id) throws BaseDBException {
-        // TODO Auto-generated method stub
-        return false;
     }
 }

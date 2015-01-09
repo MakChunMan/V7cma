@@ -252,14 +252,16 @@ public abstract class AbstractDbDAO {
 
     public abstract boolean update(Object obj) throws BaseDBException;
 
+    /*** 2015-01-08 Remove unuseful method
     public abstract boolean delete(String id) throws BaseDBException;
 
     public abstract boolean delete(Object obj) throws BaseDBException;
-
+    
     public abstract int deleteAll(Object[] objs) throws BaseDBException;
 
     public abstract int deleteAll(String[] strs) throws BaseDBException;
-
+	***/
+    
     protected cmaLogger getLogger() {
         return LOGGER;
     }

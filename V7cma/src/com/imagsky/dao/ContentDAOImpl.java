@@ -84,24 +84,4 @@ public class ContentDAOImpl extends ContentDAO {
     public boolean update(Object obj) throws BaseDBException {
         throw new UnsupportedOperationException("Not supported yet.");
     }
-
-    @Override
-    public boolean delete(String id) throws BaseDBException {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    @Override
-    public boolean delete(Object obj) throws BaseDBException {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    @Override
-    public int deleteAll(Object[] objs) throws BaseDBException {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    @Override
-    public int deleteAll(String[] strs) throws BaseDBException {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
 }

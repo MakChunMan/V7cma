@@ -226,7 +226,14 @@ public class V6Util {
             node.setNod_owner(owner.getSys_guid());
 
             NodeDAO dao = NodeDAO.getInstance();
-            dao.delete(node);
+            Node tmpNode;
+            List nodeList = dao.CNT_findListWithSample(node);
+            if(!CommonUtil.isNullOrEmpty(nodeList)){
+            	for(Object obj : nodeList){
+            		tmpNode = (Node)obj;
+            		dao.CNT_delete(tmpNode);
+            	}
+            }
             return true;
         } catch (Exception e) {
             cmaLogger.error("disassociate Fail: ", e);

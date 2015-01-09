@@ -57,7 +57,7 @@ public class SellItemCategoryDAOImpl extends SellItemCategoryDAO{
 		return cat;
 	}
 
-	@Override
+	//2015-01-09 - Remove override
 	public boolean delete(String id) throws BaseDBException {
 		EntityManager em = factory.createEntityManager();
 		em.getTransaction().begin();
@@ -83,29 +83,10 @@ public class SellItemCategoryDAOImpl extends SellItemCategoryDAO{
 		} catch (Exception e){
 			cmaLogger.error("Update child sellitem exception",e);
 		}
-		
-		
 		em.getTransaction().commit();
 		return true;
 	}
 
-	@Override
-	public boolean delete(Object obj) throws BaseDBException {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public int deleteAll(Object[] objs) throws BaseDBException {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int deleteAll(String[] strs) throws BaseDBException {
-		// TODO Auto-generated method stub
-		return 0;
-	}
 
 	@Override
 	public List<Object> findAll() throws BaseDBException {

@@ -16,7 +16,7 @@ int startRow = 	new Integer((String)request.getAttribute("startrow"));
 int rowPerPage = new Integer((String)request.getAttribute("rowPerPage"));
 int currentPage = 	new Integer((String)request.getAttribute("p"));//Current Page
 ***/
-
+/***
 BulkOrder bo = PropertiesUtil.getBulkOrder();
 
 if(results==null || results.length<=0){
@@ -44,6 +44,6 @@ if(results==null || results.length<=0){
                </div>
                <div style="float:clear;"></div>
        		<% }
-}
+}***/
  %>
  
