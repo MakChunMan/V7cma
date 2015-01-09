@@ -33,7 +33,7 @@
                     	    isCurrentFirst = false;
                        %>
                     	<div class="col-xs-2" id="module<%=(x+1)%>">
-                            <button class="btn btn-lg btn-success" onClick="javascript:$('#moduleTemplateRow').show();clearAllBorder();$('#moduleEditRow').hide();return false;"><i class="fa fa-plus"></i> Add</button>
+                            <button class="btn btn-lg btn-success" onClick="javascript:$('#moduleTemplateRow').show();clearAllBorder();$('#moduleEditRow').hide();$('#topDeleteBtn').hide();return false;"><i class="fa fa-plus"></i> Add</button>
                         </div>
                  <% } else { %>
                         <div class="col-xs-2" id="module<%=(x+1)%>">

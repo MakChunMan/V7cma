@@ -143,7 +143,9 @@ public class ARTI_Handler  extends BaseHandler {
 		if(!CommonUtil.isNullOrEmpty(request.getParameter("guid"))){
 			try{
 				ArticleDAO dao = ArticleDAO.getInstance();
-				dao.delete(request.getParameter("guid"));
+				Article enqObj = new Article();
+				enqObj.setSys_guid(request.getParameter("guid"));
+				dao.CNT_delete(enqObj);
 				request.setAttribute(SystemConstants.REQ_ATTR_DONE_MSG, MessageUtil.getV6Message((String)request.getAttribute(SystemConstants.REQ_ATTR_LANG), 
 				"ARTI_DEL_DONE"));
 				V6Util.disassociate(request.getParameter("guid"), thisMember);

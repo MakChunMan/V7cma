@@ -1,6 +1,5 @@
 package com.imagsky.v8.domain;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;

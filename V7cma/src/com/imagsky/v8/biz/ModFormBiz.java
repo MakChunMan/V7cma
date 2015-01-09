@@ -35,7 +35,7 @@ public class ModFormBiz extends BaseModuleBiz {
 			} else if(ModuleBiz.ACTION_CODE.UPDATE.name().equalsIgnoreCase(actionCode)){
 				returnModule = doUpdate();
 			} else if(ModuleBiz.ACTION_CODE.DELETE.name().equalsIgnoreCase(actionCode)){
-				
+				returnModule = doDelete();
 			} else  if(ModuleBiz.ACTION_CODE.FIND.name().equalsIgnoreCase(actionCode)){
 				returnModule = doFind();
 			}
@@ -142,6 +142,18 @@ public class ModFormBiz extends BaseModuleBiz {
 			newMod = (ModForm)mdao.CNT_create(newMod);
 		} catch (BaseDBException e) {
 			cmaLogger.error("ModFormBiz.doCreate()", e);
+		}
+		return newMod;
+	}
+	
+	private Module doDelete(){
+		FormDAO mdao = FormDAO.getInstance();
+		ModForm newMod = new ModForm();
+		try {
+			newMod.setSys_guid((String)thisParamMap.get("guid"));
+			mdao.CNT_delete(newMod);
+		} catch (BaseDBException e) {
+			cmaLogger.error("ModFormBiz.doDelete()", e);
 		}
 		return newMod;
 	}

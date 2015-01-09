@@ -91,4 +91,31 @@ public class ModuleBiz  extends V7AbstractBiz {
 		}
 		return returnModule;
 	}
+	
+	public void deleteModule(App thisApp, String moduleTypeName, String moduleGuid){
+		BaseModuleBiz moduleBiz;
+		AppDAO dao = AppDAO.getInstance();
+		try{
+			Map aParamMap = new HashMap();
+			aParamMap.put("guid", moduleGuid);
+			aParamMap.putAll(paramMap);
+			moduleBiz = ModuleBizFactory.createBusiness(moduleTypeName);
+			moduleBiz.setApp(this.getThisWorkingApp());
+			moduleBiz.execute(this, ACTION_CODE.DELETE.name(), aParamMap);
+			//Delete from set
+			Set<Module> aSet = new HashSet<Module>(thisApp.getModules());
+			Set<Module> resultSet = new HashSet<Module>(thisApp.getModules());
+			for(Module thisModule : aSet){
+				if(thisModule.getSys_guid().equalsIgnoreCase(moduleGuid)){
+					resultSet.remove(thisModule);
+				}
+			}
+			thisApp.setModules(resultSet);
+			dao.CNT_update(thisApp);
+		} catch (Exception e){
+			this.addErrorMsg("ModuleBiz delete exception: "+ this.getAllParamToString());
+			cmaLogger.error("ModuleBiz exception:", e);
+		}
+		return;
+	}
 }

@@ -55,49 +55,6 @@ public class SearchLogDAOImpl extends SearchLogDAO{
 	}
 
 	@Override
-	public boolean delete(String id) throws BaseDBException {
-		/*
-		EntityManager em = factory.createEntityManager();
-		em.getTransaction().begin();
-		SearchLog enq = new SearchLog();
-		enq.setId(new Integer(id));
-		em.remove(em.merge(enq));
-		em.getTransaction().commit();
-		*/
-		cmaLogger.debug("delete not implemented");
-		return false;
-	}
-
-	@Override
-	public boolean delete(Object obj) throws BaseDBException {
-		/*
-		beanValidate(obj);
-		EntityManager em = factory.createEntityManager();
-		em.getTransaction().begin();
-		SearchLog enq = (SearchLog)obj;
-		//enq.setId(new Integer(id));
-		em.remove(em.merge(enq));
-		em.getTransaction().commit();
-		*/
-		cmaLogger.debug("delete not implemented");
-		return false;
-	}
-
-	@Override
-	public int deleteAll(Object[] objs) throws BaseDBException {
-		// TODO Auto-generated method stub
-		cmaLogger.debug("deleteAll not implemented");
-		return 0;
-	}
-
-	@Override
-	public int deleteAll(String[] strs) throws BaseDBException {
-		// TODO Auto-generated method stub
-		cmaLogger.debug("deleteAll not implemented");
-		return 0;
-	}
-
-	@Override
 	public List<Object> findAll() throws BaseDBException {
 		// TODO Auto-generated method stub
 		cmaLogger.debug("findAll not implemented");

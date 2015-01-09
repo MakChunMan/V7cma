@@ -1,18 +1,10 @@
 package com.imagsky.v6.cma.servlet.handler;
 
-import java.util.ArrayList;
-
-import java.util.HashSet;
-import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.imagsky.common.*;
 import com.imagsky.constants.V7JspMapping;
-import com.imagsky.dao.AppDAO;
-import com.imagsky.dao.FormDAO;
-import com.imagsky.exception.BaseDBException;
 import com.imagsky.exception.BaseException;
 import com.imagsky.util.CommonUtil;
 import com.imagsky.util.V8Util;
@@ -68,10 +60,38 @@ public class MOD_Handler extends BaseHandler {
 			thisResp = modShowForm(request, response);					
 		}  else if(appCodeToken[1].equalsIgnoreCase(Pages.DO_SAVE_MOD_CONTENT.name())){
 					thisResp = doSaveModContent(request, response); //Save Module Content / Details
+		}  else if(appCodeToken[1].equalsIgnoreCase(Pages.DO_DEL_MOD.name())){
+					thisResp = doDelModContent(request, response); //Save Module Content / Details
 		}
 		return thisResp;
 	}
 	
+	private SiteResponse doDelModContent(HttpServletRequest request, HttpServletResponse response) {
+		SiteResponse thisResp = super.createResponse();
+		ModuleBiz biz = ModuleBiz.getInstance(thisMember, request);
+		/***
+		if(CommonUtil.isNullOrEmpty(request.getParameter("MODTYPE"))){
+			thisResp.addErrorMsg(new SiteErrorMessage("MISSING_MODTYPE"));
+		} else if(CommonUtil.isNullOrEmpty(request.getParameter("MODGUID"))){
+			thisResp.addErrorMsg(new SiteErrorMessage("MISSING_MODGUID"));
+		//} else if(CommonUtil.isNullOrEmpty(request.getParameter("MODTYPE"))){			
+		}  else {
+			biz.deleteModule(request.getParameter("MODTYPE"), request.getParameter("MODGUID"));
+			request.setAttribute(V8SystemConstants.AJAX_RESULT, V8SystemConstants.AJAX_RESULT_TRUE);
+			request.setAttribute(SystemConstants.REQ_ATTR_DONE_MSG, "Save Successfully");
+		}***/
+		workingApp = ((ImagskySession) request.getSession().getAttribute(SystemConstants.REQ_ATTR_SESSION)).getWorkingApp();
+		if(appCodeToken.length>3 && !CommonUtil.isNullOrEmpty(appCodeToken[3])){
+			String guid = appCodeToken[2];
+			String modType = appCodeToken[3];
+			biz.deleteModule(workingApp, modType, guid);
+		}
+		request.setAttribute(V8SystemConstants.AJAX_RESULT, V8SystemConstants.AJAX_RESULT_TRUE);
+		request.setAttribute(SystemConstants.REQ_ATTR_DONE_MSG, "Save Successfully");
+		thisResp.setTargetJSP(V7JspMapping.COMMON_AJAX_RESPONSE);
+		return thisResp;
+	}
+
 	//Generic Save Module Details (For different type of module details)
 	private SiteResponse doSaveModContent(HttpServletRequest request, HttpServletResponse response) {
 		SiteResponse thisResp = super.createResponse();
@@ -82,7 +102,6 @@ public class MOD_Handler extends BaseHandler {
 			thisResp.addErrorMsg(new SiteErrorMessage("MISSING_MODTYPE"));
 		} else if(CommonUtil.isNullOrEmpty(request.getParameter("MODGUID"))){
 			thisResp.addErrorMsg(new SiteErrorMessage("MISSING_MODGUID"));
-		//} else if(CommonUtil.isNullOrEmpty(request.getParameter("MODTYPE"))){			
 		} else {
 			Module obj = biz.updateModule(request.getParameter("MODTYPE"), request.getParameter("MODGUID"));
 			request.setAttribute(SystemConstants.REQ_ATTR_OBJ, obj);
@@ -198,6 +217,7 @@ public class MOD_Handler extends BaseHandler {
 		MOD_SAVE,
 		MOD_EDIT_ABOUTUS,
 		MOD_EDIT_FORM,
-		DO_SAVE_MOD_CONTENT
+		DO_SAVE_MOD_CONTENT,
+		DO_DEL_MOD
 	};
 }

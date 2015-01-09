@@ -61,43 +61,6 @@ public class EnquiryDAOImpl extends EnquiryDAO{
 	}
 
 	@Override
-	public boolean delete(String id) throws BaseDBException {
-		/*
-		EntityManager em = factory.createEntityManager();
-		em.getTransaction().begin();
-		Enquiry enq = new Enquiry();
-		enq.setId(new Integer(id));
-		em.remove(em.merge(enq));
-		em.getTransaction().commit();
-		*/
-		return false;
-	}
-
-	@Override
-	public boolean delete(Object obj) throws BaseDBException {
-		beanValidate(obj);
-		EntityManager em = factory.createEntityManager();
-		em.getTransaction().begin();
-		Enquiry enq = (Enquiry)obj;
-		//enq.setId(new Integer(id));
-		em.remove(em.merge(enq));
-		em.getTransaction().commit();
-		return true;
-	}
-
-	@Override
-	public int deleteAll(Object[] objs) throws BaseDBException {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int deleteAll(String[] strs) throws BaseDBException {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
 	public List<Object> findAll() throws BaseDBException {
 		// TODO Auto-generated method stub
 		return null;

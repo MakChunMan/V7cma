@@ -6,7 +6,9 @@ import java.util.Map;
 
 
 
+
 import com.imagsky.dao.AppImageDAO;
+import com.imagsky.dao.FormDAO;
 import com.imagsky.dao.ModAboutPageDAO;
 import com.imagsky.exception.BaseDBException;
 import com.imagsky.exception.BaseException;
@@ -14,6 +16,7 @@ import com.imagsky.util.CommonUtil;
 import com.imagsky.util.logger.cmaLogger;
 import com.imagsky.v8.domain.AppImage;
 import com.imagsky.v8.domain.ModAboutPage;
+import com.imagsky.v8.domain.ModForm;
 import com.imagsky.v8.domain.Module;
 
 public class ModAboutPageBiz extends BaseModuleBiz {
@@ -36,7 +39,7 @@ public class ModAboutPageBiz extends BaseModuleBiz {
 			} else if(ModuleBiz.ACTION_CODE.UPDATE.name().equalsIgnoreCase(actionCode)){
 				returnModule = doUpdate();
 			} else if(ModuleBiz.ACTION_CODE.DELETE.name().equalsIgnoreCase(actionCode)){
-				
+				returnModule = doDelete();
 			} else  if(ModuleBiz.ACTION_CODE.FIND.name().equalsIgnoreCase(actionCode)){
 				returnModule = doFind();
 			}
@@ -128,6 +131,18 @@ public class ModAboutPageBiz extends BaseModuleBiz {
 			newMod = (ModAboutPage)mdao.CNT_create(newMod);
 		} catch (BaseDBException e) {
 			cmaLogger.error("ModAboutPageBiz.doCreate()", e);
+		}
+		return newMod;
+	}
+	
+	private Module doDelete(){
+		ModAboutPageDAO mdao = ModAboutPageDAO.getInstance();
+		ModAboutPage newMod = new ModAboutPage();
+		try {
+			newMod.setSys_guid((String)thisParamMap.get("guid"));
+			mdao.CNT_delete(newMod);
+		} catch (BaseDBException e) {
+			cmaLogger.error("ModAboutPageBiz.doDelete()", e);
 		}
 		return newMod;
 	}

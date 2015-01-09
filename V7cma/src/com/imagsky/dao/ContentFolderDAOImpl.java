@@ -79,24 +79,4 @@ public class ContentFolderDAOImpl extends ContentFolderDAO {
     public boolean update(Object obj) throws BaseDBException {
         throw new UnsupportedOperationException("To be remove. V6 methods woyld not be used for V7.");
     }
-
-    @Override
-    public boolean delete(String id) throws BaseDBException {
-        throw new UnsupportedOperationException("To be remove. V6 methods woyld not be used for V7.");
-    }
-
-    @Override
-    public boolean delete(Object obj) throws BaseDBException {
-        throw new UnsupportedOperationException("To be remove. V6 methods woyld not be used for V7.");
-    }
-
-    @Override
-    public int deleteAll(Object[] objs) throws BaseDBException {
-        throw new UnsupportedOperationException("To be remove. V6 methods woyld not be used for V7.");
-    }
-
-    @Override
-    public int deleteAll(String[] strs) throws BaseDBException {
-        throw new UnsupportedOperationException("To be remove. V6 methods woyld not be used for V7.");
-    }
 }

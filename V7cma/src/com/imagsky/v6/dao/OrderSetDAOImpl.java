@@ -53,35 +53,6 @@ public class OrderSetDAOImpl extends OrderSetDAO{
 	}
 
 	@Override
-	public boolean delete(String id) throws BaseDBException {
-		EntityManager em = factory.createEntityManager();
-		em.getTransaction().begin();
-		OrderSet orderSet = new OrderSet();
-		orderSet.setCode(id);
-		em.remove(em.merge(orderSet));
-		em.getTransaction().commit();
-		return true;
-	}
-
-	@Override
-	public boolean delete(Object obj) throws BaseDBException {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public int deleteAll(Object[] objs) throws BaseDBException {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int deleteAll(String[] strs) throws BaseDBException {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
 	public List<Object> findAll() throws BaseDBException {
 		// TODO Auto-generated method stub
 		return null;
@@ -115,13 +86,13 @@ public class OrderSetDAOImpl extends OrderSetDAO{
 		if(orderSet.getOrder_payment_date()!=null){
 			tmpOrderSet.setOrder_payment_date(orderSet.getOrder_payment_date());
 		}
-                                    if(orderSet.isPaymentWarn()!=null){
-                                                     tmpOrderSet.setPaymentWarn(orderSet.isPaymentWarn());
-                                    }
-                                    if(orderSet.getPendingBTPayment()!=null){
-                                                    tmpOrderSet.setPendingBTPayment(orderSet.getPendingBTPayment());
-                                    }
-                                    em.merge(tmpOrderSet);
+        if(orderSet.isPaymentWarn()!=null){
+        	tmpOrderSet.setPaymentWarn(orderSet.isPaymentWarn());
+        }
+        if(orderSet.getPendingBTPayment()!=null){
+            tmpOrderSet.setPendingBTPayment(orderSet.getPendingBTPayment());
+        }
+        em.merge(tmpOrderSet);
 		//tmpOrderSet.set(new java.util.Date());
 		em.getTransaction().commit();
 		return true;

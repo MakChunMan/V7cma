@@ -1,5 +1,7 @@
 /*****
- * 2014-09-02 Add Product Management for mobile app 
+ * History
+ * 2015-01-09 		Change dao.delete to dao.CNT_delete
+ * 2014-09-02 		Add Product Management for mobile app 
  */
 package com.imagsky.v6.cma.servlet.handler;
 
@@ -199,7 +201,10 @@ public class PROD_Handler extends BaseHandler {
                  * ProductImageUtil.deleteProductImage(System.getProperty("uploadDirectory"),thisMember.getSys_guid(),oldVersion.getProd_image3());
                  * }
                  */
-                dao.delete(request.getParameter("guid"));
+                SellItem thisSellItem = new SellItem();
+                thisSellItem.setSys_guid(request.getParameter("guid"));
+                dao.CNT_delete(thisSellItem);
+                
                 String catGuid = oldVersion.getProd_cate_guid();
                 try {
                     cmaLogger.debug("Cat GUID = " + catGuid);

@@ -1,3 +1,8 @@
+/***
+ * History:
+ * 2015-01-09 		Change dao.delete to dao.CNT_delete
+ * 
+ */
 package com.imagsky.v6.cma.servlet.handler;
 
 import com.imagsky.common.ImagskySession;
@@ -140,7 +145,9 @@ public class CAT_Handler extends BaseHandler {
         if (!CommonUtil.isNullOrEmpty(request.getParameter("guid"))) {
             try {
                 SellItemCategoryDAO dao = SellItemCategoryDAO.getInstance();
-                dao.delete(request.getParameter("guid"));
+                SellItemCategory enqObj = new SellItemCategory();
+                enqObj.setSys_guid(request.getParameter("guid"));
+                dao.CNT_delete(enqObj);
                 request.setAttribute(SystemConstants.REQ_ATTR_DONE_MSG, MessageUtil.getV6Message((String) request.getAttribute(SystemConstants.REQ_ATTR_LANG),
                         "CAT_DEL_DONE"));
                 V6Util.disassociate(request.getParameter("guid"), thisMember);

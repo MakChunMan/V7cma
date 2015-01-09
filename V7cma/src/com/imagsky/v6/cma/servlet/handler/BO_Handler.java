@@ -141,10 +141,9 @@ public class BO_Handler extends BaseHandler {
             cmaLogger.error("BO_Handler.doDel ERROR: NO such Bulk Order + " +
             bo.getId()); throw new Exception(); }
          
-          if (dao.delete((BulkOrderItem) (blist.get(0)))) {
-            request.setAttribute(SystemConstants.REQ_ATTR_DONE_MSG,
-            MessageUtil.getV6Message((String) request.getAttribute(SystemConstants.REQ_ATTR_LANG), "BO_DEL_DONE"));
-           }; 
+           dao.CNT_delete((BulkOrderItem) (blist.get(0)));
+           request.setAttribute(SystemConstants.REQ_ATTR_DONE_MSG,
+           MessageUtil.getV6Message((String) request.getAttribute(SystemConstants.REQ_ATTR_LANG), "BO_DEL_DONE"));
         } catch (Exception e) { 
             cmaLogger.error("BO_Handler.doDel ERROR:  ", request, e); thisResp.addErrorMsg(new SiteErrorMessage("BO_DEL_ERROR")); 
             thisResp.addErrorMsg(new SiteErrorMessage("BO_DEL_ERROR"));

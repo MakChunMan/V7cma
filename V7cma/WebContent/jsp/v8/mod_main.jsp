@@ -176,6 +176,7 @@ if(!V6Util.isLogined(request)){
                                         <div class="block-options pull-right">
                                             <a href="javascript:$('#moduleTemplateRow').show();$('#moduleEditRow').hide();" class="btn btn-effect-ripple btn-default" data-toggle="tooltip" title="Add"><i class="fa fa-plus"></i></a>
                                             <a href="javascript:topSave()" class="btn btn-effect-ripple btn-default" data-toggle="tooltip" title="Save"><i class="fa fa-file-o"></i></a>
+                                            <a href="javascript:topDelete()" class="btn btn-effect-ripple btn-default" data-toggle="tooltip" title="Delete" id="topDeleteBtn" style='display:none'><i class="fa fa-trash-o"></i></a>
                                             <a href="javascript:topRefresh()" class="btn btn-effect-ripple btn-default" data-toggle="tooltip" title="Reset"><i class="fa fa-refresh"></i></a>
                                         </div>
                                         <h2><i class="fa fa-fw fa-database"></i> <strong>我的程式頁 - 共<span id="page-count"> </span>頁</strong></h2>
@@ -306,12 +307,13 @@ if(!V6Util.isLogined(request)){
             </div>
             </form>
         </div>
-        <!-- END Small Modal -->
+        <!-- END Upload Modal -->
         
         <!-- Include Jquery library from Google's CDN but if something goes wrong get Jquery from local file (Remove 'http:' if you have SSL) -->
         <jsp:include page="/jsp/v8/common_footer_js.jsp"></jsp:include>
         <script src="<%=V8SystemConstants.V8_PATH %>/fileinput/js/fileinput.js" type="text/javascript"></script>
         <script>
+        //Event Handler for hidden Modal of Image Upload
         $('#btn_image_upload_add').click(function(){
         	var data = new FormData();
         	jQuery.each($('#file-1a')[0].files, function(i, file) {

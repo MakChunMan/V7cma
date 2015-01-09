@@ -61,14 +61,15 @@ if(thisMod == null)
                         int x = 0;
                         Set<FormField> aSet = thisMod.getForm_fields();
                         ArrayList<FormField> aList = new ArrayList<FormField>();
-                        aList.addAll(aSet);
+                        if(aSet !=null)
+                            aList.addAll(aSet);
                         Collections.sort(aList, new FormFieldOrderComparator());
-                        if(aList!=null || !CommonUtil.isNullOrEmpty(aList)){
-                        	  Iterator<FormField> it = aSet.iterator();
-                        	  FormField field = null;
-                        	  while(it.hasNext()){
-                        		  x++;
-                        		  field = (FormField)it.next();
+                        if(aSet!=null || !CommonUtil.isNullOrEmpty(aList)){
+                              Iterator<FormField> it = aSet.iterator();
+                              FormField field = null;
+                              while(it.hasNext()){
+                                  x++;
+                                  field = (FormField)it.next();
                         %>
                         <tr id=current<%=x %> class='rowchild'>
                             <td><input type=text name="fieldname<%=x %>" value="<%=field.getFormfield_label()%>"><input type=hidden name="field<%=x %>" value="<%=field.getSys_guid() %>"/></td>
@@ -79,34 +80,34 @@ if(thisMod == null)
                             </td>
                         </tr>
                         <% 
-                        	  }
-                        	  out.println("<input type=hidden name=oldfieldcount value='"+ x + "'/>");
+                              }
+                              out.println("<input type=hidden name=oldfieldcount value='"+ x + "'/>");
                         } else { %>
                         <tr id="nofield_display">
                             <td colspan=4>
                             <span class="label label-primary"><i class="fa fa-exclamation-circle"></i></span> <%=MessageUtil.getV8Message(lang,"No Field") %>
                             </td>
-                        </tr>	
+                        </tr>   
                         <% 
                         }
                         %>
                         <tr id='addfieldrow'>
                             <td class="form-inline" colspan="4">
                                 <div class="form-group">
-			                       <input type="text" id="new_field_name" name="new_field_name" class="form-control" placeholder="New Field Name">
-			                       <select id="new_fieldtype-select" name="new_fieldtype-select" class="form-control" size="1">
-			                               <option value="0">Please select</option>
-			                               <% 
-			                               List<FormFieldType.Type>  typeList = FormFieldType.getFormFieldTypeSelector();
-			                               for(FormFieldType.Type thisType : typeList){
-			                                   out.println("<option value="+thisType.ordinal()+">"+ MessageUtil.getV8Message(lang,thisType.name())+"</option>");   
-			                               }
-			                               %>
-			                       </select>
-			                   </div>
-			                   <div class="form-group">
-			                       <button type="button" id="addfieldbutton" class="btn btn-effect-ripple btn-primary">Add Field</button>
-			                   </div>
+                                   <input type="text" id="new_field_name" name="new_field_name" class="form-control" placeholder="New Field Name">
+                                   <select id="new_fieldtype-select" name="new_fieldtype-select" class="form-control" size="1">
+                                           <option value="0">Please select</option>
+                                           <% 
+                                           List<FormFieldType.Type>  typeList = FormFieldType.getFormFieldTypeSelector();
+                                           for(FormFieldType.Type thisType : typeList){
+                                               out.println("<option value="+thisType.ordinal()+">"+ MessageUtil.getV8Message(lang,thisType.name())+"</option>");   
+                                           }
+                                           %>
+                                   </select>
+                               </div>
+                               <div class="form-group">
+                                   <button type="button" id="addfieldbutton" class="btn btn-effect-ripple btn-primary">Add Field</button>
+                               </div>
                             </td>
                         </tr>
                     </tbody>
@@ -129,11 +130,11 @@ if(thisMod == null)
       var newIdx = 0;
       var newAddString = ",";
       $('#addfieldbutton').click(function(){
-    	  newIdx++;
-    	  newAddString += newIdx + ",";
-    	  var str = "<tr id='row"+ newIdx + "' class='rowchild'><td><input type=text name=newfieldname"+ newIdx +" value='"+ $('#new_field_name').val()+ "'></td>"  +
-    	    "<td>"+ $('#new_fieldtype-select').val()+"<input type=hidden name=newfieldtype"+ newIdx +" value='"+ $('#new_fieldtype-select').val()+ "'></td>"    +
-    	    "<td class=\"text-center\">"   +
+          newIdx++;
+          newAddString += newIdx + ",";
+          var str = "<tr id='row"+ newIdx + "' class='rowchild'><td><input type=text name=newfieldname"+ newIdx +" value='"+ $('#new_field_name').val()+ "'></td>"  +
+            "<td>"+ $('#new_fieldtype-select').val()+"<input type=hidden name=newfieldtype"+ newIdx +" value='"+ $('#new_fieldtype-select').val()+ "'></td>"    +
+            "<td class=\"text-center\">"   +
             "<a href=\"javascript:removefield("+ newIdx + ",'new')\" data-toggle=\"tooltip\" title=\"Delete Field\" class=\"btn btn-effect-ripple btn-sm btn-danger\"><i class=\"fa fa-times\"></i></a> "+
             "<input type=hidden name=\"newfieldorder"+ newIdx + "\" id=\"newfieldorder" +newIdx + "\" value=\"\"/></td></tr>";
             $('#addfieldrow').before(str);
@@ -143,30 +144,30 @@ if(thisMod == null)
       });
       
       function removefield(id, t){
-    	  if(t=="new"){
-	    	  $('#row'+id).remove();
-	    	  newAddString = newAddString.replace(","+id+",",",");
-	    	  fieldCount--;
-    	  } else if(t=="old"){
-    		  $('#current'+id).remove();
-    		  fieldCount--;
-    	  }
+          if(t=="new"){
+              $('#row'+id).remove();
+              newAddString = newAddString.replace(","+id+",",",");
+              fieldCount--;
+          } else if(t=="old"){
+              $('#current'+id).remove();
+              fieldCount--;
+          }
       }
       
       $('#mod_form_submit').click(function(){
-    	  $('#newaddrow').val(newAddString);
-    	  //Reassign display order before submit
-    	  var i = 0;
-    	  $.each($('#listbody').children('.rowchild'), function(index, item) {
-    		  if($(item).attr("id").indexOf("row")>=0){
-    			  //New
-    			  $('#newfieldorder'+$(item).attr("id").replace("row","")).val(i++);
-    		  } else {
-    			  //Old
-    			  $('#fieldorder'+$(item).attr("id").replace("current","")).val(i++);
-    		  }
-    		  //alert($(item).attr("id"));
-    	  });
+          $('#newaddrow').val(newAddString);
+          //Reassign display order before submit
+          var i = 0;
+          $.each($('#listbody').children('.rowchild'), function(index, item) {
+              if($(item).attr("id").indexOf("row")>=0){
+                  //New
+                  $('#newfieldorder'+$(item).attr("id").replace("row","")).val(i++);
+              } else {
+                  //Old
+                  $('#fieldorder'+$(item).attr("id").replace("current","")).val(i++);
+              }
+              //alert($(item).attr("id"));
+          });
           $.ajax({
               url:"/do/MOD/DO_SAVE_MOD_CONTENT",
               data: $('#mod_details_edit_form').serialize(),
@@ -175,9 +176,9 @@ if(thisMod == null)
               success: function(data){
                   if($.trim(data).match("^Error")){
                       // Server side validation and display error msg
-                      $('#error-msg').html(datas.replace("Error:","")+"<br/>");
+                      $('#error-msg').html(data.replace("Error:","")+"<br/>");
                   } else {
-                	  $('#modEditForm').html(
+                      $('#modEditForm').html(
                               '<div class="alert alert-success alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>'+
                               '<h4><strong><%=MessageUtil.getV8Message(lang, "COMMON_LABEL")%></strong></h4>' +
                               '<p>'+data.replace("Msg:","")+'</p></div>');
