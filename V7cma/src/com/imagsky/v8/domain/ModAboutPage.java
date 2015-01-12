@@ -14,6 +14,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
+import com.google.gson.annotations.Expose;
 import com.imagsky.v6.domain.SysObject;
 
 @Entity
@@ -32,25 +33,32 @@ public class ModAboutPage extends Module {
 	}
 	
 	@Column(name="ABT_TITLE")
+	@Expose
 	private String pageTitle;
 	
 	@Column(name="ABT_ABOUT")
+	@Expose
 	private String pageAbout;
 	
 	@Column(name="ABT_DESC")
+	@Expose
 	private String pageDescription;
 	
 	@OneToOne (cascade= {CascadeType.MERGE} , orphanRemoval=true)
 	@JoinColumn(name="ABT_IMAGE")
+	@Expose
 	private AppImage pageImage;
 	
 	@Column(name="ABT_FACEBOOK")
+	@Expose
 	private String pageFacebookLink;
 	
 	@Column(name="ABT_EMAIL")
+	@Expose
 	private String pageEmail;
 	
 	@Column(name="ABT_ADDRESS")
+	@Expose
 	private String pageAddress;
 
     public static List getWildFields() {

@@ -17,12 +17,14 @@ import javax.persistence.OneToMany;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
+import com.google.gson.annotations.Expose;
 import com.imagsky.v6.domain.SysObject;
 
 @Entity
 @Table(name = "tb8_form")
 @Inheritance(strategy = InheritanceType.JOINED)
 @PrimaryKeyJoinColumn(name = "SYS_GUID", referencedColumnName = "SYS_GUID")
+
 public class ModForm extends Module {
 
 	private static final long serialVersionUID = 1L;
@@ -32,6 +34,7 @@ public class ModForm extends Module {
 	}
 	
 	@Column(name="FORM_NAME")
+	@Expose
 	private String form_name;
 	
 	@ManyToOne
@@ -39,6 +42,7 @@ public class ModForm extends Module {
 	private App form_app;
 	
 	@OneToMany(cascade=CascadeType.ALL, fetch = FetchType.EAGER, mappedBy="form", orphanRemoval=true)
+	@Expose
 	private Set<FormField> form_fields;
 
 	public String getForm_name() {

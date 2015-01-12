@@ -18,6 +18,7 @@ import com.imagsky.v8.domain.App;
 import com.imagsky.v8.domain.ModAboutPage;
 import com.imagsky.v8.domain.ModForm;
 import com.imagsky.v8.domain.Module;
+import com.imagsky.v8.domain.serialized.AppForJson;
 
 public class MOD_Handler extends BaseHandler {
 
@@ -191,6 +192,10 @@ public class MOD_Handler extends BaseHandler {
 		if(appCodeToken.length>=3){
 			workingApp = getCurrentApp(thisMember, appCodeToken[2]);
 			((ImagskySession) request.getSession().getAttribute(SystemConstants.REQ_ATTR_SESSION)).setWorkingApp(workingApp);
+		}
+		if(workingApp!=null){
+			AppForJson toJson = new AppForJson(workingApp);
+			cmaLogger.debug("App:"+toJson.getJsonString());
 		}
 		thisResp.setTargetJSP(V7JspMapping.MOD_ADD_MAIN);
 		return thisResp;

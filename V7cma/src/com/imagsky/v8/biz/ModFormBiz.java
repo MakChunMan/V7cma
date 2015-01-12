@@ -1,6 +1,7 @@
 package com.imagsky.v8.biz;
 
 import java.util.ArrayList;
+
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -125,6 +126,8 @@ public class ModFormBiz extends BaseModuleBiz {
 				return null;
 			}
 			enqObj = (ModForm) aList.get(0);
+			//ModFormForJson jsonObj = new ModFormForJson(enqObj);
+			//cmaLogger.debug(jsonObj.getJsonString());
 		} catch (BaseDBException e) {
 			cmaLogger.error("ModFormBiz.doFind()", e);
 		}

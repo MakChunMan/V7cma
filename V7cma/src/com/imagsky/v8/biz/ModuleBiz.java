@@ -38,7 +38,7 @@ public class ModuleBiz  extends V7AbstractBiz {
 		BaseModuleBiz moduleBiz;
 		try{
 				AppDAO dao = AppDAO.getInstance();
-				Map aParamMap = new HashMap();
+				Map<String, Object> aParamMap = new HashMap<String, Object>();
 				aParamMap.put("idx", new Integer(idx));
 				//Create Child
 				moduleBiz = ModuleBizFactory.createBusiness(moduleTypeName);
@@ -60,7 +60,7 @@ public class ModuleBiz  extends V7AbstractBiz {
 		Module returnModule = null;
 		BaseModuleBiz moduleBiz;
 		try{
-				Map aParamMap = new HashMap();
+				Map<String, Object> aParamMap = new HashMap<String, Object>();
 				aParamMap.put("guid", guid);
 				//Find Child by guid
 				moduleBiz = ModuleBizFactory.createBusiness(moduleTypeName);
@@ -76,9 +76,8 @@ public class ModuleBiz  extends V7AbstractBiz {
 	public Module updateModule(String moduleTypeName, String moduleGuid){
 		Module returnModule = null;
 		BaseModuleBiz moduleBiz;
-		Module thisModule;
 		try{
-			Map aParamMap = new HashMap();
+			Map<String, Object> aParamMap = new HashMap<String, Object>();
 			aParamMap.put("guid", moduleGuid);
 			aParamMap.put("updator", owner.getSys_guid()); //thismember
 			aParamMap.putAll(paramMap);
@@ -96,7 +95,7 @@ public class ModuleBiz  extends V7AbstractBiz {
 		BaseModuleBiz moduleBiz;
 		AppDAO dao = AppDAO.getInstance();
 		try{
-			Map aParamMap = new HashMap();
+			Map<String, Object> aParamMap = new HashMap<String, Object>();
 			aParamMap.put("guid", moduleGuid);
 			aParamMap.putAll(paramMap);
 			moduleBiz = ModuleBizFactory.createBusiness(moduleTypeName);

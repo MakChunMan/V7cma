@@ -12,6 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
+import com.google.gson.annotations.Expose;
 import com.imagsky.v6.domain.SysObject;
 
 @Entity
@@ -24,15 +25,18 @@ public class FormField extends SysObject {
 
 	//private Form form;
 	@Column(name="FIELD_LABEL")
+	@Expose
 	private String formfield_label;
 
 	@Column(name="FIELD_DISPLAY_ORDER")
+	@Expose
 	private Integer formfield_displayorder;
 
 	@JoinColumn(name="FORM_ID")
 	private ModForm form;
 
 	@Column(name="FIELD_TYPE_CODE")
+	@Expose
 	private Integer formfield_type_code;
 	
 	public FormField(){}

@@ -11,6 +11,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
+import com.google.gson.annotations.Expose;
 import com.imagsky.v6.domain.SysObject;
 
 @Entity
@@ -23,6 +24,7 @@ public abstract class Module extends SysObject {
 
 	@Enumerated(EnumType.STRING)
 	@Column(name = "MOD_TYPE", columnDefinition = "ENUM('ModAboutPage', 'ModForm', 'ModShopCatalog')")
+	@Expose
 	protected ModuleTypes moduleType;
 	
 	public static enum ModuleTypes{
@@ -34,9 +36,11 @@ public abstract class Module extends SysObject {
 
 	@OneToOne 
 	@JoinColumn(name = "MOD_ICON")
+	@Expose
 	private AppImage modIcon;
 
 	@Column(name="MOD_DISPLAY_ORDER")
+	@Expose
 	private int modDisplayOrder;
 	
 	public String getModuleTypeName() {

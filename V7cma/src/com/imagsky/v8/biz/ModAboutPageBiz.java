@@ -1,7 +1,10 @@
 package com.imagsky.v8.biz;
 
 import java.util.List;
+
 import java.util.Map;
+
+
 
 
 
@@ -108,6 +111,8 @@ public class ModAboutPageBiz extends BaseModuleBiz {
 				return null;
 			}
 			enqObj = (ModAboutPage) aList.get(0);
+			//ModAboutPageForJson jsonObj = new ModAboutPageForJson(enqObj);
+			//cmaLogger.debug(jsonObj.getJsonString());
 		} catch (BaseDBException e) {
 			cmaLogger.error("ModAboutPageBiz.doFind()", e);
 		}

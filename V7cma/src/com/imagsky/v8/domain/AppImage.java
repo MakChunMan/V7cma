@@ -12,6 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
+import com.google.gson.annotations.Expose;
 import com.imagsky.v6.domain.SysObject;
 
 @Entity
@@ -26,6 +27,7 @@ public class AppImage extends SysObject {
 	private App imageOwnerApp;
 	
 	@Column(name = "IMG_URL", length = 30)
+	@Expose
 	private String imageUrl;
 	
 	public AppImage(){

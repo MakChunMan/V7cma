@@ -2,7 +2,9 @@ package com.imagsky.v6.domain;
 
 import javax.persistence.*;
 
+import com.google.gson.annotations.Expose;
 import com.imagsky.util.logger.cmaLogger;
+
 
 
 
@@ -25,6 +27,7 @@ public abstract class SysObject implements java.io.Serializable{
 
 	@Id
 	@Column (name="SYS_GUID", length=32)
+	@Expose
 	private String sys_guid;
 
 	@Column (length=50)
