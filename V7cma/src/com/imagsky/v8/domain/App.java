@@ -1,5 +1,6 @@
 /****
  * 2014-10-27 Apps
+ * 2015-02-09 Add APP_TEMPLATE field
  */
 package com.imagsky.v8.domain;
 
@@ -49,6 +50,9 @@ public class App extends SysObject {
     @Column(name = "APP_TYPE")
     private int APP_TYPE; // 0 : Free
     
+    @Column(name = "APP_TEMPLATE", length = 2)
+    private String APP_TEMPLATE; // 0 : Free
+    
     @Column(name = "APP_STATUS", length = 10)
     private String APP_STATUS; // 
     
@@ -73,6 +77,7 @@ public class App extends SysObject {
             aHt.put("APP_NAME", obj.APP_NAME);
             aHt.put("APP_DESC", obj.APP_DESC);
             aHt.put("APP_TYPE", obj.APP_TYPE);
+            aHt.put("APP_TEMPLATE",obj.APP_TEMPLATE);
             aHt.put("APP_STATUS", obj.APP_STATUS);
             aHt.putAll(SysObject.getSysFields(obj));
         }
@@ -138,6 +143,14 @@ public class App extends SysObject {
 		APP_CREATOR = aPP_CREATOR;
 	}
     
+	public String getAPP_TEMPLATE() {
+		return APP_TEMPLATE;
+	}
+
+	public void setAPP_TEMPLATE(String aPP_TEMPLATE) {
+		APP_TEMPLATE = aPP_TEMPLATE;
+	}
+
 	public void updateModule(Module newModule){
 		if(modules == null || modules.size()==0){
 			modules = new ArrayList();
