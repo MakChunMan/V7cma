@@ -24,15 +24,12 @@ import com.imagsky.v8.domain.Module;
 
 public class ModAboutPageBiz extends BaseModuleBiz {
 
-	private ModuleBiz callerBiz;
 	private Module returnModule;
 	
 	@Override
 	public Module execute(ModuleBiz biz, String actionCode, Map paramMap)
 			throws BaseException {
 
-			//
-			this.callerBiz = biz;
 			this.thisParamMap = paramMap;
 			//Assign Class Type
 			assignClass(ModAboutPage.class);
@@ -69,10 +66,43 @@ public class ModAboutPageBiz extends BaseModuleBiz {
 	        enqObj.setPageEmail(this.getParamToString("edit-abt-email"));
 	        enqObj.setPageFacebookLink(this.getParamToString("edit-abt-fb"));
 	
-	        cmaLogger.debug("edit-abt-image: "+this.getParamToString("edit-abt-image"));
-	        if(!CommonUtil.isNullOrEmpty(this.getParamToString("edit-abt-image"))){
+	        //Common field
+	        if(!CommonUtil.isNullOrEmpty(this.getParamToString("mod_bg_response"))){
+	        	thisAppImage = new AppImage(this.thisApp, this.getParamToString("mod_bg_response"));
+	        	List alist =  adao.CNT_findListWithSample(thisAppImage);
+	        	if(CommonUtil.isNullOrEmpty(alist)){
+	        		enqObj.setModBackground(thisAppImage);
+	        	} else {
+	        		thisAppImage = (AppImage)alist.get(0);
+	        		thisAppImage.setImageUrl(this.getParamToString("mod_bg_response"));
+	        		enqObj.setModBackground(thisAppImage);
+	        	}
+	        } else {
+	        	enqObj.setModBackground(null);
+	        }
+	        
+	        cmaLogger.debug("mod_icon_response: "+this.getParamToString("mod_icon_response"));
+	        if(!CommonUtil.isNullOrEmpty(this.getParamToString("mod_icon_response"))){
+	        	thisAppImage = new AppImage(this.thisApp, this.getParamToString("mod_icon_response"));
+	        	List alist =  adao.CNT_findListWithSample(thisAppImage);
+	        	if(CommonUtil.isNullOrEmpty(alist)){
+	        		cmaLogger.debug("mod_icon_response: Not found");
+	        		enqObj.setModIcon(thisAppImage);
+	        	} else {
+	        		cmaLogger.debug("mod_icon_response: Found");
+	        		thisAppImage = (AppImage)alist.get(0);
+	        		thisAppImage.setImageUrl(this.getParamToString("mod_icon_response"));
+	        		enqObj.setModIcon(thisAppImage);
+	        	}
+	        }else {
+	        	enqObj.setModIcon(null);
+	        }
+	        //End of Common field
+	        
+	        cmaLogger.debug("abt_image_response: "+this.getParamToString("abt_image_response"));
+	        if(!CommonUtil.isNullOrEmpty(this.getParamToString("abt_image_response"))){
 	        	cmaLogger.debug("thisApp:" + this.thisApp);
-	        	thisAppImage = new AppImage(this.thisApp, this.getParamToString("edit-abt-image"));
+	        	thisAppImage = new AppImage(this.thisApp, this.getParamToString("abt_image_response"));
 	        	List alist =  adao.CNT_findListWithSample(thisAppImage);
 	        	if(CommonUtil.isNullOrEmpty(alist)){
 	        		cmaLogger.debug("empty List");
@@ -84,6 +114,8 @@ public class ModAboutPageBiz extends BaseModuleBiz {
 	        		thisAppImage.setImageUrl(this.getParamToString("edit-abt-image"));
 	        		enqObj.setPageImage(thisAppImage);
 	        	}
+	        } else {
+	        	enqObj.setPageImage(null);
 	        }
 	        
 	        enqObj.setSys_update_dt(new java.util.Date());

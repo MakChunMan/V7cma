@@ -47,18 +47,49 @@ public class ModAboutPageDAOImpl extends ModAboutPageDAO {
 
             if(tmpModule.getPageImage()==null && module.getPageImage()!=null){
             	//Create
-            	cmaLogger.debug("Create app image");
+            	//cmaLogger.debug("Create app image");
             	tmpModule.setPageImage((AppImage)subdao.CNT_create(module.getPageImage()));
             } else if(tmpModule.getPageImage()!=null && module.getPageImage()!=null) { 
             	//Update
-            	cmaLogger.debug("Update app image");
+            	//cmaLogger.debug("Update app image");
             	tmpModule.getPageImage().setImageUrl(module.getPageImage().getImageUrl());
             } else { 
             	//Remove
-            	cmaLogger.debug("Remove app image");
+            	//cmaLogger.debug("Remove app image");
             	subdao.CNT_delete(tmpModule.getPageImage());
             	tmpModule.setPageImage(null);
             }
+            
+            if(tmpModule.getModBackground()==null && module.getModBackground()!=null){
+            	//Create
+            	cmaLogger.debug("Create app bg");
+            	tmpModule.setModBackground((AppImage)subdao.CNT_create(module.getModBackground()));
+            } else if(tmpModule.getModBackground()!=null && module.getModBackground()!=null) { 
+            	//Update
+            	cmaLogger.debug("Update app bg");
+            	tmpModule.getModBackground().setImageUrl(module.getModBackground().getImageUrl());
+            } else { 
+            	//Remove
+            	cmaLogger.debug("Remove app bg");
+            	subdao.CNT_delete(tmpModule.getModBackground());
+            	tmpModule.setModBackground(null);
+            }
+            
+            if(tmpModule.getModIcon()==null && module.getModIcon()!=null){
+            	//Create
+            	cmaLogger.debug("Create app icon");
+            	tmpModule.setModIcon((AppImage)subdao.CNT_create(module.getModIcon()));
+            } else if(tmpModule.getModIcon()!=null && module.getModIcon()!=null) { 
+            	//Update
+            	cmaLogger.debug("Update app icon");
+            	tmpModule.getModIcon().setImageUrl(module.getModIcon().getImageUrl());
+            } else { 
+            	//Remove
+            	cmaLogger.debug("Remove app icon");
+            	subdao.CNT_delete(tmpModule.getModIcon());
+            	tmpModule.setModIcon(null);
+            }
+            
             
             tmpModule.setSys_update_dt(new java.util.Date());
             tmpModule.setSys_updator(module.getSys_updator());

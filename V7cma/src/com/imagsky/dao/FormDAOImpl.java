@@ -9,6 +9,7 @@ import java.util.List;
 
 
 
+
 import javax.persistence.EntityManager;
 
 import com.imagsky.exception.BaseDBException;
@@ -40,6 +41,7 @@ public class FormDAOImpl extends FormDAO {
         beanValidate(obj);
         ModForm module = (ModForm) obj;
         FormFieldDAO subdao = FormFieldDAO.getInstance();
+        AppImageDAO adao = AppImageDAO.getInstance();
         
         try {
             em.getTransaction().begin();
@@ -62,6 +64,29 @@ public class FormDAOImpl extends FormDAO {
 	            }
             }
             
+            if(tmpModule.getModBackground()==null && module.getModBackground()!=null){
+            	//Create
+            	tmpModule.setModBackground((AppImage)adao.CNT_create(module.getModBackground()));
+            } else if(tmpModule.getModBackground()!=null && module.getModBackground()!=null) { 
+            	//Update
+            	tmpModule.getModBackground().setImageUrl(module.getModBackground().getImageUrl());
+            } else { 
+            	//Remove
+            	adao.CNT_delete(tmpModule.getModBackground());
+            	tmpModule.setModBackground(null);
+            }
+            
+            if(tmpModule.getModIcon()==null && module.getModIcon()!=null){
+            	//Create
+            	tmpModule.setModIcon((AppImage)adao.CNT_create(module.getModIcon()));
+            } else if(tmpModule.getModIcon()!=null && module.getModIcon()!=null) { 
+            	//Update
+            	tmpModule.getModIcon().setImageUrl(module.getModIcon().getImageUrl());
+            } else { 
+            	//Remove
+            	adao.CNT_delete(tmpModule.getModIcon());
+            	tmpModule.setModIcon(null);
+            }
             
             
             tmpModule.setSys_update_dt(new java.util.Date());

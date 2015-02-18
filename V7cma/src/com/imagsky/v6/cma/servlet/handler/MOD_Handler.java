@@ -190,7 +190,11 @@ public class MOD_Handler extends BaseHandler {
 		SiteResponse thisResp = super.createResponse();
 		//Assign working App by GUID
 		if(appCodeToken.length>=3){
+			App sessionWorkingApp = ((ImagskySession) request.getSession().getAttribute(SystemConstants.REQ_ATTR_SESSION)).getWorkingApp(); 
 			workingApp = getCurrentApp(thisMember, appCodeToken[2]);
+			if(sessionWorkingApp!=null && sessionWorkingApp.getSys_guid().equalsIgnoreCase(workingApp.getSys_guid())){
+				workingApp = sessionWorkingApp;
+			}
 			((ImagskySession) request.getSession().getAttribute(SystemConstants.REQ_ATTR_SESSION)).setWorkingApp(workingApp);
 		}
 		if(workingApp!=null){

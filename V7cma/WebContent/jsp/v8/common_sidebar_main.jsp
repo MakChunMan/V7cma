@@ -3,9 +3,23 @@
  --%><%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="com.imagsky.v6.cma.constants.*" %>
-<%@ page import="com.imagsky.util.*" %>
-<%
-String appCode = CommonUtil.null2Empty(request.getAttribute(SystemConstants.REQ_ATTR_APPCODE)); 
+<%@ page import="com.imagsky.v6.domain.Member" %>
+<%@ page import="com.imagsky.v8.domain.App" %>
+<%@ page import="com.imagsky.common.*" %>
+ <%@ page import="com.imagsky.v6.cma.constants.*" %>
+ <%@ page import="com.imagsky.util.*" %>
+ <%@ page import="java.util.*" %>
+ <%
+String lang = (String)request.getAttribute(SystemConstants.REQ_ATTR_LANG); 
+String appCode = CommonUtil.null2Empty(request.getAttribute(SystemConstants.REQ_ATTR_APPCODE));
+String[] token = (String[])request.getAttribute(SystemConstants.REQ_ATTR_URL_PATTERN);
+Member thisUser = null;
+App thisApp = null;
+if(!V6Util.isLogined(request)){
+    out.println("<script>self.location='/v81/zh/page_ready_login.php';</script>");
+} else {
+    thisUser = ((ImagskySession)request.getSession().getAttribute(SystemConstants.REQ_ATTR_SESSION)).getUser();
+//    thisApp = ((ImagskySession) request.getSession().getAttribute(SystemConstants.REQ_ATTR_SESSION)).getWorkingApp();
 %>   
 <%="<!-- common_sidebar_main -->" %> 
                             <ul class="sidebar-nav">
@@ -15,12 +29,33 @@ String appCode = CommonUtil.null2Empty(request.getAttribute(SystemConstants.REQ_
                                 <li class="sidebar-separator">
                                     <i class="fa fa-ellipsis-h"></i>
                                 </li>
-                                <li>
-                                    <a href="/do/APP/APP_MAIN" <%="APP".equalsIgnoreCase(appCode)?"class='active'":"" %>><i class="gi gi-inbox sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Mobile App</span></a>
+                                <li <%=("APP".equalsIgnoreCase(appCode) || "MOD".equalsIgnoreCase(appCode))?"class='active'":"" %>>
+                                    <%--<a href="/do/APP/APP_MAIN" ><i class="gi gi-inbox sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Mobile App</span></a> --%>
+                                    <a href="/do/APP/APP_MAIN" class="sidebar-nav-menu"><i class="fa fa-chevron-left sidebar-nav-indicator sidebar-nav-mini-hide"></i><i class="gi gi-inbox sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Your Mobile App</span></a>
+                                    <ul>
+                                        <% 
+                                        Iterator it = thisUser.getApps().iterator();
+                                        while(it.hasNext()){
+                                            thisApp = (App)it.next();                                     	
+                                        %>
+                                        <li>
+                                            <a href="/do/MOD/MOD_ADD_MAIN/<%=thisApp.getSys_guid()%>"  <%=
+                                            		token!=null && token.length>2 && token[2].equalsIgnoreCase(thisApp.getSys_guid())
+                                            	    ?"class='active'":"" %>><%=thisApp.getAPP_NAME() %></a>
+                                        </li>
+                                        <% } %>
+                                        <li>
+                                            <a href="/do/APP/APP_MAIN"  <%=
+                                                    token!=null && token.length>1 && token[1].equalsIgnoreCase("APP_MAIN")?"class='active'":"" %>><i class="gi gi-circle_plus sidebar-nav-icon"></i>Create new app</a>
+                                        </li>
+                                    </ul>
                                 </li>                                
                                 <li>
                                     <a href="#" class="sidebar-nav-menu"><i class="fa fa-chevron-left sidebar-nav-indicator sidebar-nav-mini-hide"></i><i class="fa fa-rocket sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">User Interface</span></a>
                                     <ul>
+                                        <li>
+                                            <a href="/v81/index.html">V81 UI site</a>
+                                        </li>
                                         <li>
                                             <a href="page_ui_widgets.html">Widgets</a>
                                         </li>
@@ -194,3 +229,4 @@ String appCode = CommonUtil.null2Empty(request.getAttribute(SystemConstants.REQ_
                                     <a href="page_app_estore.html"><i class="gi gi-shopping_cart sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">eStore</span></a>
                                 </li>
                             </ul>
+<% }  %>                            

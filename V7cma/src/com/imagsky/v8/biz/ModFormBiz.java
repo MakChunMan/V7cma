@@ -1,17 +1,18 @@
 package com.imagsky.v8.biz;
 
 import java.util.ArrayList;
-
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
+import com.imagsky.dao.AppImageDAO;
 import com.imagsky.dao.FormDAO;
 import com.imagsky.dao.FormFieldDAO;
 import com.imagsky.exception.BaseDBException;
 import com.imagsky.exception.BaseException;
 import com.imagsky.util.CommonUtil;
 import com.imagsky.util.logger.cmaLogger;
+import com.imagsky.v8.domain.AppImage;
 import com.imagsky.v8.domain.FormField;
 import com.imagsky.v8.domain.ModForm;
 import com.imagsky.v8.domain.Module;
@@ -49,6 +50,11 @@ public class ModFormBiz extends BaseModuleBiz {
 
 		FormDAO fdao = FormDAO.getInstance();
 		FormFieldDAO subdao = FormFieldDAO.getInstance();
+		AppImageDAO adao = AppImageDAO.getInstance();
+		
+		AppImage thisAppImage = null;
+		
+		try{
 		//New input fields
 		List<FormField> fields = new ArrayList<FormField>();
 		FormField tmpField;
@@ -92,11 +98,45 @@ public class ModFormBiz extends BaseModuleBiz {
 		}
 		
 		
+        //Common field
+        if(!CommonUtil.isNullOrEmpty(this.getParamToString("mod_bg_response"))){
+        	thisAppImage = new AppImage(this.thisApp, this.getParamToString("mod_bg_response"));
+        	List alist =  adao.CNT_findListWithSample(thisAppImage);
+        	if(CommonUtil.isNullOrEmpty(alist)){
+        		enqObj.setModBackground(thisAppImage);
+        	} else {
+        		thisAppImage = (AppImage)alist.get(0);
+        		thisAppImage.setImageUrl(this.getParamToString("mod_bg_response"));
+        		enqObj.setModBackground(thisAppImage);
+        	}
+        } else {
+        	enqObj.setModBackground(null);
+        }
+        
+        cmaLogger.debug("mod_icon_response: "+this.getParamToString("mod_icon_response"));
+        if(!CommonUtil.isNullOrEmpty(this.getParamToString("mod_icon_response"))){
+        	thisAppImage = new AppImage(this.thisApp, this.getParamToString("mod_icon_response"));
+        	List alist =  adao.CNT_findListWithSample(thisAppImage);
+        	if(CommonUtil.isNullOrEmpty(alist)){
+        		cmaLogger.debug("mod_icon_response: Not found");
+        		enqObj.setModIcon(thisAppImage);
+        	} else {
+        		cmaLogger.debug("mod_icon_response: Found");
+        		thisAppImage = (AppImage)alist.get(0);
+        		thisAppImage.setImageUrl(this.getParamToString("mod_icon_response"));
+        		enqObj.setModIcon(thisAppImage);
+        	}
+        }else {
+        	enqObj.setModIcon(null);
+        }
+        //End of Common field
+		
+		
 		/*** Main Form ***/
         if (!CommonUtil.isNullOrEmpty(this.getParamToString("MODGUID"))) {
         	enqObj.setSys_guid(this.getParamToString("MODGUID"));
         }
-        try{
+        
 	        enqObj.setForm_name(this.getParamToString("edit-form-title"));
 	        enqObj.setForm_fields(new HashSet<FormField>(fields));
 	        

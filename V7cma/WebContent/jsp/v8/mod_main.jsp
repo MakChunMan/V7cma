@@ -314,12 +314,14 @@ if(!V6Util.isLogined(request)){
         <script src="<%=V8SystemConstants.V8_PATH %>/fileinput/js/fileinput.js" type="text/javascript"></script>
         <script>
         //Event Handler for hidden Modal of Image Upload
+        var workingImage = "";
+        var workingModTypeForImage = "";
         $('#btn_image_upload_add').click(function(){
         	var data = new FormData();
         	jQuery.each($('#file-1a')[0].files, function(i, file) {
         	    data.append('file-'+i, file);
         	});
-        	data.append('modtype','ABT'); //Manually add parameter
+        	data.append('modtype',workingModTypeForImage); //Manually add parameter
         	$.ajax({
         	    url: '<%=V8SystemConstants.V8_PATH %>fileinput/examples/filehandler.php',
         	    contentType:"multipart/form-data",
@@ -331,9 +333,9 @@ if(!V6Util.isLogined(request)){
         	    success: function(data){
         	    	if($.trim(data).match("^Error")){
                         // Server side validation and display error msg
-                        $('#abt_image_response').html(datas.replace("Error:","")+"<br/>");
+                        $('#'+workingImage).html(datas.replace("Error:","")+"<br/>");
                     } else {
-                    	$('#abt_image_response').html("<img width='300' src='<%=V8SystemConstants.V8_PATH %>userfiles/tmp/"+data.replace("Msg:","")+"'><input type=hidden name=edit-abt-image value='"+data.replace("Msg:","")+"'/>");
+                    	$('#'+workingImage).html("<img width='300' src='<%=V8SystemConstants.V8_PATH %>userfiles/tmp/"+data.replace("Msg:","")+"'><input type=hidden name="+workingImage+" value='"+data.replace("Msg:","")+"'/>");
                         $('#modal-upload').modal('hide');	
                     }
         	    }
