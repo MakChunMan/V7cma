@@ -114,6 +114,7 @@ if(thisMod == null)
                 </table>
                 </div>
           </div>
+        <jsp:include page="/jsp/v8/inc_mod_common.jsp"></jsp:include>
         <div class="form-group form-actions">
               <div class="col-md-9 col-md-offset-3">
                   <button type="submit" id="mod_form_submit" class="btn btn-effect-ripple btn-primary"><%=MessageUtil.getV8Message(lang,"BTN_SUBMIT") %></button>

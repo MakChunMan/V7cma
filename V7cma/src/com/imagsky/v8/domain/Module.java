@@ -39,6 +39,11 @@ public abstract class Module extends SysObject {
 	@Expose
 	private AppImage modIcon;
 
+	@OneToOne 
+	@JoinColumn(name = "MOD_BG")
+	@Expose
+	private AppImage modBackground;
+
 	@Column(name="MOD_DISPLAY_ORDER")
 	@Expose
 	private int modDisplayOrder;
@@ -87,5 +92,14 @@ public abstract class Module extends SysObject {
 	public void setModDisplayOrder(int modDisplayOrder) {
 		this.modDisplayOrder = modDisplayOrder;
 	}
+
+	public AppImage getModBackground() {
+		return modBackground;
+	}
+
+	public void setModBackground(AppImage modBackground) {
+		this.modBackground = modBackground;
+	}
+	
 	
 }

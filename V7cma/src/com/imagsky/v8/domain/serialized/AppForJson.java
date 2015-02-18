@@ -22,6 +22,9 @@ public class AppForJson extends BaseSerializedDomain {
     
 	@Expose
     private String APP_STATUS; // 
+	
+	@Expose
+    private String APP_TEMPLATE; //	
     
 	@Expose
 	private Collection<Module> modules = new ArrayList<Module>();
@@ -31,6 +34,7 @@ public class AppForJson extends BaseSerializedDomain {
 		this.APP_NAME = thisApp.getAPP_NAME();
 		this.APP_DESC = thisApp.getAPP_DESC();
 		this.APP_STATUS = thisApp.getAPP_STATUS();
+		this.APP_TEMPLATE = thisApp.getAPP_TEMPLATE();
 		this.modules = thisApp.getModules();
 	}
 	

@@ -20,9 +20,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
+import com.google.gson.annotations.Expose;
 import com.imagsky.v6.domain.Member;
 import com.imagsky.v6.domain.OrderItem;
 import com.imagsky.v6.domain.SysObject;
@@ -63,6 +65,16 @@ public class App extends SysObject {
 	@OneToMany(targetEntity = Module.class, cascade = { CascadeType.ALL }, fetch=FetchType.EAGER)
 	private Collection<Module> modules = new ArrayList<Module>();
     
+	@OneToOne (cascade= {CascadeType.MERGE} , orphanRemoval=true)
+	@JoinColumn(name="APP_MAINMENU_BG")
+	@Expose
+	private AppImage APP_MAINMENU_BG;
+
+	@OneToOne (cascade= {CascadeType.MERGE} , orphanRemoval=true)
+	@JoinColumn(name="APP_ICON")
+	@Expose
+	private AppImage APP_ICON;
+	
     public static List getWildFields() {
         List returnList = new ArrayList();
         returnList.add("APP_NAME");
@@ -79,6 +91,8 @@ public class App extends SysObject {
             aHt.put("APP_TYPE", obj.APP_TYPE);
             aHt.put("APP_TEMPLATE",obj.APP_TEMPLATE);
             aHt.put("APP_STATUS", obj.APP_STATUS);
+            aHt.put("APP_ICON", obj.APP_ICON);
+            aHt.put("APP_MAINMENU_BG", obj.APP_MAINMENU_BG);
             aHt.putAll(SysObject.getSysFields(obj));
         }
         return aHt;
@@ -151,17 +165,22 @@ public class App extends SysObject {
 		APP_TEMPLATE = aPP_TEMPLATE;
 	}
 
-	public void updateModule(Module newModule){
-		if(modules == null || modules.size()==0){
-			modules = new ArrayList();
-			modules.add(newModule);
-		} else {
-			Iterator<Module> it = modules.iterator();
-			while(it.hasNext()){
-				
-			}
-		}
+	public AppImage getAPP_MAINMENU_BG() {
+		return APP_MAINMENU_BG;
 	}
-    
+
+	public void setAPP_MAINMENU_BG(AppImage aPP_MAINMENU_BG) {
+		APP_MAINMENU_BG = aPP_MAINMENU_BG;
+	}
+
+	public AppImage getAPP_ICON() {
+		return APP_ICON;
+	}
+
+	public void setAPP_ICON(AppImage aPP_ICON) {
+		APP_ICON = aPP_ICON;
+	}
 	
+	
+
 }

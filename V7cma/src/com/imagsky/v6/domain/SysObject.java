@@ -3,16 +3,7 @@ package com.imagsky.v6.domain;
 import javax.persistence.*;
 
 import com.google.gson.annotations.Expose;
-import com.imagsky.util.logger.cmaLogger;
-
-
-
-
-
-import java.lang.reflect.Field;
 import java.util.Date;
-import java.util.Hashtable;
-import java.util.Iterator;
 import java.util.TreeMap;
 
 @Entity

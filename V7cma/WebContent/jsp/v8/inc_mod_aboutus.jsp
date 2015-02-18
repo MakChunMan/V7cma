@@ -85,10 +85,11 @@ if(thisMod == null)
                    <input type=hidden name=edit-abt-image value='<%=thisMod.getPageImage().getImageUrl() %>'/>
                    <% } %>
                    </div>
-                  <button type=button  class="btn btn-effect-ripple btn-warning" onclick="javascript:$('#modal-upload').modal('show');return false;">
+                  <button type=button  class="btn btn-effect-ripple btn-warning" onclick="javascript:return uploadOnClick('abt_image_response');">
                   <%=MessageUtil.getV8Message(lang,"ABT_IMAGE_LABEL") %></button>
               </div>
        </div>          
+       <jsp:include page="/jsp/v8/inc_mod_common.jsp"></jsp:include>
         <div class="form-group form-actions">
               <div class="col-md-9 col-md-offset-3">
                   <button type="submit" id="app_edit_submit" class="btn btn-effect-ripple btn-primary"><%=MessageUtil.getV8Message(lang,"BTN_SUBMIT") %></button>
