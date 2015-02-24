@@ -11,9 +11,11 @@ import com.imagsky.dao.FormFieldDAO;
 import com.imagsky.exception.BaseDBException;
 import com.imagsky.exception.BaseException;
 import com.imagsky.util.CommonUtil;
+import com.imagsky.util.V8Util;
 import com.imagsky.util.logger.cmaLogger;
 import com.imagsky.v8.domain.AppImage;
 import com.imagsky.v8.domain.FormField;
+import com.imagsky.v8.domain.ModAboutPage;
 import com.imagsky.v8.domain.ModForm;
 import com.imagsky.v8.domain.Module;
 
@@ -47,6 +49,7 @@ public class ModFormBiz extends BaseModuleBiz {
 
 	private Module doUpdate() {
 		ModForm enqObj = new ModForm();
+		ModForm oldObj;
 
 		FormDAO fdao = FormDAO.getInstance();
 		FormFieldDAO subdao = FormFieldDAO.getInstance();
@@ -55,6 +58,9 @@ public class ModFormBiz extends BaseModuleBiz {
 		AppImage thisAppImage = null;
 		
 		try{
+    	List oldModList =  fdao.CNT_findListWithSample(enqObj);
+    	oldObj =(ModForm)oldModList.get(0);
+        	
 		//New input fields
 		List<FormField> fields = new ArrayList<FormField>();
 		FormField tmpField;
@@ -104,13 +110,17 @@ public class ModFormBiz extends BaseModuleBiz {
         	List alist =  adao.CNT_findListWithSample(thisAppImage);
         	if(CommonUtil.isNullOrEmpty(alist)){
         		enqObj.setModBackground(thisAppImage);
+        		V8Util.imageUploadFileMove(this.thisApp, thisAppImage.getImageUrl());
         	} else {
         		thisAppImage = (AppImage)alist.get(0);
         		thisAppImage.setImageUrl(this.getParamToString("mod_bg_response"));
         		enqObj.setModBackground(thisAppImage);
+        		V8Util.imageUploadFileMove(this.thisApp, thisAppImage.getImageUrl());
         	}
         } else {
         	enqObj.setModBackground(null);
+        	if(oldObj.getModBackground()!=null)
+        		V8Util.imageFileDelete(this.thisApp, oldObj.getModBackground().getImageUrl());
         }
         
         cmaLogger.debug("mod_icon_response: "+this.getParamToString("mod_icon_response"));
@@ -120,14 +130,18 @@ public class ModFormBiz extends BaseModuleBiz {
         	if(CommonUtil.isNullOrEmpty(alist)){
         		cmaLogger.debug("mod_icon_response: Not found");
         		enqObj.setModIcon(thisAppImage);
+        		V8Util.imageUploadFileMove(this.thisApp, thisAppImage.getImageUrl());
         	} else {
         		cmaLogger.debug("mod_icon_response: Found");
         		thisAppImage = (AppImage)alist.get(0);
         		thisAppImage.setImageUrl(this.getParamToString("mod_icon_response"));
         		enqObj.setModIcon(thisAppImage);
+        		V8Util.imageUploadFileMove(this.thisApp, thisAppImage.getImageUrl());
         	}
         }else {
         	enqObj.setModIcon(null);
+        	if(oldObj.getModIcon()!=null)
+        		V8Util.imageFileDelete(this.thisApp, oldObj.getModIcon().getImageUrl());
         }
         //End of Common field
 		

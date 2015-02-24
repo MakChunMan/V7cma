@@ -1,8 +1,8 @@
 package com.imagsky.v8.biz;
 
 import java.util.List;
-
 import java.util.Map;
+
 
 
 
@@ -16,6 +16,7 @@ import com.imagsky.dao.ModAboutPageDAO;
 import com.imagsky.exception.BaseDBException;
 import com.imagsky.exception.BaseException;
 import com.imagsky.util.CommonUtil;
+import com.imagsky.util.V8Util;
 import com.imagsky.util.logger.cmaLogger;
 import com.imagsky.v8.domain.AppImage;
 import com.imagsky.v8.domain.ModAboutPage;
@@ -52,13 +53,18 @@ public class ModAboutPageBiz extends BaseModuleBiz {
 		AppImageDAO adao = AppImageDAO.getInstance();
 		
 		ModAboutPage enqObj = new ModAboutPage();
-		
+		ModAboutPage oldObj;
 		AppImage thisAppImage = null;
 		
         if (!CommonUtil.isNullOrEmpty(this.getParamToString("MODGUID"))) {
         	enqObj.setSys_guid(this.getParamToString("MODGUID"));
         }
+        
+        
         try{
+        	List oldModList =  mdao.CNT_findListWithSample(enqObj);
+        	oldObj =(ModAboutPage)oldModList.get(0);
+        	
 	        enqObj.setPageTitle(this.getParamToString("edit-abt-title"));
 	        enqObj.setPageAbout(this.getParamToString("edit-abt-about"));
 	        enqObj.setPageAddress(this.getParamToString("edit-abt-address"));
@@ -72,13 +78,17 @@ public class ModAboutPageBiz extends BaseModuleBiz {
 	        	List alist =  adao.CNT_findListWithSample(thisAppImage);
 	        	if(CommonUtil.isNullOrEmpty(alist)){
 	        		enqObj.setModBackground(thisAppImage);
+	        		V8Util.imageUploadFileMove(this.thisApp, thisAppImage.getImageUrl());
 	        	} else {
 	        		thisAppImage = (AppImage)alist.get(0);
 	        		thisAppImage.setImageUrl(this.getParamToString("mod_bg_response"));
 	        		enqObj.setModBackground(thisAppImage);
+	        		V8Util.imageUploadFileMove(this.thisApp, thisAppImage.getImageUrl());
 	        	}
 	        } else {
 	        	enqObj.setModBackground(null);
+	        	if(oldObj.getModBackground()!=null)
+	        		V8Util.imageFileDelete(this.thisApp, oldObj.getModBackground().getImageUrl());
 	        }
 	        
 	        cmaLogger.debug("mod_icon_response: "+this.getParamToString("mod_icon_response"));
@@ -88,14 +98,18 @@ public class ModAboutPageBiz extends BaseModuleBiz {
 	        	if(CommonUtil.isNullOrEmpty(alist)){
 	        		cmaLogger.debug("mod_icon_response: Not found");
 	        		enqObj.setModIcon(thisAppImage);
+	        		V8Util.imageUploadFileMove(this.thisApp, thisAppImage.getImageUrl());
 	        	} else {
 	        		cmaLogger.debug("mod_icon_response: Found");
 	        		thisAppImage = (AppImage)alist.get(0);
 	        		thisAppImage.setImageUrl(this.getParamToString("mod_icon_response"));
 	        		enqObj.setModIcon(thisAppImage);
+	        		V8Util.imageUploadFileMove(this.thisApp, thisAppImage.getImageUrl());
 	        	}
 	        }else {
 	        	enqObj.setModIcon(null);
+	        	if(oldObj.getModIcon()!=null)
+	        		V8Util.imageFileDelete(this.thisApp, oldObj.getModIcon().getImageUrl());
 	        }
 	        //End of Common field
 	        
@@ -107,15 +121,19 @@ public class ModAboutPageBiz extends BaseModuleBiz {
 	        	if(CommonUtil.isNullOrEmpty(alist)){
 	        		cmaLogger.debug("empty List");
 	        		enqObj.setPageImage(thisAppImage);
+	        		V8Util.imageUploadFileMove(this.thisApp, thisAppImage.getImageUrl());
 	        	} else {
 	        		cmaLogger.debug("not empty List");
 	        		//(AppImage)subdao.CNT_update(tmpAppImage));
 	        		thisAppImage = (AppImage)alist.get(0);
 	        		thisAppImage.setImageUrl(this.getParamToString("edit-abt-image"));
 	        		enqObj.setPageImage(thisAppImage);
+	        		V8Util.imageUploadFileMove(this.thisApp, thisAppImage.getImageUrl());
 	        	}
 	        } else {
 	        	enqObj.setPageImage(null);
+	        	if(oldObj.getPageImage()!=null)
+	        		V8Util.imageFileDelete(this.thisApp, oldObj.getPageImage().getImageUrl());
 	        }
 	        
 	        enqObj.setSys_update_dt(new java.util.Date());

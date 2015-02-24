@@ -93,6 +93,8 @@ public class ImagskySession {
 		this.fbAccessToken = fbAccessToken;
 	}
 	public App getWorkingApp() {
+		if(workingApp==null)
+			return null;
 		if(!CommonUtil.isNullOrEmpty(workingApp.getModules())){
 			Iterator it = workingApp.getModules().iterator();
 			while(it.hasNext()){

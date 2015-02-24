@@ -323,7 +323,7 @@ if(!V6Util.isLogined(request)){
         	});
         	data.append('modtype',workingModTypeForImage); //Manually add parameter
         	$.ajax({
-        	    url: '<%=V8SystemConstants.V8_PATH %>fileinput/examples/filehandler.php',
+        	    url: '<%=V8SystemConstants.V8_PATH %>php/filehandler.php',
         	    contentType:"multipart/form-data",
         	    data: data,
         	    cache: false,

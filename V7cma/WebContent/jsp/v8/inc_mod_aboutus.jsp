@@ -81,7 +81,7 @@ if(thisMod == null)
               <div class="col-md-9">
                    <div id="abt_image_response">
                    <% if(thisMod.getPageImage()!=null){ %>
-                   <img width='300' src='<%=V8SystemConstants.V8_PATH %>userfiles/tmp/<%=thisMod.getPageImage().getImageUrl() %>'>
+                   <img width='300' src='<%=V8SystemConstants.V8_PATH %>userfiles/<%=thisApp.getSys_guid() %>/<%=thisMod.getPageImage().getImageUrl() %>'>
                    <input type=hidden name=edit-abt-image value='<%=thisMod.getPageImage().getImageUrl() %>'/>
                    <% } %>
                    </div>

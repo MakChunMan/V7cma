@@ -10,6 +10,7 @@
  <%@ page import="com.imagsky.v8.constants.*" %>
  <%@ page import="com.imagsky.util.*" %>
  <%
+ App thisApp = ((ImagskySession) request.getSession().getAttribute(SystemConstants.REQ_ATTR_SESSION)).getWorkingApp();
  String lang = (String)request.getAttribute(SystemConstants.REQ_ATTR_LANG);
  Module thisMod = (Module)request.getAttribute(SystemConstants.REQ_ATTR_OBJ);
  %>
@@ -18,7 +19,7 @@
               <div class="col-md-9">
                    <div id="mod_bg_response">
                    <% if(thisMod.getModBackground()!=null){ %>
-                   <img width='300' src='<%=V8SystemConstants.V8_PATH %>userfiles/tmp/<%=thisMod.getModBackground().getImageUrl() %>'>
+                   <img width='300' src='<%=V8SystemConstants.V8_PATH %>userfiles/<%=thisApp.getSys_guid() %>/<%=thisMod.getModBackground().getImageUrl() %>'>
                    <input type=hidden name=edit-mod-bg value='<%=thisMod.getModBackground().getImageUrl() %>'/>
                    <% } %>
                    </div>
@@ -31,7 +32,7 @@
               <div class="col-md-9">
                    <div id="mod_icon_response">
                    <% if(thisMod.getModIcon()!=null){ %>
-                   <img width='300' src='<%=V8SystemConstants.V8_PATH %>userfiles/tmp/<%=thisMod.getModIcon().getImageUrl() %>'>
+                   <img width='300' src='<%=V8SystemConstants.V8_PATH %>userfiles/<%=thisApp.getSys_guid() %>/<%=thisMod.getModIcon().getImageUrl() %>'>
                    <input type=hidden name=edit-mod-icon value='<%=thisMod.getModIcon().getImageUrl() %>'/>
                    <% } %>
                    </div>
