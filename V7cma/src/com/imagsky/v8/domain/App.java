@@ -1,6 +1,7 @@
 /****
  * 2014-10-27 Apps
  * 2015-02-09 Add APP_TEMPLATE field
+ * 2015-03-19 Add Color Theme Field
  */
 package com.imagsky.v8.domain;
 
@@ -75,6 +76,9 @@ public class App extends SysObject {
 	@Expose
 	private AppImage APP_ICON;
 	
+	@Expose 
+	private int APP_COLOR_THEME;
+	
     public static List getWildFields() {
         List returnList = new ArrayList();
         returnList.add("APP_NAME");
@@ -93,6 +97,7 @@ public class App extends SysObject {
             aHt.put("APP_STATUS", obj.APP_STATUS);
             aHt.put("APP_ICON", obj.APP_ICON);
             aHt.put("APP_MAINMENU_BG", obj.APP_MAINMENU_BG);
+            aHt.put("APP_COLOR_THEME", obj.APP_COLOR_THEME);
             aHt.putAll(SysObject.getSysFields(obj));
         }
         return aHt;
@@ -179,6 +184,14 @@ public class App extends SysObject {
 
 	public void setAPP_ICON(AppImage aPP_ICON) {
 		APP_ICON = aPP_ICON;
+	}
+
+	public int getAPP_COLOR_THEME() {
+		return APP_COLOR_THEME;
+	}
+
+	public void setAPP_COLOR_THEME(int aPP_COLOR_THEME) {
+		APP_COLOR_THEME = aPP_COLOR_THEME;
 	}
 	
 	

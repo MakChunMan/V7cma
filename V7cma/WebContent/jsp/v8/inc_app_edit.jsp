@@ -46,6 +46,20 @@ String lang = (String)request.getAttribute(SystemConstants.REQ_ATTR_LANG);
                   </label>
               </div>
           </div>
+          <div class="form-group">
+              <label class="col-md-3 control-label"><%=MessageUtil.getV8Message(lang,"APP_COLOR_THEME") %></label>
+              <div class="col-md-9">
+                  <label class="radio-inline" for="appcolortheme_1">
+                      <input type="radio" id="appcolortheme_1" name="edit-app-colortheme" value="1" <%=(thisApp.getAPP_COLOR_THEME()==1)?"checked":"" %>><%=MessageUtil.getV8Message(lang,"APP_COLORTHEME1") %>
+                  </label>
+                  <label class="radio-inline" for="appcolortheme_2">
+                      <input type="radio" id="appcolortheme_2" name="edit-app-colortheme" value="2" <%=(thisApp.getAPP_COLOR_THEME()==2)?"checked":"" %>><%=MessageUtil.getV8Message(lang,"APP_COLORTHEME2") %> 
+                  </label>
+                  <label class="radio-inline" for="appcolortheme_3">
+                      <input type="radio" id="appcolortheme_3" name="edit-app-colortheme" value="3" <%=(thisApp.getAPP_COLOR_THEME()==3)?"checked":"" %>><%=MessageUtil.getV8Message(lang,"APP_COLORTHEME3") %>
+                  </label>
+              </div>
+          </div>
           <div class="form-group form-actions">
               <div class="col-md-9 col-md-offset-3">
                   <button type="submit" id="app_edit_submit" class="btn btn-effect-ripple btn-primary"><%=MessageUtil.getV8Message(lang,"BTN_SUBMIT") %></button>

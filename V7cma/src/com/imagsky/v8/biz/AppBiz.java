@@ -1,3 +1,6 @@
+/*****
+ * 20150319 Add Color Theme Field
+ */
 package com.imagsky.v8.biz;
 
 import java.util.ArrayList;
@@ -96,7 +99,7 @@ public class AppBiz extends V7AbstractBiz {
         	app.setAPP_NAME(this.getParam("edit-app-name")[0]);
         	app.setAPP_DESC(this.getParam("edit-app-desc")[0]);
             app.setAPP_TYPE(Integer.parseInt(this.getParam("edit-app-type")[0]));
-            
+            app.setAPP_COLOR_THEME(Integer.parseInt(this.getParamToString("edit-app-colortheme")));
             app.setSys_updator(owner.getSys_guid());
             
             app = (App) dao.CNT_update(app);

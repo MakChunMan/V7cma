@@ -1,3 +1,6 @@
+/***
+ * 2015-03-19 Add Color Theme Field (Update)
+ */
 package com.imagsky.dao;
 
 import java.util.List;
@@ -40,6 +43,7 @@ public class AppDAOImpl  extends AppDAO{
 	            }
 	            tmpApp.setAPP_DESC(app.getAPP_DESC());
 		        tmpApp.setAPP_TYPE(app.getAPP_TYPE());    
+		        tmpApp.setAPP_COLOR_THEME(app.getAPP_COLOR_THEME());
 	            tmpApp.setSys_update_dt(new java.util.Date());
 	            tmpApp.setSys_updator(app.getSys_updator());
 	            tmpApp.setSys_clfd_guid(app.getSys_clfd_guid());
