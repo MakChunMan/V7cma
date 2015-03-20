@@ -7,7 +7,6 @@ package com.imagsky.v8.domain;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
 import java.util.TreeMap;
 
@@ -27,7 +26,6 @@ import javax.persistence.Table;
 
 import com.google.gson.annotations.Expose;
 import com.imagsky.v6.domain.Member;
-import com.imagsky.v6.domain.OrderItem;
 import com.imagsky.v6.domain.SysObject;
 
 @Entity
@@ -76,7 +74,8 @@ public class App extends SysObject {
 	@Expose
 	private AppImage APP_ICON;
 	
-	@Expose 
+	@Expose
+    @Column(name = "APP_COLOR_THEME")
 	private int APP_COLOR_THEME;
 	
     public static List getWildFields() {
