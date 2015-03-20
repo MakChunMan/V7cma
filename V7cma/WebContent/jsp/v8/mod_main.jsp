@@ -175,9 +175,9 @@ if(!V6Util.isLogined(request)){
                                     <div class="block-title">
                                         <div class="block-options pull-right">
                                             <a href="javascript:$('#moduleTemplateRow').show();$('#moduleEditRow').hide();" class="btn btn-effect-ripple btn-default" data-toggle="tooltip" title="Add"><i class="fa fa-plus"></i></a>
-                                            <a href="javascript:topSave()" class="btn btn-effect-ripple btn-default" data-toggle="tooltip" title="Save"><i class="fa fa-file-o"></i></a>
-                                            <a href="javascript:topDelete()" class="btn btn-effect-ripple btn-default" data-toggle="tooltip" title="Delete" id="topDeleteBtn" style='display:none'><i class="fa fa-trash-o"></i></a>
-                                            <a href="javascript:topRefresh()" class="btn btn-effect-ripple btn-default" data-toggle="tooltip" title="Reset"><i class="fa fa-refresh"></i></a>
+                                            <a href="javascript:topSave()" class="btn btn-effect-ripple btn-default" data-toggle="tooltip" title="<%=MessageUtil.getV8Message(lang,"BTN_SAVE")%>"><i class="fa fa-file-o"></i></a>
+                                            <a href="javascript:topDelete()" class="btn btn-effect-ripple btn-default" data-toggle="tooltip" title="<%=MessageUtil.getV8Message(lang,"BTN_DELETE")%>" id="topDeleteBtn" style='display:none'><i class="fa fa-trash-o"></i></a>
+                                            <a href="javascript:topRefresh()" class="btn btn-effect-ripple btn-default" data-toggle="tooltip" title="<%=MessageUtil.getV8Message(lang,"BTN_RESET")%>"><i class="fa fa-refresh"></i></a>
                                         </div>
                                         <h2><i class="fa fa-fw fa-database"></i> <strong>我的程式頁 - 共<span id="page-count"> </span>頁</strong></h2>
                                     </div>

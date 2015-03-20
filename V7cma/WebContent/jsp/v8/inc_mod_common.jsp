@@ -12,7 +12,7 @@
  <%
  App thisApp = ((ImagskySession) request.getSession().getAttribute(SystemConstants.REQ_ATTR_SESSION)).getWorkingApp();
  String lang = (String)request.getAttribute(SystemConstants.REQ_ATTR_LANG);
- Module thisMod = (Module)request.getAttribute(SystemConstants.REQ_ATTR_OBJ);
+ Module thisMod = (Module)request.getAttribute(SystemConstants.REQ_ATTR_OBJ);   
  %>
         <div class="form-group">
               <label class="col-md-3 control-label" for="edit-mod-bg"><%=MessageUtil.getV8Message(lang,"MOD_BACKGROUND") %></label>
